@@ -24,7 +24,7 @@ namespace DarkLegion.Field.Local
 
         private Vector3Int _initialCell;
 
-        private void Start()
+        private void Awake()
         {
             _initialCell = _tilemap.WorldToCell(_startPoint.position);
             Generate(_initialCell);

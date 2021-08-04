@@ -19,22 +19,22 @@ namespace DarkLegion.Field.Pathfinding
             _aStar = new AStar();
         }
 
-        public List<Vector2> FindPath(Vector2 startPosition, Vector2 targetPosition)
+        public List<Vector3> FindPath(Vector2 startPosition, Vector2 targetPosition)
         {
             PathNode startNode = GetNode(startPosition);
             PathNode targetNode = GetNode(targetPosition);
             if (startNode == null || targetNode == null)
             {
-                return new List<Vector2>();
+                return new List<Vector3>();
             }
-            return ConvertPathNodeToVector2(_aStar.FindPath(startNode, targetNode));
+            return ConvertPathNodeToVector3(_aStar.FindPath(startNode, targetNode));
 
         }
 
-        public List<Vector2> ConvertPathNodeToVector2(List<PathNode> pathNodes)
+        public List<Vector3> ConvertPathNodeToVector3(List<PathNode> pathNodes)
         {
-            if (pathNodes.Count == 0) return new List<Vector2>();
-            List<Vector2> result = new List<Vector2>();
+            if (pathNodes.Count == 0) return new List<Vector3>();
+            List<Vector3> result = new List<Vector3>();
             for (int i = 0; i < pathNodes.Count; i++)
             {
                 result.Add(_gridHandler.GetWorldCenterPosition(pathNodes[i].Coordinates));
