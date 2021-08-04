@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace PathFinding
+namespace DarkLegion.Field.Pathfinding
 {
     public class PathNode
     {
         public bool IsFree { get; set; }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public Vector3Int Coordinates { get; private set; }
 
         public List<PathNode> Neighbors { get; set; }
 
@@ -17,21 +17,25 @@ namespace PathFinding
 
         public PathNode CameFrom { get; set; }
 
-        public PathNode(int x, int y, List<PathNode> neighbors, bool isFree)
+        public PathNode(Vector3Int coordinates, List<PathNode> neighbors, bool isFree)
         {
-            X = x;
-            Y = y;
+            Coordinates = coordinates;
             IsFree = isFree;
             Neighbors = neighbors;
         }
 
-        public PathNode(int x, int y, List<PathNode> neighbors)
+        public PathNode(Vector3Int coordinates, List<PathNode> neighbors)
         {
-            X = x;
-            Y = y;
+            Coordinates = coordinates;
             IsFree = true;
             Neighbors = neighbors;
         }
 
+        public PathNode(Vector3Int coordinates)
+        {
+            Coordinates = coordinates;
+            IsFree = true;
+            Neighbors = new List<PathNode>();
+        }
     }
 }

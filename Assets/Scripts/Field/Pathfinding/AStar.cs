@@ -1,21 +1,14 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace PathFinding
+namespace DarkLegion.Field.Pathfinding
 {
     public class AStar
     {
-        private const int STRAIGTH_MOVE_COST = 10;
-        private const int DIAGONAL_MOVE_COST = 14;
 
         private List<PathNode> _openList;
         private List<PathNode> _closeList;
-        private Graph _graph;
-
-        public AStar(Graph graph)
-        {
-            _graph = graph;
-        }
 
         public List<PathNode> FindPath(PathNode startNode, PathNode targetNode)
         {
@@ -34,7 +27,7 @@ namespace PathFinding
             while (_openList.Count > 0)
             {
 
-                PathNode currentNode = GetLowerFCostPathNode(_openList);
+                PathNode currentNode = GetLowerFCostPathNode(_openList, targetNode);
 
                 if (currentNode == targetNode)
                 {
@@ -90,12 +83,21 @@ namespace PathFinding
             return path;
         }
 
-        private PathNode GetLowerFCostPathNode(List<PathNode> pathNodes)
+        private PathNode GetLowerFCostPathNode(List<PathNode> pathNodes, PathNode targetNode)
         {
             PathNode lowerFCostPathNode = pathNodes[0];
             for (int i = 1; i < pathNodes.Count; i++)
             {
-                if (lowerFCostPathNode.FCost > pathNodes[i].FCost)
+                if (lowerFCostPathNode.FCost == pathNodes[i].FCost)
+                {
+
+                    if (CalculateSumOfDifferenceCoordinates(lowerFCostPathNode, targetNode) >
+                        CalculateSumOfDifferenceCoordinates(pathNodes[i], targetNode))
+                    {
+                        lowerFCostPathNode = pathNodes[i];
+                    }
+                }
+                else if (lowerFCostPathNode.FCost > pathNodes[i].FCost)
                 {
                     lowerFCostPathNode = pathNodes[i];
                 }
@@ -104,13 +106,19 @@ namespace PathFinding
 
         }
 
+        private int CalculateSumOfDifferenceCoordinates(PathNode a, PathNode b)
+        {
+            Vector3Int difference = b.Coordinates - a.Coordinates;
+            return Mathf.Abs(difference.x) + Mathf.Abs(difference.y);
+        }
+
         private int CalculatDistance(PathNode a, PathNode b)
         {
-            int xDistance = Math.Abs(a.X - b.X);
-            int yDistance = Math.Abs(a.Y - b.Y);
+            int xDistance = Math.Abs(a.Coordinates.x - b.Coordinates.x);
+            int yDistance = Math.Abs(a.Coordinates.y - b.Coordinates.y);
             int remaining = Math.Abs(xDistance - yDistance);
 
-            return DIAGONAL_MOVE_COST * Math.Min(xDistance, yDistance) + STRAIGTH_MOVE_COST * remaining;
+            return Math.Min(xDistance, yDistance) + remaining;
         }
 
     }

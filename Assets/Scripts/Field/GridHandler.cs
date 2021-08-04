@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class GridHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Grid _grid;
+
+    public Vector2 CellSize => _grid.cellSize;
+
+    public bool CheckForFreeSpace(Vector3Int cell, LayerMask layers)
     {
-        
+        return Physics2D.OverlapCircleNonAlloc(GetWorldCenterPosition(cell), (CellSize.x / 2) - 0.05f, new Collider2D[1], layers) == 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 GetWorldCenterPosition(Vector3Int cell)
     {
-        
+        return _grid.GetCellCenterWorld(cell);
     }
+
+    public Vector3 GetWorldPosition(Vector3Int cell)
+    {
+        return _grid.CellToWorld(cell);
+    }
+
+    public Vector3Int GetCell(Vector3 worldPosition)
+    {
+        return _grid.WorldToCell(worldPosition);
+    }
+
 }

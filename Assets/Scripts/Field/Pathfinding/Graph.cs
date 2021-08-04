@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace PathFinding
+namespace DarkLegion.Field.Pathfinding
 {
     public class Graph
     {
@@ -12,35 +12,32 @@ namespace PathFinding
 
         private Dictionary<Vector3Int, PathNode> _field;
 
-        private readonly Vector3Int[] neigborsCells = new Vector3Int[]
+        private readonly Vector3Int[] neigborsCellsForPaired = new Vector3Int[]
     {
-                Vector3Int.up + Vector3Int.left, Vector3Int.up, Vector3Int.up + Vector3Int.right,
+                Vector3Int.up + Vector3Int.left, Vector3Int.up,
                 Vector3Int.right, Vector3Int.left,
-                Vector3Int.down + Vector3Int.left, Vector3Int.down, Vector3Int.down + Vector3Int.right
+                Vector3Int.down + Vector3Int.left, Vector3Int.down,
     };
-        public Graph(Vector3Int initialCell, Vector2Int size)
+
+        private readonly Vector3Int[] neigborsCellsForOdd = new Vector3Int[]
+    {
+                Vector3Int.up + Vector3Int.right, Vector3Int.up,
+                Vector3Int.right, Vector3Int.left,
+                Vector3Int.down + Vector3Int.right, Vector3Int.down,
+    };
+        public Graph(Dictionary<Vector3Int, PathNode> field)
         {
-            _field = new Dictionary<Vector3Int, PathNode>();
-
-            for (int i = 0; i < size.x; i++)
-            {
-                for (int j = 0; j < size.y; j++)
-                {
-                    Vector3Int cell = initialCell + new Vector3Int(i, j, 0);
-
-                    var pathNode = new PathNode(cell.x, cell.y, new List<PathNode>(), true);
-                    _field.Add(cell, pathNode);
-
-                }
-            }
+            _field = field;
 
             List<PathNode> pathnodes = _field.Values.ToList();
 
             for (int i = 0; i < pathnodes.Count; i++)
             {
-                for (int j = 0; j < neigborsCells.Length; j++)
+                var neighborsCells = pathnodes[i].Coordinates.y % 2 == 0 ? neigborsCellsForPaired : neigborsCellsForOdd;
+
+                for (int j = 0; j < neighborsCells.Length; j++)
                 {
-                    Vector3Int cell = neigborsCells[j] + new Vector3Int(pathnodes[i].X, pathnodes[i].Y, 0);
+                    Vector3Int cell = neighborsCells[j] + pathnodes[i].Coordinates;
                     if (_field.ContainsKey(cell))
                     {
                         var neighborPathnode = _field[cell];
