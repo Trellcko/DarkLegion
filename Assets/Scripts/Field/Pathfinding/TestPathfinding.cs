@@ -12,7 +12,7 @@ public class TestPathfinding : MonoBehaviour
 
     public LineRenderer _linerender;
 
-    public void Start()
+    public void Update()
     {
         var path = pathfinder.FindPath(from.position, to.position);
         _linerender.positionCount = path.Count;

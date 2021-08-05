@@ -15,8 +15,9 @@ namespace DarkLegion.Field
 
         private void Awake()
         {
-            var _initialCell = _gridHandler.GetCell(_fieldInfo.StartPoint.position);
-            Generate(_initialCell);
+            var initialCell = _gridHandler.GetCell(_fieldInfo.StartPoint.position);
+            initialCell.z = 0;
+            Generate(initialCell);
         }
 
         private void Generate(Vector3Int from)

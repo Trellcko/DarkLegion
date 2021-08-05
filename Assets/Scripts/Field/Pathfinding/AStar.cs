@@ -74,7 +74,7 @@ namespace DarkLegion.Field.Pathfinding
         {
             List<PathNode> path = new List<PathNode>();
             PathNode currenPathNode = endPathNode;
-            while (currenPathNode.CameFrom != null)
+            while (currenPathNode != null)
             {
                 path.Add(currenPathNode);
                 currenPathNode = currenPathNode.CameFrom;

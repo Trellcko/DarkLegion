@@ -12,6 +12,7 @@ namespace DarkLegion.Field.Visuzalization
         private void Awake()
         {
              var initialCell = _tilemap.WorldToCell(_fieldInfo.StartPoint.position);
+            initialCell.z = 0;
             Visualize(initialCell);
         }
 
