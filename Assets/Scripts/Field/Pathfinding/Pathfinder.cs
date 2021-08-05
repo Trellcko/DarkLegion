@@ -3,19 +3,16 @@ using UnityEngine;
 
 namespace DarkLegion.Field.Pathfinding
 {
-    public class PathFinder : MonoBehaviour
+    public class Pathfinder : MonoBehaviour
     {
         [SerializeField] private GridHandler _gridHandler;
 
-        [SerializeField] private GameObject _fieldGO;
-
-        private IField _field;
+        [SerializeField] private GraphGenerator _graphGenerator;
 
         private AStar _aStar;
 
         private void Awake()
         {
-            _field = _fieldGO.GetComponent<IField>();
             _aStar = new AStar();
         }
 
@@ -44,7 +41,7 @@ namespace DarkLegion.Field.Pathfinding
 
         private PathNode GetNode(Vector2 startPosition)
         {
-            return _field.GetGraph().GetPathNode(_gridHandler.GetCell(startPosition));
+            return _graphGenerator.Graph.GetPathNode(_gridHandler.GetCell(startPosition));
         }
     }
 }

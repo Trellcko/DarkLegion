@@ -10,7 +10,7 @@ public class TestPathfinding : MonoBehaviour
     public Transform from;
 
     public Transform to;
-    public PathFinder pth;
+    public Pathfinder pth;
 
     private void Start()
     {
