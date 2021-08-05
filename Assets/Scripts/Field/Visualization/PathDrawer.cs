@@ -1,29 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PathDrawer : MonoBehaviour
 {
-    [SerializeField] private LineRenderer _linerender;
+    [SerializeField] private GameObject _dot;
 
-    private Color red = Color.red;
-    private Color blue = Color.blue;
+    private List<GameObject> _dots = new List<GameObject>();
+    private List<SpriteRenderer> _dotsSpritesCashed = new List<SpriteRenderer>();
 
-    private void Awake()
+    public void Draw(Vector3[] positions)
     {
-        var grad = new Gradient();
-        GradientColorKey[] gradientColorKeys = new GradientColorKey[2];
-        gradientColorKeys[0].color = red;
-        gradientColorKeys[0].time = 0.2f;
-
-        gradientColorKeys[1].color = blue;
-        gradientColorKeys[1].time = 0.01f;
-
-        GradientAlphaKey[] gradientAlphaKeys = new GradientAlphaKey[1];
-        gradientAlphaKeys[0].alpha = 1f;
-        gradientAlphaKeys[0].time = 1f;
-        grad.SetKeys(gradientColorKeys, gradientAlphaKeys);
-        grad.mode = GradientMode.Fixed;
-        _linerender.colorGradient = grad;
+        HideDots();
+        for(int i = 0; i < positions.Length; i++)
+        {
+            if(_dots.Count <= i )
+            {
+                _dots.Add(Instantiate(_dot, transform));
+                _dotsSpritesCashed.Add(_dots[i].GetComponent<SpriteRenderer>());
+            }
+            _dotsSpritesCashed[i].enabled = true;
+            _dots[i].transform.position = positions[i];
+        }
     }
+
+    private void HideDots()
+    {
+        foreach(var spriteRender in _dotsSpritesCashed)
+        {
+            spriteRender.enabled = false;
+        }
+    }
+
 }
