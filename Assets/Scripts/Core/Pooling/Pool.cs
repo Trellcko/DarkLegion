@@ -6,7 +6,7 @@ namespace DarkLegion.Core.Pooling
     public class Pool<T>
     {
         public Action<T> Added = delegate { };
-        public Action<T> Geted = delegate { };
+        public Action<T> Got = delegate { };
 
         private readonly Queue<T> _queue = new Queue<T>();
 
@@ -34,7 +34,7 @@ namespace DarkLegion.Core.Pooling
             {
                 poolObject = _queue.Dequeue();
             }
-            Geted(poolObject);
+            Got(poolObject);
             return poolObject;
         }
     }
