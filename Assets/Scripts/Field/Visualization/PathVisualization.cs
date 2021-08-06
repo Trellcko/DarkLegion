@@ -1,5 +1,5 @@
 using DarkLegion.Field.Pathfinding;
-
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DarkLegion.Field.Visuzalization
@@ -13,9 +13,18 @@ namespace DarkLegion.Field.Visuzalization
 
         [SerializeField] private Pathfinder _pathfinder;
 
+        private int maxStep = 5;
+
         private void Update()
         {
-            _drawer.Draw(_pathfinder.FindPath(point.position, _endPoint.position).ToArray());
+            var path = _pathfinder.FindPath(point.position, _endPoint.position);
+            var dotsData = new Dictionary<Vector3, Color>();
+            for (int i = 0; i < path.Count; i++)
+            {
+                var currentColor = i < maxStep ? Color.green : Color.red;
+                dotsData.Add(path[i], currentColor);
+            }
+            _drawer.Draw(dotsData);
 
         }
     }

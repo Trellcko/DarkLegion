@@ -6,17 +6,20 @@ using UnityEngine;
 
 public class PathDrawer : MonoBehaviour
 {
-    [SerializeField] private GameObjectPoolHandler _pool;
+    [SerializeField] private SpriteRenderPoolHandler _pool;
 
-    private readonly List<GameObject> _dots = new List<GameObject>();
+    private readonly List<SpriteRenderer> _dots = new List<SpriteRenderer>();
 
-    public void Draw(Vector3[] positions)
+    public void Draw(Dictionary<Vector3, Color> dotsData)
     {
         HideDots();
-        for(int  i = 0; i < positions.Length; i++)
-        {
+        foreach(var data in dotsData)
+        { 
             var dot = _pool.Get();
-            dot.transform.position = positions[i];
+
+            dot.transform.position = data.Key;
+            dot.color = data.Value;
+            
             _dots.Add(dot);
         }
     }
