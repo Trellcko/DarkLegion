@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DarkLegion.Core.Pooling
+namespace DarkLegion.Utils.Pooling
 {
     public class SpriteRenderPoolHandler : PoolHandler<SpriteRenderer>
     {

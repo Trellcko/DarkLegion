@@ -1,20 +1,21 @@
 using DarkLegion.Input;
 using DarkLegion.Physics;
 
+using System;
+
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-namespace DarkLegion.Field {
-    public class Selecting : MonoBehaviour
+namespace DarkLegion.Utils {
+    public abstract class Selecting<T> : MonoBehaviour where T : Component
     {
         [SerializeField] private LayerMask _layers;
 
-        public UnityEvent Selected;
-        public UnityEvent UnSelected;
+        public event Action Selected = delegate { };
+        public event Action UnSelected = delegate { };
 
-        public Transform LastSelected { get; private set; }
-        public Transform LastSelectedOrNull { get; private set; }
+        public T LastSelected { get; private set; }
+        public T LastSelectedOrNull { get; private set; }
 
         private readonly Raycaster _raycaster = new Raycaster();
 
@@ -30,7 +31,7 @@ namespace DarkLegion.Field {
 
         private void TrySelect(InputAction.CallbackContext obj)
         {
-            LastSelectedOrNull = _raycaster.Hit<Transform>(InputHandler.Instance.GetMousePosition(), _layers);
+            LastSelectedOrNull = _raycaster.Hit<T>(InputHandler.Instance.GetMousePosition(), _layers);
             if (LastSelectedOrNull)
             {
                 LastSelected = LastSelectedOrNull;

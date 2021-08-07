@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Field.Pathfinding
+namespace DarkLegion.Utils.Pathfinding
 {
     public class PathNode
     {

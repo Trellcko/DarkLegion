@@ -1,6 +1,6 @@
 using System;
 
-namespace DarkLegion.Core.Command
+namespace DarkLegion.Utils.Command
 {
     public interface ICommand
     {

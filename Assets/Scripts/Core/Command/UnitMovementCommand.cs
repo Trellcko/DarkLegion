@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Core.Command
+namespace DarkLegion.Utils.Command
 {
     public class UnitMovementCommand : ICommand
     {

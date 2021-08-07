@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DarkLegion.Field
+namespace DarkLegion.Utils
 {
     public class GridHandler : MonoBehaviour
     {

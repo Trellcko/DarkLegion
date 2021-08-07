@@ -1,10 +1,10 @@
-using DarkLegion.Field.Pathfinding;
+using DarkLegion.Utils.Pathfinding;
 
 using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace DarkLegion.Field
+namespace DarkLegion.Utils
 {
     public class GraphGenerator : MonoBehaviour
     {

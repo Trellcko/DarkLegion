@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace DarkLegion.Core.Command
+namespace DarkLegion.Utils.Command
 {
     public class CommandHandler : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace DarkLegion.Core.Command
             DoNext();
         }
 
-        public void DoNext()
+        private void DoNext()
         {
             if (_commands.Count == 0)
             {
