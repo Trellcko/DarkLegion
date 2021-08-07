@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DarkLegion.Core.Pooling
+namespace DarkLegion.Utils.Pooling
 {
     public class Pool<T>
     {
