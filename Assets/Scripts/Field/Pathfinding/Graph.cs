@@ -4,7 +4,7 @@ using System.Linq;
 
 using UnityEngine;
 
-namespace DarkLegion.Utils.Pathfinding
+namespace DarkLegion.Core.Pathfinding
 {
     public class Graph
     {

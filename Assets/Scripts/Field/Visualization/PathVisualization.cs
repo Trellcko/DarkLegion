@@ -1,12 +1,13 @@
 using DarkLegion.Input;
-using DarkLegion.Utils.Pathfinding;
+using DarkLegion.Core.Pathfinding;
 
 using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
+using DarkLegion.Utils;
 
-namespace DarkLegion.Utils.Visuzalization
+namespace DarkLegion.Core.Visuzalization
 {
     public class PathVisualization : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-using DarkLegion.Utils.Command;
-using DarkLegion.Utils;
-using DarkLegion.Utils.Pathfinding;
+using DarkLegion.Core.Command;
+using DarkLegion.Core.Pathfinding;
 using DarkLegion.Input;
 
 using System.Collections.Generic;
 using UnityEngine;
+using DarkLegion.Utils;
 
 public class PlayerCommander : MonoBehaviour
 {
@@ -30,13 +30,13 @@ public class PlayerCommander : MonoBehaviour
             var path = _pathfinder.FindPath(_playersUnitSelecting.LastSelectedOrNull.transform.position,
                 InputHandler.Instance.GetMousePosition());
 
-            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep)
+            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
             {
                 Queue<ICommand> commands = new Queue<ICommand>();
-
+                var lastPoint = path[0];
                 foreach (var point in path)
                 {
-                    commands.Enqueue(new UnitMovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point));
+                    commands.Enqueue(new MovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point));
                 }
                 _playersUnitSelecting.LastSelectedOrNull.GetComponent<CommandHandler>().Do(commands);
             }

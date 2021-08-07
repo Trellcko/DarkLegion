@@ -5,9 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Utils.Command
+namespace DarkLegion.Core.Command
 {
-    public class UnitMovementCommand : ICommand
+    public class MovementCommand : ICommand
     {
         public event Action Completed;
         public event Action Canceled;
@@ -19,14 +19,14 @@ namespace DarkLegion.Utils.Command
 
         private readonly float _duration = 2f;
 
-        public UnitMovementCommand(Transform transform, Vector2 targetPosition)
+        public MovementCommand(Transform transform, Vector2 targetPosition)
         {
             _transform = transform;
             _initPosition = transform.position;
             _targetPosition = targetPosition;
         }
 
-        public UnitMovementCommand(Transform transform, Vector2 targetPosition, float duration)
+        public MovementCommand(Transform transform, Vector2 targetPosition, float duration)
         {
             _transform = transform;
             _initPosition = transform.position;

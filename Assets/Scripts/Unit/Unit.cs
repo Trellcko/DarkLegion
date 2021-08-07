@@ -1,4 +1,4 @@
-using DarkLegion.Utils.Command;
+using DarkLegion.Core.Command;
 using UnityEngine;
 
 namespace DarkLegion.Units

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace DarkLegion.Utils.Command
+namespace DarkLegion.Core.Command
 {
     public class CommandHandler : MonoBehaviour
     {

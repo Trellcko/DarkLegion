@@ -6,7 +6,8 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace DarkLegion.Utils {
+namespace DarkLegion.Utils
+{
     public abstract class Selecting<T> : MonoBehaviour where T : Component
     {
         [SerializeField] private LayerMask _layers;

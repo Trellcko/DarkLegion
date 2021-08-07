@@ -1,4 +1,4 @@
-using DarkLegion.Utils.Pooling;
+using DarkLegion.Core.Pooling;
 
 using System.Collections.Generic;
 using System.Linq;

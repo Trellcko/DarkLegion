@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Utils.Pooling
+namespace DarkLegion.Core.Pooling
 {
     public abstract class PoolHandler<T> : MonoBehaviour where T : Component
     {
