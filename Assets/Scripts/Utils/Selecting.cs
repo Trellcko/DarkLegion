@@ -35,10 +35,10 @@ namespace DarkLegion.Utils {
             if (LastSelectedOrNull)
             {
                 LastSelected = LastSelectedOrNull;
-                Selected.Invoke();
+                Selected?.Invoke();
                 return;
             }
-            UnSelected.Invoke();
+            UnSelected?.Invoke();
         }
 
     }

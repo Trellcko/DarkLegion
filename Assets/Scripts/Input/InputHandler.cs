@@ -22,6 +22,7 @@ namespace DarkLegion.Input
 
         private InputData _inputData;
 
+        private Camera _camera;
      
         private void Awake()
         {
@@ -32,6 +33,7 @@ namespace DarkLegion.Input
             s_instance = this;
             DontDestroyOnLoad(gameObject);
 
+            _camera = Camera.main;
             _inputData = new InputData();
         }
 
@@ -47,7 +49,9 @@ namespace DarkLegion.Input
 
         public Vector2 GetMousePosition()
         {
-            return Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadDefaultValue());
+            var pos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Debug.Log(pos);
+            return _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         }
 
     }

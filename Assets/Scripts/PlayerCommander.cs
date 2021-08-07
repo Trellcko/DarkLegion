@@ -11,29 +11,35 @@ public class PlayerCommander : MonoBehaviour
     [SerializeField] private Pathfinder _pathfinder;
 
     [SerializeField] private UnitSelecting _playersUnitSelecting;
-    [SerializeField] private Selecting _everythingSelecting;
-
+    [SerializeField] private TransformSelecting _everythingSelecting;
 
     private void OnEnable()
     {
         _everythingSelecting.UnSelected += TryMoveUnit;
     }
 
+    private void OnDisable()
+    {
+        _everythingSelecting.UnSelected -= TryMoveUnit;
+    }
+
     private void TryMoveUnit()
     {
-        if(_playersUnitSelecting.LastSelectedOrNull)
+        if (_playersUnitSelecting.LastSelectedOrNull)
         {
-            var path = _pathfinder.FindPath(_playersUnitSelecting.LastSelectedOrNull.position,
+            var path = _pathfinder.FindPath(_playersUnitSelecting.LastSelectedOrNull.transform.position,
                 InputHandler.Instance.GetMousePosition());
 
-            Queue<ICommand> commands = new Queue<ICommand>();
-        
-            foreach(var point in path)
+            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep)
             {
-                commands.Enqueue(new UnitMovementCommand(_playersUnitSelecting.LastSelectedOrNull, point));
-            }
+                Queue<ICommand> commands = new Queue<ICommand>();
 
-            _playersUnitSelecting.LastSelectedOrNull.GetComponent<CommandHandler>().Do(commands);
+                foreach (var point in path)
+                {
+                    commands.Enqueue(new UnitMovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point));
+                }
+                _playersUnitSelecting.LastSelectedOrNull.GetComponent<CommandHandler>().Do(commands);
+            }
         }
     }
 }

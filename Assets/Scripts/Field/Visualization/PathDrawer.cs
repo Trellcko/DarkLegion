@@ -9,12 +9,17 @@ public class PathDrawer : MonoBehaviour
     [SerializeField] private SpriteRenderPoolHandler _pool;
 
     [SerializeField] private SpriteRenderer _endDot;
- 
+
     private readonly List<SpriteRenderer> _dots = new List<SpriteRenderer>();
 
     public void Draw(Dictionary<Vector3, Color> dotsData)
     {
-        HideDots();
+        if (dotsData == null || dotsData.Count == 0)
+        {
+            return;
+        }
+
+        Erase();
         
         for(int  i = 0; i < dotsData.Count - 1; i++)
         {
@@ -23,23 +28,23 @@ public class PathDrawer : MonoBehaviour
             ConfigureDot(data, dot);
             _dots.Add(dot);
         }
-        _endDot.gameObject.SetActive(true);
+        _endDot.enabled = true;
         ConfigureDot(dotsData.ElementAt(dotsData.Count - 1), _endDot);
     }
 
-    private static void ConfigureDot(KeyValuePair<Vector3, Color> data, SpriteRenderer dot)
+    public void Erase()
     {
-        dot.transform.position = data.Key;
-        dot.color = data.Value;
-    }
-
-    private void HideDots()
-    {
-        foreach(var dot in _dots)
+        foreach (var dot in _dots)
         {
             _pool.Add(dot);
         }
-        _endDot.gameObject.SetActive(false);
+        _endDot.enabled = false;
         _dots.Clear();
+    }
+
+    private void ConfigureDot(KeyValuePair<Vector3, Color> data, SpriteRenderer dot)
+    {
+        dot.transform.position = data.Key;
+        dot.color = data.Value;
     }
 }

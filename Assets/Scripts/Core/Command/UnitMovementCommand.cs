@@ -36,13 +36,18 @@ namespace DarkLegion.Utils.Command
 
         public void Execute()
         {
-            _transform.DOMove(_targetPosition, _duration).OnComplete(Completed.Invoke);
+            _transform.DOMove(_targetPosition, _duration).SetEase(Ease.Linear).OnComplete( () => 
+            { 
+                Completed?.Invoke();
+                Completed = null;
+            });
         }
 
         public void Undo()
         {
             _transform.position = _initPosition;
-            Canceled.Invoke();
+            Canceled?.Invoke();
+            Canceled = null;
         }
     }
 }

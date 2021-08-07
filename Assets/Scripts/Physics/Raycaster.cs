@@ -7,7 +7,7 @@ namespace DarkLegion.Physics
         public T Hit<T>(Vector2 from, LayerMask layers) where T : Component
         {
             var result = default(T);
-            var hit = Physics2D.Raycast(from, Vector2.zero, 0f, layers);
+            var hit = Physics2D.Raycast(from, Vector2.zero, 100f, layers);
 
             if (hit)
             {

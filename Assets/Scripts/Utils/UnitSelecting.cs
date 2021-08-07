@@ -1,8 +1,8 @@
-using DarkLegion.Unit;
+using DarkLegion.Units;
 
 namespace DarkLegion.Utils
 {
-    public class UnitSelecting : Selecting<UnitComponents>
+    public class UnitSelecting : Selecting<Unit>
     {
 
     }

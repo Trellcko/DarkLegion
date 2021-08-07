@@ -1,12 +1,14 @@
 using DarkLegion.Utils.Command;
 using UnityEngine;
 
-namespace DarkLegion.Unit
+namespace DarkLegion.Units
 {
-    public class UnitComponents : MonoBehaviour
+    public class Unit : MonoBehaviour
     {
         [SerializeField] private CommandHandler _commandHandler;
+        [SerializeField] private UnitData _data;
 
         public CommandHandler CommandHandler => _commandHandler;
+        public UnitData UnitData => _data;
     }
 }
