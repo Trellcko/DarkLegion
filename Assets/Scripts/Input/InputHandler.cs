@@ -16,8 +16,7 @@ namespace DarkLegion.Input
                 return s_instance;
             }
         }
-
-        public InputData InputAction => _inputData;
+        public InputAction LeftButtonClicked => _inputData.Field.LeftButtonClick;
         
         private static InputHandler s_instance;
 

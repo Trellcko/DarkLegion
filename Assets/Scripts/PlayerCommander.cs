@@ -11,7 +11,7 @@ public class PlayerCommander : MonoBehaviour
 
     public void Start()
     {
-        InputHandler.Instance.InputAction.Field.LeftButtonClick.performed += OnLeftButtonClick;
+        InputHandler.Instance.InputData.Field.LeftButtonClick.performed += OnLeftButtonClick;
     }
 
     private void OnLeftButtonClick(UnityEngine.InputSystem.InputAction.CallbackContext obj)

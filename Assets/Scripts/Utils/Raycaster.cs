@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Raycaster
+namespace DarkLegion.Physics
 {
-    public T Hit<T>(Vector2 from) where T : Component
+    public class Raycaster
     {
-        var result = default(T);
-        var hit = Physics2D.Raycast(from, Vector2.zero, 0f);
-
-        if (hit)
+        public T Hit<T>(Vector2 from, LayerMask layers) where T : Component
         {
-            hit.transform.TryGetComponent(out result);
+            var result = default(T);
+            var hit = Physics2D.Raycast(from, Vector2.zero, 0f, layers);
+
+            if (hit)
+            {
+                hit.transform.TryGetComponent(out result);
+            }
+            return result;
         }
-        return result;
     }
 }
