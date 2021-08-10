@@ -32,13 +32,26 @@ public class PlayerCommander : MonoBehaviour
 
             if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
             {
-                Queue<ICommand> commands = new Queue<ICommand>();
-                var lastPoint = path[0];
+                var commands = new Queue<ICommand>();
+                var lastPoint = _playersUnitSelecting.LastSelectedOrNull.transform.position;
+
                 foreach (var point in path)
-                {
+                {   
+                    if (Mathf.Abs(point.x - lastPoint.x) > 0.01f)
+                    {
+                        bool isLeft = point.x < lastPoint.x;
+                        commands.Enqueue(new FlipCommand(_playersUnitSelecting.LastSelectedOrNull.SpriteRender, isLeft));
+                    }
+                    else
+                    {
+                        bool isLeft = path[path.Count - 1].x < lastPoint.x;
+                        commands.Enqueue(new FlipCommand(_playersUnitSelecting.LastSelectedOrNull.SpriteRender, isLeft));
+                    }
+
+                    lastPoint = point;
                     commands.Enqueue(new MovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point));
                 }
-                _playersUnitSelecting.LastSelectedOrNull.GetComponent<CommandHandler>().Do(commands);
+                _playersUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
             }
         }
     }
