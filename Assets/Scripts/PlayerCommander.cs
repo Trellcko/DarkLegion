@@ -10,6 +10,7 @@ public class PlayerCommander : MonoBehaviour
 {
     [SerializeField] private Pathfinder _pathfinder;
 
+    [Header("Selecters")]
     [SerializeField] private UnitSelecting _playersUnitSelecting;
     [SerializeField] private TransformSelecting _everythingSelecting;
 
@@ -36,28 +37,28 @@ public class PlayerCommander : MonoBehaviour
              
                 var lastPoint = _playersUnitSelecting.LastSelectedOrNull.transform.position;
                 
-                foreach (var point in path)
+                for(int  i = 1; i < path.Count; i++)
                 {
-                    var targetFlipPoint = Mathf.Abs(point.x - lastPoint.x) > 0.01f ? point : path[path.Count - 1];
+                    var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
 
-                    commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint));
-                    commands.Enqueue(GetMovementCommand(point));
+                    commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playersUnitSelecting.LastSelected.SpriteRender));
+                    commands.Enqueue(GetMovementCommand(path[i], _playersUnitSelecting.LastSelected.transform));
 
-                    lastPoint = point;
+                    lastPoint = path[i];
                 }
                 _playersUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
             }
         }
     }
 
-    private MovementCommand GetMovementCommand(Vector3 point)
+    private MovementCommand GetMovementCommand(Vector3 point, Transform self)
     {
-        return new MovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point);
+        return new MovementCommand(self, point);
     }
 
-    private FlipCommand GetFlipCommand(Vector3 lastPoint, Vector3 point)
+    private FlipCommand GetFlipCommand(Vector3 lastPoint, Vector3 point, SpriteRenderer sprite)
     {
         bool isLeft = point.x < lastPoint.x;
-        return new FlipCommand(_playersUnitSelecting.LastSelectedOrNull.SpriteRender, isLeft);
+        return new FlipCommand(sprite, isLeft);
     }
 }
