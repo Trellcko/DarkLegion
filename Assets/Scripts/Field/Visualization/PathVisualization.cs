@@ -1,31 +1,74 @@
+using DarkLegion.Input;
 using DarkLegion.Field.Pathfinding;
+using DarkLegion.Utils;
+using DarkLegion.Field;
+
 using System.Collections.Generic;
+
 using UnityEngine;
 
-namespace DarkLegion.Field.Visuzalization
+namespace DarkLegion.Core.Visuzalization
 {
     public class PathVisualization : MonoBehaviour
     {
-        [SerializeField] private Transform point;
-        [SerializeField] private Transform _endPoint;
+        [SerializeField] private UnitSelecting _playerUnitSelecting;
+        [SerializeField] private TransformSelecting _everythingSelecting;
 
         [SerializeField] private PathDrawer _drawer;
 
         [SerializeField] private Pathfinder _pathfinder;
 
-        private int maxStep = 5;
+        [SerializeField] private GridHandler _gridHandler;
+
+        private Vector3Int _lastMouseCellPosition = Vector3Int.zero;
+
+        private bool _isDrawingPath = false;
+
+        private void OnEnable()
+        {
+            _everythingSelecting.UnSelected += StopDraw; ;
+            _playerUnitSelecting.Selected += StartDraw;
+        }
+
+        private void OnDisable()
+        {
+            _everythingSelecting.UnSelected -= StopDraw;
+            _playerUnitSelecting.Selected -= StartDraw;
+        }
 
         private void Update()
         {
-            var path = _pathfinder.FindPath(point.position, _endPoint.position);
-            var dotsData = new Dictionary<Vector3, Color>();
-            for (int i = 0; i < path.Count; i++)
+            if (_isDrawingPath && _gridHandler.GetCell(InputHandler.Instance.GetMousePosition()) != _lastMouseCellPosition)
             {
-                var currentColor = i < maxStep ? Color.green : Color.red;
-                dotsData.Add(path[i], currentColor);
-            }
-            _drawer.Draw(dotsData);
+                Vector2 mousePosition = InputHandler.Instance.GetMousePosition();
+                
+                _lastMouseCellPosition = _gridHandler.GetCell(mousePosition);
+                
+                var path = _pathfinder.FindPath(_playerUnitSelecting.LastSelected.transform.position,
+                    mousePosition);
 
+                var dotsData = new Dictionary<Vector3, Color>();
+
+                for (int i = 0; i < path.Count; i++)
+                {
+                    var color = _playerUnitSelecting.LastSelected.UnitData.MaxStep > i ? Color.green : Color.red;
+                    dotsData.Add(path[i], color);
+                }
+
+                _drawer.Draw(dotsData);
+            }
         }
+
+        private void StartDraw()
+        {
+            _isDrawingPath = true;
+        }
+
+        private void StopDraw()
+        {
+            _isDrawingPath = false;
+            _drawer.Erase();
+        }
+
     }
 }

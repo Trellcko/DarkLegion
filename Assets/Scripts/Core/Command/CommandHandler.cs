@@ -13,7 +13,7 @@ namespace DarkLegion.Core.Command
             DoNext();
         }
 
-        public void DoNext()
+        private void DoNext()
         {
             if (_commands.Count == 0)
             {

@@ -13,11 +13,9 @@ namespace DarkLegion.Field
 
         public Graph Graph { get; private set; }
 
-        private void Awake()
+        private void Start()
         {
-            var initialCell = _gridHandler.GetCell(_fieldInfo.StartPoint.position);
-            initialCell.z = 0;
-            Generate(initialCell);
+            Generate(_fieldInfo.InitCell);
         }
 
         private void Generate(Vector3Int from)

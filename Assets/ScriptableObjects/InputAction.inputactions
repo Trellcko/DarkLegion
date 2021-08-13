@@ -1,0 +1,74 @@
+{
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "Field",
+            "id": "7cbae0ab-559d-47fc-9f82-82f9028303b0",
+            "actions": [
+                {
+                    "name": "LeftButtonClick",
+                    "type": "Button",
+                    "id": "3de6c940-0d3e-4e8b-b3f3-a52888b1bdc8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "3c88285a-7d1c-4fe9-b9aa-c7bccc3ad6f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5899176a-7873-43b2-8ded-5975884fd3fa",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftButtonClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "a7337ae7-cfb6-4001-a0ac-aa901df5ca9f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "73b51b7b-ab1c-43a5-a9e5-2e47b97be5d7",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "ca1ae737-a858-4196-a8d9-3c9ab4445b66",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
