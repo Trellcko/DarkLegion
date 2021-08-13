@@ -374,11 +374,6 @@ MonoBehaviour:
   _layers:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!212 &573479493 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 4906049114110007252, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
-  m_PrefabInstance: {fileID: 4906049114713861402}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &634317836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1160,9 +1155,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
-    - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
-      propertyPath: _spriteRenderer
-      value: 
-      objectReference: {fileID: 573479493}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
