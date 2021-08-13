@@ -1,11 +1,11 @@
 using DarkLegion.Input;
-using DarkLegion.Core.Pathfinding;
+using DarkLegion.Field.Pathfinding;
+using DarkLegion.Utils;
+using DarkLegion.Field;
 
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
-using DarkLegion.Utils;
 
 namespace DarkLegion.Core.Visuzalization
 {

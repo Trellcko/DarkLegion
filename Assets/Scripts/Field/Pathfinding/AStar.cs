@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Core.Pathfinding
+namespace DarkLegion.Field.Pathfinding
 {
     public class AStar
     {
@@ -43,6 +43,7 @@ namespace DarkLegion.Core.Pathfinding
                     {
                         continue;
                     }
+                    
                     if (neighbourNodes[i].IsFree == false)
                     {
 
@@ -51,6 +52,7 @@ namespace DarkLegion.Core.Pathfinding
                     }
                     int tentativeCost = currentNode.GCost + CalculatDistance(currentNode, neighbourNodes[i]);
                     SetDataForPathNode(targetNode, currentNode, neighbourNodes[i], tentativeCost);
+                   
                     if (!_openList.Contains(neighbourNodes[i]))
                     {
                         _openList.Add(neighbourNodes[i]);
@@ -74,6 +76,7 @@ namespace DarkLegion.Core.Pathfinding
         {
             List<PathNode> path = new List<PathNode>();
             PathNode currenPathNode = endPathNode;
+
             while (currenPathNode != null)
             {
                 path.Add(currenPathNode);

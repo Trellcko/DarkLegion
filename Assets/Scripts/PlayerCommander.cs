@@ -1,5 +1,5 @@
 using DarkLegion.Core.Command;
-using DarkLegion.Core.Pathfinding;
+using DarkLegion.Field.Pathfinding;
 using DarkLegion.Input;
 
 using System.Collections.Generic;

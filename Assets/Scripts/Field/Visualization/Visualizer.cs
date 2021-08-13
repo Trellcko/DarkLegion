@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace DarkLegion.Core.Visuzalization
+namespace DarkLegion.Field.Visuzalization
 {
     public class Visualizer : MonoBehaviour
     {
@@ -9,11 +9,9 @@ namespace DarkLegion.Core.Visuzalization
         [SerializeField] private Tilemap _tilemap;
 
         [SerializeField] private FieldInfo _fieldInfo;
-        private void Awake()
+        private void Start()
         {
-             var initialCell = _tilemap.WorldToCell(_fieldInfo.StartPoint.position);
-            initialCell.z = 0;
-            Visualize(initialCell);
+            Visualize(_fieldInfo.InitCell);
         }
 
         private void Visualize(Vector3Int from)
@@ -24,6 +22,7 @@ namespace DarkLegion.Core.Visuzalization
                 {
                     Vector3Int cell = from + new Vector3Int(x, y, 0);
                     _tilemap.SetTile(cell, _baseTile);
+                    _tilemap.SetTileFlags(cell, TileFlags.None);
                 }
             }
         }
