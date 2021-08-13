@@ -1,4 +1,4 @@
-using DarkLegion.Utils.Command;
+using DarkLegion.Core.Command;
 using UnityEngine;
 
 namespace DarkLegion.Units
@@ -6,9 +6,15 @@ namespace DarkLegion.Units
     public class Unit : MonoBehaviour
     {
         [SerializeField] private CommandHandler _commandHandler;
+
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
         [SerializeField] private UnitData _data;
 
         public CommandHandler CommandHandler => _commandHandler;
+
+        public SpriteRenderer SpriteRender => _spriteRenderer;
+
         public UnitData UnitData => _data;
     }
 }

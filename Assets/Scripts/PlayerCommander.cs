@@ -1,15 +1,16 @@
-using DarkLegion.Utils.Command;
-using DarkLegion.Utils;
-using DarkLegion.Utils.Pathfinding;
+using DarkLegion.Core.Command;
+using DarkLegion.Core.Pathfinding;
 using DarkLegion.Input;
 
 using System.Collections.Generic;
 using UnityEngine;
+using DarkLegion.Utils;
 
 public class PlayerCommander : MonoBehaviour
 {
     [SerializeField] private Pathfinder _pathfinder;
 
+    [Header("Selecters")]
     [SerializeField] private UnitSelecting _playersUnitSelecting;
     [SerializeField] private TransformSelecting _everythingSelecting;
 
@@ -30,16 +31,34 @@ public class PlayerCommander : MonoBehaviour
             var path = _pathfinder.FindPath(_playersUnitSelecting.LastSelectedOrNull.transform.position,
                 InputHandler.Instance.GetMousePosition());
 
-            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep)
+            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
             {
-                Queue<ICommand> commands = new Queue<ICommand>();
-
-                foreach (var point in path)
+                var commands = new Queue<ICommand>();
+             
+                var lastPoint = _playersUnitSelecting.LastSelectedOrNull.transform.position;
+                
+                for(int  i = 1; i < path.Count; i++)
                 {
-                    commands.Enqueue(new UnitMovementCommand(_playersUnitSelecting.LastSelectedOrNull.transform, point));
+                    var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
+
+                    commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playersUnitSelecting.LastSelected.SpriteRender));
+                    commands.Enqueue(GetMovementCommand(path[i], _playersUnitSelecting.LastSelected.transform));
+
+                    lastPoint = path[i];
                 }
-                _playersUnitSelecting.LastSelectedOrNull.GetComponent<CommandHandler>().Do(commands);
+                _playersUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
             }
         }
+    }
+
+    private MovementCommand GetMovementCommand(Vector3 point, Transform self)
+    {
+        return new MovementCommand(self, point);
+    }
+
+    private FlipCommand GetFlipCommand(Vector3 lastPoint, Vector3 point, SpriteRenderer sprite)
+    {
+        bool isLeft = point.x < lastPoint.x;
+        return new FlipCommand(sprite, isLeft);
     }
 }

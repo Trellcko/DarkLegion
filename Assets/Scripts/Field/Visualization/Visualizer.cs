@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace DarkLegion.Utils.Visuzalization
+namespace DarkLegion.Core.Visuzalization
 {
     public class Visualizer : MonoBehaviour
     {
