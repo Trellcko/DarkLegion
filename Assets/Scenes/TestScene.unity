@@ -199,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 314849065}
   - component: {fileID: 314849064}
+  - component: {fileID: 314849066}
   m_Layer: 0
   m_Name: PathVisualiazation
   m_TagString: Untagged
@@ -237,6 +238,24 @@ Transform:
   m_Father: {fileID: 1230942935}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &314849066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314849063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fa2252422dc41429b5f7e163d407de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphGenerator: {fileID: 521729151}
+  _gridHandler: {fileID: 1870295349}
+  _playerUnitSelecting: {fileID: 1157691055}
+  _everythingSelecting: {fileID: 550250483}
+  _tilemap: {fileID: 823141356}
+  _movement: {r: 0.9433962, g: 0.9176401, b: 0.50195795, a: 1}
 --- !u!1 &360650320
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,8 +757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f561fcfa64303d48a7f9552f9d4bf1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridHandler: {fileID: 1870295349}
   _startPoint: {fileID: 1100230118}
-  _size: {x: 10, y: 10}
+  _size: {x: 10, y: 10, z: 0}
   _fieldsLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1113,11 +1133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4906049114788330225, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.8258057
+      value: -4.89
       objectReference: {fileID: 0}
     - target: {fileID: 4906049114788330225, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2063062
+      value: 2.19
       objectReference: {fileID: 0}
     - target: {fileID: 4906049114788330225, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_LocalPosition.z

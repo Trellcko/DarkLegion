@@ -1,9 +1,11 @@
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "New UnitData", menuName = "Units/UnitData", order = 41)]
-public class UnitData : ScriptableObject
+namespace DarkLegion.Units
 {
-    [SerializeField] private float _maxStep;
+    [CreateAssetMenu(fileName = "New UnitData", menuName = "Units/UnitData", order = 41)]
+    public class UnitData : ScriptableObject
+    {
+        [SerializeField] private int _maxStep;
 
-    public float MaxStep => _maxStep;
+        public int MaxStep => _maxStep;
+    }
 }

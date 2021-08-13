@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Core.Pathfinding
+namespace DarkLegion.Field.Pathfinding
 {
     public class Pathfinder : MonoBehaviour
     {
