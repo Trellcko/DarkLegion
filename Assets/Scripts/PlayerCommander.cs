@@ -36,16 +36,18 @@ public class PlayerCommander : MonoBehaviour
                 var commands = new Queue<ICommand>();
              
                 var lastPoint = _playersUnitSelecting.LastSelectedOrNull.transform.position;
-                
+                commands.Enqueue(new MovementAnimationPlayCommand(_playersUnitSelecting.LastSelected.Animator));
                 for(int  i = 1; i < path.Count; i++)
                 {
                     var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
-
+                    
                     commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playersUnitSelecting.LastSelected.SpriteRender));
                     commands.Enqueue(GetMovementCommand(path[i], _playersUnitSelecting.LastSelected.transform));
 
                     lastPoint = path[i];
                 }
+
+                commands.Enqueue(new IdleAnimationPlayCommand(_playersUnitSelecting.LastSelected.Animator));
                 _playersUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
             }
         }
