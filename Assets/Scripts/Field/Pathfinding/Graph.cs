@@ -12,14 +12,14 @@ namespace DarkLegion.Field.Pathfinding
 
         private Dictionary<Vector3Int, PathNode> _field;
 
-        private readonly Vector3Int[] neigborsCellsForPaired = new Vector3Int[]
+        private readonly Vector3Int[] neigborsCellsForOffseted = new Vector3Int[]
         {
                 Vector3Int.up + Vector3Int.left, Vector3Int.up,
                 Vector3Int.right, Vector3Int.left,
                 Vector3Int.down + Vector3Int.left, Vector3Int.down,
         };
 
-        private readonly Vector3Int[] neigborsCellsForOdd = new Vector3Int[]
+        private readonly Vector3Int[] neigborsCellsForNotOffseted = new Vector3Int[]
         {
                 Vector3Int.up + Vector3Int.right, Vector3Int.up,
                 Vector3Int.right, Vector3Int.left,
@@ -33,7 +33,7 @@ namespace DarkLegion.Field.Pathfinding
 
             for (int i = 0; i < pathnodes.Count; i++)
             {
-                var neighborsCells = pathnodes[i].Coordinates.y % 2 == 0 ? neigborsCellsForPaired : neigborsCellsForOdd;
+                var neighborsCells = pathnodes[i].Coordinates.y % 2 == 0 ? neigborsCellsForOffseted : neigborsCellsForNotOffseted;
 
                 for (int j = 0; j < neighborsCells.Length; j++)
                 {

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   _maxStep: 6
+  _physicalDamage: 10
