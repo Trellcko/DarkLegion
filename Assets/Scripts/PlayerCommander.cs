@@ -11,7 +11,7 @@ public class PlayerCommander : MonoBehaviour
     [SerializeField] private Pathfinder _pathfinder;
 
     [Header("Selecters")]
-    [SerializeField] private UnitSelecting _playersUnitSelecting;
+    [SerializeField] private UnitSelecting _playerUnitSelecting;
     [SerializeField] private TransformSelecting _everythingSelecting;
 
     private void OnEnable()
@@ -26,29 +26,29 @@ public class PlayerCommander : MonoBehaviour
 
     private void TryMoveUnit()
     {
-        if (_playersUnitSelecting.LastSelectedOrNull)
+        if (_playerUnitSelecting.LastSelectedOrNull)
         {
-            var path = _pathfinder.FindPath(_playersUnitSelecting.LastSelectedOrNull.transform.position,
+            var path = _pathfinder.FindPath(_playerUnitSelecting.LastSelectedOrNull.transform.position,
                 InputHandler.Instance.GetMousePosition());
 
-            if (path.Count <= _playersUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
+            if (path.Count <= _playerUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
             {
                 var commands = new Queue<ICommand>();
              
-                var lastPoint = _playersUnitSelecting.LastSelectedOrNull.transform.position;
-                commands.Enqueue(new MovementAnimationPlayCommand(_playersUnitSelecting.LastSelected.Animator));
+                var lastPoint = _playerUnitSelecting.LastSelectedOrNull.transform.position;
+                commands.Enqueue(new MovementAnimationPlayCommand(_playerUnitSelecting.LastSelected.Animator));
                 for(int  i = 1; i < path.Count; i++)
                 {
                     var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
                     
-                    commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playersUnitSelecting.LastSelected.SpriteRender));
-                    commands.Enqueue(GetMovementCommand(path[i], _playersUnitSelecting.LastSelected.transform));
+                    commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playerUnitSelecting.LastSelected.SpriteRender));
+                    commands.Enqueue(GetMovementCommand(path[i], _playerUnitSelecting.LastSelected.transform));
 
                     lastPoint = path[i];
                 }
 
-                commands.Enqueue(new IdleAnimationPlayCommand(_playersUnitSelecting.LastSelected.Animator));
-                _playersUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
+                commands.Enqueue(new IdleAnimationPlayCommand(_playerUnitSelecting.LastSelected.Animator));
+                _playerUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
             }
         }
     }

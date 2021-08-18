@@ -11,7 +11,7 @@ namespace DarkLegion.Units
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
         [SerializeField] private UnitData _data;
-        [SerializeField] private UnitSkills _unitSkills;
+        [SerializeField] private UnitSkillSet _unitSkillSet;
 
         public CommandHandler CommandHandler => _commandHandler;
 
@@ -20,6 +20,6 @@ namespace DarkLegion.Units
         public Animator Animator => _animator;
 
         public UnitData UnitData => _data;
-        public UnitSkills UnitSkills => _unitSkills;
+        public UnitSkillSet UnitSkillSet => _unitSkillSet;
     }
 }
