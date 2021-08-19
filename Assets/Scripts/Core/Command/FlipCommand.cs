@@ -11,37 +11,46 @@ namespace DarkLegion.Core.Command
         public event Action Completed;
         public event Action Canceled;
 
-        private SpriteRenderer _spriteRender;
-        private bool _isLeft = false;
+        private Transform _transform;
+        private float _flipValue = 1;
 
-        private bool _initialValue;
+        private float _initialValue;
 
-        public FlipCommand(SpriteRenderer spriteRenderer)
+        public FlipCommand(Transform transform)
         {
-            _spriteRender = spriteRenderer;
-            _isLeft = !_spriteRender.flipX;
-            _initialValue = _spriteRender.flipX;
+            _transform = transform;
+            _flipValue = transform.localScale.x * -1;
+            _initialValue = transform.localScale.x;
         }
 
-        public FlipCommand(SpriteRenderer spriteRenderer, bool isLeft)
+        public FlipCommand(Transform transform, bool isLeft)
         {
-            _spriteRender = spriteRenderer;
-            _isLeft = isLeft;
-            _initialValue = _spriteRender.flipX;
+            _transform = transform;
+            _flipValue = isLeft? -1 : 1;
+            _initialValue = transform.localScale.x;
         }
 
         public void Execute()
         {
-            _spriteRender.flipX = _isLeft;
+            ChangeScale(_flipValue);
+
             Completed?.Invoke();
             Completed = null;
         }
 
         public void Undo()
         {
-            _spriteRender.flipX = _initialValue;
+            ChangeScale(_initialValue);
+
             Canceled?.Invoke();
             Canceled = null;
+        }
+
+        private void ChangeScale(float xValue)
+        {
+            Vector3 theScale = _transform.localScale;
+            theScale.x = xValue;
+            _transform.localScale = theScale;
         }
     }
 }

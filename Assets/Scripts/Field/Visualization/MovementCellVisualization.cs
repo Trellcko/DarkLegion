@@ -1,24 +1,22 @@
+using DarkLegion.Core.Visualization;
 using DarkLegion.Field.Pathfinding;
-using DarkLegion.Units;
 using DarkLegion.Utils;
+
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace DarkLegion.Field.Visuzalization
 {
-    public class ShowingAllPosiibleMovement : MonoBehaviour
+    public class MovementCellVisualization : MonoBehaviour
     {
         [SerializeField] private GraphGenerator _graphGenerator;
         [SerializeField] private GridHandler _gridHandler;
+        [SerializeField] private CellFiller _cellFiller;
 
         [SerializeField] private UnitSelecting _playerUnitSelecting;
         [SerializeField] private TransformSelecting _everythingSelecting;
-
-        [SerializeField] private Tilemap _tilemap;
-
-        [SerializeField] private Color _movement;
 
         private List<PathNode> _currentIterationNodes;
         private List<PathNode> _nextIterationNodes;
@@ -88,20 +86,12 @@ namespace DarkLegion.Field.Visuzalization
 
         private void Visualize(List<PathNode> pathNodes)
         {
-            SetColors(pathNodes, _movement);
-        }
-
-        private void SetColors(List<PathNode> pathNodes, Color color)
-        {
-            pathNodes?.ForEach(pathnode =>
-            {
-                _tilemap.SetColor(pathnode.Coordinates, color);
-            });
+            _cellFiller.SetColors(pathNodes.Select(x => x.Coordinates).ToList(), GameColors.Movement);
         }
 
         private void ClearLastVisualize()
         {
-            SetColors(_possibleNodes, Color.white);
+            _cellFiller.SetColors(_possibleNodes?.Select(x => x.Coordinates).ToList(), GameColors.Clear);
         }
 
     }

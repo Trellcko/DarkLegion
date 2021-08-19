@@ -13,10 +13,13 @@ namespace DarkLegion.Units
         [SerializeField] private Sprite _icon;
 
         [SerializeField] private List<GameObject> _attackEffectsGO;
+        [SerializeField] private List<Transform> _attackedCell;
 
         [SerializeField] private string _description;
 
         public Sprite AttackIcon => _icon;
+
+        public List<Transform> AttackedCell => _attackedCell;
 
         public List<IAttackEffect> AttackEffects
         {

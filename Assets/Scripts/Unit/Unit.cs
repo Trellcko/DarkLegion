@@ -8,14 +8,11 @@ namespace DarkLegion.Units
         [SerializeField] private CommandHandler _commandHandler;
         
         [SerializeField] private Animator _animator;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         [SerializeField] private UnitData _data;
         [SerializeField] private UnitSkillSet _unitSkillSet;
 
         public CommandHandler CommandHandler => _commandHandler;
-
-        public SpriteRenderer SpriteRender => _spriteRenderer;
 
         public Animator Animator => _animator;
 
