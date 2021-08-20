@@ -1,9 +1,9 @@
 using DarkLegion.Core.Command;
 using DarkLegion.Field.Pathfinding;
 using DarkLegion.Input;
+using DarkLegion.Units;
 using DarkLegion.Utils;
-
-
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,43 +17,63 @@ namespace DarkLegion.Field
         [SerializeField] private UnitSelecting _playerUnitSelecting;
         [SerializeField] private TransformSelecting _everythingSelecting;
 
+        private Action _unSelectedHandelr;
+
+        private void Awake()
+        {
+            _unSelectedHandelr += () => { TryMoveUnit(_playerUnitSelecting.LastSelected); };
+            
+        }
+
         private void OnEnable()
         {
-            _everythingSelecting.UnSelected += TryMoveUnit;
+            _everythingSelecting.UnSelected += _unSelectedHandelr;
         }
 
         private void OnDisable()
         {
-            _everythingSelecting.UnSelected -= TryMoveUnit;
+            _everythingSelecting.UnSelected -= _unSelectedHandelr;
         }
 
-        private void TryMoveUnit()
+        public void TryMoveUnit(Unit unit)
         {
-            if (_playerUnitSelecting.LastSelectedOrNull)
+            if (unit)
             {
-                var path = _pathfinder.FindPath(_playerUnitSelecting.LastSelectedOrNull.transform.position,
+                var path = _pathfinder.FindPath(unit.transform.position,
                     InputHandler.Instance.GetMousePosition());
 
-                if (path.Count <= _playerUnitSelecting.LastSelectedOrNull.UnitData.MaxStep && path.Count != 0)
+                if (path.Count <= unit.Data.MaxStep && path.Count != 0)
                 {
                     var commands = new Queue<ICommand>();
-
-                    var lastPoint = _playerUnitSelecting.LastSelectedOrNull.transform.position;
-                    commands.Enqueue(new MovementAnimationPlayCommand(_playerUnitSelecting.LastSelected.Animator));
+                    var lastPoint = unit.transform.position;
+                    
+                    commands.Enqueue(new MovementAnimationPlayCommand(unit.Animator));
+                    
                     for (int i = 1; i < path.Count; i++)
                     {
                         var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
 
-                        commands.Enqueue(GetFlipCommand(lastPoint, targetFlipPoint, _playerUnitSelecting.LastSelected.transform));
-                        commands.Enqueue(GetMovementCommand(path[i], _playerUnitSelecting.LastSelected.transform));
+                        commands.Enqueue(new FlipCommand(unit.transform, GetFlip(lastPoint, targetFlipPoint)));
+                        
+                        commands.Enqueue(GetMovementCommand(path[i], unit.transform));
 
                         lastPoint = path[i];
                     }
 
-                    commands.Enqueue(new IdleAnimationPlayCommand(_playerUnitSelecting.LastSelected.Animator));
-                    _playerUnitSelecting.LastSelectedOrNull.CommandHandler.Do(commands);
+                    commands.Enqueue(new IdleAnimationPlayCommand(unit.Animator));
+
+                    unit.CommandHandler.Do(commands);
                 }
             }
+        }
+
+        public void TryAttackUnit(Unit unit, int attackIndex)
+        {
+            var commands = new Queue<ICommand>();
+            commands.Enqueue(new AttackAnimationPlayCommand(unit.Animator, attackIndex));
+            commands.Enqueue(new IdleAnimationPlayCommand(unit.Animator));
+
+            unit.CommandHandler.Do(commands);
         }
 
         private MovementCommand GetMovementCommand(Vector3 point, Transform self)
@@ -61,10 +81,9 @@ namespace DarkLegion.Field
             return new MovementCommand(self, point);
         }
 
-        private FlipCommand GetFlipCommand(Vector3 lastPoint, Vector3 point, Transform self)
+        private bool GetFlip(Vector3 lastPoint, Vector3 point)
         {
-            bool isLeft = point.x < lastPoint.x;
-            return new FlipCommand(self, isLeft);
+             return point.x < lastPoint.x;
         }
     }
 }

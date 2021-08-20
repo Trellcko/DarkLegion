@@ -1,4 +1,5 @@
 
+using DarkLegion.Units;
 using System;
 using UnityEngine;
 
@@ -9,28 +10,26 @@ namespace DarkLegion.Core.Command
         public event Action Completed;
         public event Action Canceled;
 
-        private Animator _animator;
+        private readonly AnimatorHandler _animator;
 
-        private int _hashNamePreviouseState;
+        private readonly int _hashNamePreviouseState;
 
-        private const string TriggerName = "Move";
-
-        public MovementAnimationPlayCommand(Animator animator)
+        public MovementAnimationPlayCommand(AnimatorHandler animator)
         {
-            _hashNamePreviouseState = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+            _hashNamePreviouseState = animator.GetCurrentState();
             _animator = animator;    
         }
 
         public void Execute()
         {
-            _animator.SetTrigger(TriggerName);
+            _animator.PlayMovementAnimation();
             Completed?.Invoke();
             Completed = null;
         }
 
         public void Undo()
         {
-            _animator.Play(_hashNamePreviouseState);
+            _animator.PlayState(_hashNamePreviouseState);
             Canceled?.Invoke();
             Canceled = null;
         }

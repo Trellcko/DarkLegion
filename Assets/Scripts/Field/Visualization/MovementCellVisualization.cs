@@ -40,7 +40,7 @@ namespace DarkLegion.Field.Visuzalization
 
         private void PlayerUnitSelected()
         {
-            Show(_playerUnitSelecting.LastSelected.transform.position, _playerUnitSelecting.LastSelected.UnitData.MaxStep);
+            Show(_playerUnitSelecting.LastSelected.transform.position, _playerUnitSelecting.LastSelected.Data.MaxStep);
         }
 
         private void Show(Vector3 startPosition, int depth)

@@ -8,7 +8,7 @@ namespace DarkLegion.Field.AttackSystem
     {
         public void Attack(Unit who, Unit whom)
         {
-            Debug.Log(whom.name + " take " + who.UnitData.PhysicalDamage + " damage");
+            Debug.Log(whom.name + " take " + who.Data.PhysicalDamage + " damage");
         }
     }
 }

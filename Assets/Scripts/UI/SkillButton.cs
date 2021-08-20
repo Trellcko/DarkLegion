@@ -56,7 +56,6 @@ namespace DarkLegion.UI
         public void Hide()
         {
             _button.image.enabled = false;
-            Debug.Log(name);
             DisableText();
         }
 
