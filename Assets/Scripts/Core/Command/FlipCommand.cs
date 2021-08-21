@@ -11,10 +11,10 @@ namespace DarkLegion.Core.Command
         public event Action Completed;
         public event Action Canceled;
 
-        private Transform _transform;
-        private float _flipValue = 1;
+        private readonly Transform _transform;
+        private readonly float _flipValue = 1;
 
-        private float _initialValue;
+        private readonly float _initialValue;
 
         public FlipCommand(Transform transform)
         {

@@ -10,7 +10,7 @@ namespace DarkLegion.Field.Pathfinding
     {
         public int Count => _field.Count;
 
-        private Dictionary<Vector3Int, PathNode> _field;
+        private readonly Dictionary<Vector3Int, PathNode> _field;
 
         private readonly Vector3Int[] neigborsCellsForOffseted = new Vector3Int[]
         {

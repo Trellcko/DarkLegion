@@ -17,7 +17,7 @@ namespace DarkLegion.UI {
         {
             foreach (var button in _buttons)
             {
-                button.Hide();
+                button.TryHide();
             }
         }
 
@@ -46,7 +46,7 @@ namespace DarkLegion.UI {
         {
             for (int i = 0; i < _buttons.Count; i++)
             {
-                _buttons[i].Hide();
+                _buttons[i].TryHide();
             }
         }
     }

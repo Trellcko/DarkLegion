@@ -12,23 +12,28 @@ namespace DarkLegion.Field.Visuzalization
 
         [SerializeField] private CellFiller _cellFiller;
 
-        private List<Vector3Int> _lastCells = new List<Vector3Int>();
+        private List<Vector3Int> _previousAttackedCell = new List<Vector3Int>();
 
         public void Show(List<Transform> points)
         {
-            List<Vector3Int> attackCells = new List<Vector3Int>();
+            _previousAttackedCell.Clear();
 
             foreach(var point in points)
             {
-                attackCells.Add(_gridHandler.GetCell(point.position));
+                _previousAttackedCell.Add(_gridHandler.GetCell(point.position));
             }
-            _lastCells = attackCells;
-            _cellFiller.SetColors(attackCells, GameColors.Attack);
+            _cellFiller.SetColors(_previousAttackedCell, GameColors.Attack);
+        }
+
+        public void ReturnPreviousColors()
+        {
+            _cellFiller.ReturnPreviousColors();
         }
 
         public void Clear()
         {
-            _cellFiller.SetLastColors();
+            _cellFiller.SetColors(_previousAttackedCell, GameColors.Clear);
+            Debug.Log("lox");
         }
     }
 }

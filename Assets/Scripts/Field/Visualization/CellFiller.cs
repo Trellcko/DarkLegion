@@ -20,7 +20,7 @@ namespace DarkLegion.Field.Visuzalization
             });
         }
 
-        public void SetLastColors()
+        public void ReturnPreviousColors()
         {
             foreach(var pair in _lastCellColors)
             {

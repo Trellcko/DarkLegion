@@ -511,7 +511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 222, y: 195.18}
+  m_AnchoredPosition: {x: 150, y: 195.18}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &391047393
@@ -529,6 +529,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 2024374310}
   _textPanel: {fileID: 2103121644}
   _attackingCellVisualization: {fileID: 1109431913}
+  _attackIndex: 3
 --- !u!114 &391047394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,6 +839,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 2024374310}
   _textPanel: {fileID: 2103121644}
   _attackingCellVisualization: {fileID: 1109431913}
+  _attackIndex: 1
 --- !u!1001 &634317836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1251,7 +1253,7 @@ MonoBehaviour:
   _size: {x: 10, y: 10, z: 0}
   _fieldsLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
 --- !u!4 &835388001
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,6 +1530,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 2024374310}
   _textPanel: {fileID: 2103121644}
   _attackingCellVisualization: {fileID: 1109431913}
+  _attackIndex: 0
 --- !u!1 &1157691053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,6 +1748,7 @@ MonoBehaviour:
   _descriptionText: {fileID: 2024374310}
   _textPanel: {fileID: 2103121644}
   _attackingCellVisualization: {fileID: 1109431913}
+  _attackIndex: 2
 --- !u!1 &1585515667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,7 +1820,7 @@ GameObject:
   - component: {fileID: 1612802029}
   - component: {fileID: 1612802028}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerCommander
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1835,6 +1839,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pathfinder: {fileID: 812235788}
+  _skillButtons:
+  - {fileID: 1150914567}
+  - {fileID: 554695195}
+  - {fileID: 1274198544}
+  - {fileID: 391047393}
   _playerUnitSelecting: {fileID: 1157691055}
   _everythingSelecting: {fileID: 550250483}
 --- !u!4 &1612802029
