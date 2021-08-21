@@ -6,15 +6,17 @@ namespace DarkLegion.Units
     public class Unit : MonoBehaviour
     {
         [SerializeField] private CommandHandler _commandHandler;
-
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        
+        [SerializeField] private AnimatorHandler _animator;
 
         [SerializeField] private UnitData _data;
+        [SerializeField] private UnitSkillSet _unitSkillSet;
 
         public CommandHandler CommandHandler => _commandHandler;
 
-        public SpriteRenderer SpriteRender => _spriteRenderer;
+        public AnimatorHandler Animator => _animator;
 
-        public UnitData UnitData => _data;
+        public UnitData Data => _data;
+        public UnitSkillSet UnitSkillSet => _unitSkillSet;
     }
 }

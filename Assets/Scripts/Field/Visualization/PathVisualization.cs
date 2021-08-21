@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace DarkLegion.Core.Visuzalization
+namespace DarkLegion.Field.Visuzalization
 {
     public class PathVisualization : MonoBehaviour
     {
@@ -51,7 +51,7 @@ namespace DarkLegion.Core.Visuzalization
 
                 for (int i = 0; i < path.Count; i++)
                 {
-                    var color = _playerUnitSelecting.LastSelected.UnitData.MaxStep > i ? Color.green : Color.red;
+                    var color = _playerUnitSelecting.LastSelected.Data.MaxStep > i ? Color.green : Color.red;
                     dotsData.Add(path[i], color);
                 }
 
