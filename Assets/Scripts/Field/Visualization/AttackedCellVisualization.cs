@@ -33,7 +33,6 @@ namespace DarkLegion.Field.Visuzalization
         public void Clear()
         {
             _cellFiller.SetColors(_previousAttackedCell, GameColors.Clear);
-            Debug.Log("lox");
         }
     }
 }

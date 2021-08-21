@@ -6,19 +6,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace DarkLegion.UI {
-    public class SkillButtonsRegistrar : MonoBehaviour
+    public class ButtonsRegistrar : MonoBehaviour
     {
         [SerializeField] private List<SkillButton> _buttons;
+
+        [SerializeField] private FlipButton _flipButton;
 
         [SerializeField] private UnitSelecting _playerUnitsSelecting;
         [SerializeField] private TransformSelecting _everythingSelecting;
 
         private void Awake()
         {
-            foreach (var button in _buttons)
-            {
-                button.TryHide();
-            }
+            Hide();
         }
 
         private void OnEnable()
@@ -40,6 +39,7 @@ namespace DarkLegion.UI {
                 _buttons[i].SetData(_playerUnitsSelecting.LastSelected.UnitSkillSet.Skills[i]);
                 _buttons[i].Show();
             }
+            _flipButton.Show();
         }
 
         private void Hide()
@@ -48,6 +48,7 @@ namespace DarkLegion.UI {
             {
                 _buttons[i].TryHide();
             }
+            _flipButton.TryHide();
         }
     }
 }

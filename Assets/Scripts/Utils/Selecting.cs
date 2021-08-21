@@ -18,6 +18,8 @@ namespace DarkLegion.Utils
         public T LastSelected { get; private set; }
         public T LastSelectedOrNull { get; private set; }
 
+        private bool _isBlocked = false;
+
         private readonly Raycaster _raycaster = new Raycaster();
 
         private void OnEnable()
@@ -30,9 +32,17 @@ namespace DarkLegion.Utils
             InputHandler.Instance.LeftButtonClicked.performed -= TrySelect;
         }
 
-        private void TrySelect(InputAction.CallbackContext obj)
+        public void SelectLastUnit()
         {
-            LastSelectedOrNull = _raycaster.Hit<T>(InputHandler.Instance.GetMousePosition(), _layers);
+            LastSelectedOrNull = LastSelected;
+            Selected?.Invoke();
+        }
+
+        public void TrySelect(Vector3 position)
+        {
+            if (_isBlocked) return;
+
+            LastSelectedOrNull = _raycaster.Hit<T>(position, _layers);
             if (LastSelectedOrNull)
             {
                 LastSelected = LastSelectedOrNull;
@@ -40,6 +50,11 @@ namespace DarkLegion.Utils
                 return;
             }
             UnSelected?.Invoke();
+        }
+
+        private void TrySelect(InputAction.CallbackContext obj)
+        {
+            TrySelect(InputHandler.Instance.GetMousePosition());
         }
 
     }
