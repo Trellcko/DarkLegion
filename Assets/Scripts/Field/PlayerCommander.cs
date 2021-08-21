@@ -13,37 +13,47 @@ namespace DarkLegion.Field
     public class PlayerCommander : MonoBehaviour
     {
         [SerializeField] private Pathfinder _pathfinder;
+
         [SerializeField] private List<SkillButton> _skillButtons;
+        [SerializeField] private FlipButton _flipButton;
 
         [Header("Selecters")]
         [SerializeField] private UnitSelecting _playerUnitSelecting;
         [SerializeField] private TransformSelecting _everythingSelecting;
 
         private Action _unSelectedHandelr;
-        private Action<int> _skillButoClicked;
+        private Action<int> _skillButtonClickedHandler;
+        private Action _flipButtonClickedHandler;
 
         private void Awake()
         {
-            _unSelectedHandelr += () => { TryMoveUnit(_playerUnitSelecting.LastSelected); };
-            _skillButoClicked += i => { TryAttackUnit(_playerUnitSelecting.LastSelected, i); };
+            _unSelectedHandelr += () => { TryMoveUnit(_playerUnitSelecting.LastSelectedOrNull); };
+            _skillButtonClickedHandler += i => { TryAttackUnit(_playerUnitSelecting.LastSelected, i); };
+            _flipButtonClickedHandler += () => { TryFlipUnit(_playerUnitSelecting.LastSelected); };
         }
 
         private void OnEnable()
         {
             _everythingSelecting.UnSelected += _unSelectedHandelr;
+            
             foreach(var button in _skillButtons)
             {
-                button.SkillButtonClicked += _skillButoClicked;
+                button.SkillButtonClicked += _skillButtonClickedHandler;
             }
+            
+            _flipButton.Clicked += _flipButtonClickedHandler;
         }
 
         private void OnDisable()
         {
             _everythingSelecting.UnSelected -= _unSelectedHandelr;
+            
             foreach (var button in _skillButtons)
             {
-                button.SkillButtonClicked += _skillButoClicked;
+                button.SkillButtonClicked += _skillButtonClickedHandler;
             }
+            
+            _flipButton.Clicked -= _flipButtonClickedHandler;
         }
 
         public void TryMoveUnit(Unit unit)
@@ -78,13 +88,26 @@ namespace DarkLegion.Field
             }
         }
 
+        public void TryFlipUnit(Unit who)
+        {
+            if (who)
+            {
+                var commands = new Queue<ICommand>();
+                commands.Enqueue(new FlipCommand(who.transform));
+                who.CommandHandler.Do(commands);
+            }
+        }
+
         public void TryAttackUnit(Unit who, int attackIndex)
         {
-            var commands = new Queue<ICommand>();
-            commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, attackIndex));
-            commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
+            if (who)
+            {
+                var commands = new Queue<ICommand>();
+                commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, attackIndex));
+                commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
 
-            who.CommandHandler.Do(commands);
+                who.CommandHandler.Do(commands);
+            }
         }
 
         private MovementCommand GetMovementCommand(Vector3 point, Transform self)

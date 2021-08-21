@@ -1,6 +1,8 @@
-using DarkLegion.Units;
 using DarkLegion.Field.Visuzalization;
-using DarkLegion.Field;
+using DarkLegion.Units;
+
+using System;
+using System.Collections.Generic;
 
 using TMPro;
 
@@ -8,12 +10,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-using System.Collections.Generic;
-using System;
-
 namespace DarkLegion.UI
 {
-    [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Image))]
     public class SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private TextMeshProUGUI _descriptionText;
@@ -23,9 +22,10 @@ namespace DarkLegion.UI
 
         [SerializeField] private int _attackIndex;
 
+
         public event Action<int> SkillButtonClicked;
 
-        private Button _button;
+        private Image _image;
 
         private List<Transform> _lastSkillAttackedCell = new List<Transform>();
 
@@ -36,18 +36,18 @@ namespace DarkLegion.UI
 
         private void Awake()
         {
-            _button = GetComponent<Button>();
+            _image = GetComponent<Image>();
         }
 
         public void Show()
         {
-            _button.image.enabled = true;
+            _image.enabled = true;
             _isOff = false;
         }
 
         public void SetData(UnitSkill skill)
         {
-            _button.image.sprite = skill.AttackIcon;
+            _image.sprite = skill.AttackIcon;
             _description = skill.Description;
             _lastSkillAttackedCell = skill.AttackedCell;
         }
@@ -78,8 +78,8 @@ namespace DarkLegion.UI
 
         private void PointerClick()
         {
-            SkillButtonClicked?.Invoke(_attackIndex);
             Hide();
+            SkillButtonClicked?.Invoke(_attackIndex);
         }
         private void PointerEnter()
         {
@@ -89,7 +89,7 @@ namespace DarkLegion.UI
             ShowLastSkillAttackPoint();
             _isMouseOver = true;
         }
-
+ 
         private void PointerExit()
         {
             if (_isMouseOver == true)
@@ -109,7 +109,7 @@ namespace DarkLegion.UI
 
         private void Hide()
         {
-            _button.image.enabled = false;
+            _image.enabled = false;
             _isOff = true;
             PointerExit();
         }
