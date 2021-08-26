@@ -1,4 +1,4 @@
-﻿namespace DarkLegion.Units
+﻿namespace DarkLegion.Unit
 {
     internal interface IAttack
     {

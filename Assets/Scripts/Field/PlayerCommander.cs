@@ -2,7 +2,7 @@ using DarkLegion.Core.Command;
 using DarkLegion.Field.Pathfinding;
 using DarkLegion.Input;
 using DarkLegion.UI;
-using DarkLegion.Units;
+using DarkLegion.Unit;
 using DarkLegion.Utils;
 using System;
 using System.Collections.Generic;
@@ -56,14 +56,14 @@ namespace DarkLegion.Field
             _flipButton.Clicked -= _flipButtonClickedHandler;
         }
 
-        public void TryMoveUnit(Unit unit)
+        public void TryMoveUnit(ComponentStorage unit)
         {
             if (unit)
             {
                 var path = _pathfinder.FindPath(unit.transform.position,
                     InputHandler.Instance.GetMousePosition());
 
-                if (path.Count <= unit.Data.MaxStep && path.Count != 0)
+                if (path.Count <= unit.BaseStats.MaxStep && path.Count != 0)
                 {
                     var commands = new Queue<ICommand>();
                     var lastPoint = unit.transform.position;
@@ -88,7 +88,7 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryFlipUnit(Unit who)
+        public void TryFlipUnit(ComponentStorage who)
         {
             if (who)
             {
@@ -98,7 +98,7 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryAttackUnit(Unit who, int attackIndex)
+        public void TryAttackUnit(ComponentStorage who, int attackIndex)
         {
             if (who)
             {

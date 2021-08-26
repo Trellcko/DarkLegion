@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace DarkLegion.Units
+namespace DarkLegion.Unit
 {
     [Serializable]
-    public class UnitSkill
+    public class Skill
     {
         [SerializeField] private Sprite _icon;
 
