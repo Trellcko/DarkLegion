@@ -51,7 +51,7 @@ namespace DarkLegion.Field.Visuzalization
 
                 for (int i = 0; i < path.Count; i++)
                 {
-                    var color = _playerUnitSelecting.LastSelected.Data.MaxStep > i ? Color.green : Color.red;
+                    var color = _playerUnitSelecting.LastSelected.BaseStats.MaxStep > i ? Color.green : Color.red;
                     dotsData.Add(path[i], color);
                 }
 

@@ -350,8 +350,7 @@ GameObject:
   - component: {fileID: 4906049114110007255}
   - component: {fileID: 4906049114110007252}
   - component: {fileID: 1921537680}
-  - component: {fileID: 1926636409}
-  - component: {fileID: 1954989109060595614}
+  - component: {fileID: 4339431047927405925}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -413,7 +412,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3e4178e3d3bd21640aa8f88b9cc508cd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -421,7 +420,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1921537680
@@ -443,7 +442,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1926636409
+--- !u!114 &4339431047927405925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -452,20 +451,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4906049114110007254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c3328a2d6b7b64d809991a6af10126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 1921537680}
---- !u!114 &1954989109060595614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4906049114110007254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c3328a2d6b7b64d809991a6af10126, type: 3}
+  m_Script: {fileID: 11500000, guid: f4b4685d08dc87b4595bfdfc3bdb80e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1921537680}
@@ -557,10 +543,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed790df23e3a457478a609c47ac83ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _commandHandler: {fileID: 4906049114788330224}
-  _animator: {fileID: 1954989109060595614}
-  _data: {fileID: 0}
-  _unitSkillSet: {fileID: 4906049114713861404}
+  <CommandHandler>k__BackingField: {fileID: 4906049114788330224}
+  <Animator>k__BackingField: {fileID: 4339431047927405925}
+  <BaseStats>k__BackingField: {fileID: 0}
+  <UnitSkillSet>k__BackingField: {fileID: 4906049114713861404}
 --- !u!114 &4906049114713861404
 MonoBehaviour:
   m_ObjectHideFlags: 0

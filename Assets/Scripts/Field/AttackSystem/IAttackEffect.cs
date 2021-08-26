@@ -1,9 +1,9 @@
-using DarkLegion.Units;
+using DarkLegion.Unit;
 
 namespace DarkLegion.Field.AttackSystem
 {
     public interface IAttackEffect
     {
-        void Attack(Unit player, Unit target);
+        void Attack(ComponentStorage player, ComponentStorage target);
     }
 }

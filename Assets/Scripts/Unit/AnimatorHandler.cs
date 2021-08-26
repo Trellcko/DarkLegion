@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace DarkLegion.Units
+namespace DarkLegion.Unit
 {
     public class AnimatorHandler : MonoBehaviour
     {

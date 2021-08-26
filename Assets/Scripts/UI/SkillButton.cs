@@ -1,5 +1,5 @@
 using DarkLegion.Field.Visuzalization;
-using DarkLegion.Units;
+using DarkLegion.Unit;
 
 using System;
 using System.Collections.Generic;
@@ -45,7 +45,7 @@ namespace DarkLegion.UI
             _isOff = false;
         }
 
-        public void SetData(UnitSkill skill)
+        public void SetData(Skill skill)
         {
             _image.sprite = skill.AttackIcon;
             _description = skill.Description;
