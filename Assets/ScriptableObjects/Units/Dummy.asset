@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9449cb9cfa9aa49a9c841a9f900e20, type: 3}
-  m_Name: Skeleton
+  m_Name: Dummy
   m_EditorClassIdentifier: 
-  <MaxStep>k__BackingField: 5
-  <Health>k__BackingField: 150
-  <PhysicalDamage>k__BackingField: 50
+  <MaxStep>k__BackingField: 0
+  <Health>k__BackingField: 1000
+  <PhysicalDamage>k__BackingField: 0

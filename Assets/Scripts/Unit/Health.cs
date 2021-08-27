@@ -7,7 +7,8 @@ namespace DarkLegion.Unit
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private Stats _stats;
+        [SerializeField] private ComponentStorage storage;
+        [SerializeField] private Transform _healtBarPoint;
 
         private HealtBar _healtBar;
 
@@ -21,14 +22,14 @@ namespace DarkLegion.Unit
 
         private void Start()
         {
-            _currentHealth = _stats.Health;
-            _healtBar.SetMax(_stats.Health);
+            _currentHealth = storage.BaseStats.Health;
+            _healtBar.SetMax(storage.BaseStats.Health);
             _healtBar.Emptied += () => { Debug.Log("GG"); };
         }
 
         public void TakeDamage(int damage)
         {
-            _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, _stats.Health);
+            _currentHealth = Mathf.Clamp(_currentHealth - damage, 0, storage.BaseStats.Health);
             _healtBar.SetValue(_currentHealth);
         }
     }
