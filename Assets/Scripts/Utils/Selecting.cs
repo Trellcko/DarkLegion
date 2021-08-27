@@ -11,6 +11,7 @@ namespace DarkLegion.Utils
     public abstract class Selecting<T> : MonoBehaviour where T : Component
     {
         [SerializeField] private LayerMask _layers;
+        [SerializeField] private bool _isMouseSelecting = true;
 
         public event Action Selected = delegate { };
         public event Action UnSelected = delegate { };
@@ -24,12 +25,18 @@ namespace DarkLegion.Utils
 
         private void OnEnable()
         {
-            InputHandler.Instance.LeftButtonClicked.performed += TrySelect;
+            if (_isMouseSelecting)
+            {
+                InputHandler.Instance.LeftButtonClicked.performed += TrySelect;
+            }
         }
 
         private void OnDisable()
         {
-            InputHandler.Instance.LeftButtonClicked.performed -= TrySelect;
+            if (_isMouseSelecting)
+            {
+                InputHandler.Instance.LeftButtonClicked.performed -= TrySelect;
+            }
         }
 
         public void SelectLastUnit()

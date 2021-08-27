@@ -28,8 +28,6 @@ namespace DarkLegion.UI
             _currentValue *= value / _maxValue;
             _maxValue = value;
             ChangeText(_currentValue);
-
-            SetValue(0);
         }
 
         public void SetValue(int value)

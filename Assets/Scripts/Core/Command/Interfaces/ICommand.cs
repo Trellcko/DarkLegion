@@ -8,7 +8,6 @@ namespace DarkLegion.Core.Command
         event Action Canceled;
 
         void Execute();
-
         void Undo();
     }
 }

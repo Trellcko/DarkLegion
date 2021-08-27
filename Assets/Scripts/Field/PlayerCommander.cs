@@ -20,6 +20,7 @@ namespace DarkLegion.Field
         [Header("Selecters")]
         [SerializeField] private UnitSelecting _playerUnitSelecting;
         [SerializeField] private TransformSelecting _everythingSelecting;
+        [SerializeField] private UnitSelecting _enemyUnitSelectingForAttack;
 
         private Action _unSelectedHandelr;
         private Action<int> _skillButtonClickedHandler;
@@ -98,13 +99,24 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryAttackUnit(ComponentStorage who, int attackIndex)
+        public void TryAttackUnit(ComponentStorage who, int skillIndex)
         {
             if (who)
             {
                 var commands = new Queue<ICommand>();
-                commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, attackIndex));
+                commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
                 commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
+                List<ComponentStorage> targets = new List<ComponentStorage>();
+                foreach (var point in who.UnitSkillSet.Skills[skillIndex].TargetedCells)
+                {
+                    _enemyUnitSelectingForAttack.TrySelect(point.position);
+                    Debug.Log(point.position);
+                    if (_enemyUnitSelectingForAttack.LastSelectedOrNull)
+                    {
+                        targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);
+                    } 
+                }
+                commands.Enqueue(new AttackCommand(who.UnitSkillSet.Skills[skillIndex], targets));
 
                 who.CommandHandler.Do(commands);
             }

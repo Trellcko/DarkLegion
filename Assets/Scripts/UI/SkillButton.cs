@@ -1,5 +1,5 @@
 using DarkLegion.Field.Visuzalization;
-using DarkLegion.Unit;
+using DarkLegion.Unit.AttackSystem;
 
 using System;
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ namespace DarkLegion.UI
         {
             _image.sprite = skill.AttackIcon;
             _description = skill.Description;
-            _lastSkillAttackedCell = skill.AttackedCell;
+            _lastSkillAttackedCell = skill.TargetedCells;
         }
 
         public void TryHide()

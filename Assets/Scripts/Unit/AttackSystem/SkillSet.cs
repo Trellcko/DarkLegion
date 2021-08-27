@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DarkLegion.Unit
+namespace DarkLegion.Unit.AttackSystem
 {
     public class SkillSet : MonoBehaviour
     {
