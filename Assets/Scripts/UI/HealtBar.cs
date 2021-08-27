@@ -3,6 +3,7 @@ using DG.Tweening;
 
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace DarkLegion.UI
 {
@@ -13,35 +14,47 @@ namespace DarkLegion.UI
 
         [SerializeField] private float _changeSpeed;
 
-        private float _maxValue = 1;
-        private float _currentValue = 1;
+        public event Action Emptied;
 
-        private const float MinValue = 0;
+        private int _maxValue = 1;
+        private int _currentValue = 1;
 
-        private void Start()
-        {
-            SetMax(100f);
+        private const int MinValue = 0;
 
-            SetValue(40f);
-        }
-
-        public void SetMax(float value)
+        public void SetMax(int value)
         {
             if (value <= 0) return;
 
             _currentValue *= value / _maxValue;
             _maxValue = value;
+            ChangeText(_currentValue);
+
+            SetValue(0);
         }
 
-        public void SetValue(float value)
+        public void SetValue(int value)
         {
-            var clampedValue = Mathf.Clamp(value, MinValue, _maxValue);
+            int clampedValue = Mathf.Clamp(value, MinValue, _maxValue);
 
-            float fillValue = clampedValue / _maxValue;
+            float fillValue = (float)clampedValue / _maxValue;
 
             _fill.DOFillAmount(fillValue, _changeSpeed);
 
-            DOTween.To(() => _currentValue, (value) => _text.SetText($"{(int)value} / {_maxValue}"), clampedValue, _changeSpeed);
+            DOTween.To(() => _currentValue, ChangeText, clampedValue, _changeSpeed)
+                .OnComplete(() =>
+                {
+                    _currentValue = clampedValue;
+                    if (_currentValue == MinValue)
+                    {
+                        Emptied?.Invoke();
+                    }
+                });
+
+        }
+
+        private void ChangeText(int value)
+        {
+            _text.SetText($"{value} / {_maxValue}");
         }
 
     }

@@ -21,7 +21,7 @@ namespace DarkLegion.Utils
         public void SetTarget(Transform transform)
         {
             _target = transform;
-            _lastTargetPosition = transform.position;
+            _lastTargetPosition = _self.transform.position;
         }
 
         private void TryChangePosition()

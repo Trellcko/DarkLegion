@@ -6,7 +6,7 @@ namespace DarkLegion.Unit
     {
         [field: SerializeField] public int MaxStep { get; private set; }
 
-        [field: SerializeField, Range(0f, 1000f)] public float Health { get; private set; }
+        [field: SerializeField, Range(0f, 1000f)] public int Health { get; private set; }
 
         [field: SerializeField, Range(0f, 100f)] public float PhysicalDamage { get; private set; }
     }
