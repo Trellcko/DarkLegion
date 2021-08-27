@@ -35,8 +35,10 @@ namespace DarkLegion.Field
 
         private PathNode CreateNode(Vector3Int cell)
         {
-            var pathNode = new PathNode(cell);
-            pathNode.IsFree = _gridHandler.CheckForFreeSpace(cell, _fieldInfo.FieldsLayers);
+            var pathNode = new PathNode(cell)
+            {
+                IsFree = _gridHandler.CheckForFreeSpace(cell, _fieldInfo.FieldsLayers)
+            };
             return pathNode;
         }
     }

@@ -11,6 +11,7 @@ namespace DarkLegion.Utils
     public abstract class Selecting<T> : MonoBehaviour where T : Component
     {
         [SerializeField] private LayerMask _layers;
+        [SerializeField] private bool _isMouseSelecting = true;
 
         public event Action Selected = delegate { };
         public event Action UnSelected = delegate { };
@@ -18,21 +19,37 @@ namespace DarkLegion.Utils
         public T LastSelected { get; private set; }
         public T LastSelectedOrNull { get; private set; }
 
+        private bool _isBlocked = false;
+
         private readonly Raycaster _raycaster = new Raycaster();
 
         private void OnEnable()
         {
-            InputHandler.Instance.LeftButtonClicked.performed += TrySelect;
+            if (_isMouseSelecting)
+            {
+                InputHandler.Instance.LeftButtonClicked.performed += TrySelect;
+            }
         }
 
         private void OnDisable()
         {
-            InputHandler.Instance.LeftButtonClicked.performed -= TrySelect;
+            if (_isMouseSelecting)
+            {
+                InputHandler.Instance.LeftButtonClicked.performed -= TrySelect;
+            }
         }
 
-        private void TrySelect(InputAction.CallbackContext obj)
+        public void SelectLastUnit()
         {
-            LastSelectedOrNull = _raycaster.Hit<T>(InputHandler.Instance.GetMousePosition(), _layers);
+            LastSelectedOrNull = LastSelected;
+            Selected?.Invoke();
+        }
+
+        public void TrySelect(Vector3 position)
+        {
+            if (_isBlocked) return;
+
+            LastSelectedOrNull = _raycaster.Hit<T>(position, _layers);
             if (LastSelectedOrNull)
             {
                 LastSelected = LastSelectedOrNull;
@@ -40,6 +57,11 @@ namespace DarkLegion.Utils
                 return;
             }
             UnSelected?.Invoke();
+        }
+
+        private void TrySelect(InputAction.CallbackContext obj)
+        {
+            TrySelect(InputHandler.Instance.GetMousePosition());
         }
 
     }

@@ -6,6 +6,7 @@ using DarkLegion.Field;
 using System.Collections.Generic;
 
 using UnityEngine;
+using DarkLegion.Core.Visualization;
 
 namespace DarkLegion.Field.Visuzalization
 {
@@ -51,7 +52,7 @@ namespace DarkLegion.Field.Visuzalization
 
                 for (int i = 0; i < path.Count; i++)
                 {
-                    var color = _playerUnitSelecting.LastSelected.UnitData.MaxStep > i ? Color.green : Color.red;
+                    var color = _playerUnitSelecting.LastSelected.BaseStats.MaxStep > i ? GameColors.Movement : GameColors.Attack;
                     dotsData.Add(path[i], color);
                 }
 

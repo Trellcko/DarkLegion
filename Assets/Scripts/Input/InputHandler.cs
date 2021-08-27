@@ -49,7 +49,6 @@ namespace DarkLegion.Input
 
         public Vector2 GetMousePosition()
         {
-            var pos = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             return _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         }
 
