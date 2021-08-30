@@ -1,8 +1,8 @@
 using UnityEngine;
 namespace DarkLegion.Unit
 {
-    [CreateAssetMenu(fileName = "New UnitStat", menuName = "Units/Stat", order = 41)]
-    public class Stats : ScriptableObject
+    [CreateAssetMenu(fileName = "New UnitBaseStat", menuName = "Units/BaseStats", order = 41)]
+    public class BaseStats : ScriptableObject
     {
         [field: SerializeField] public int MaxStep { get; private set; }
 

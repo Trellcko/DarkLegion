@@ -4,6 +4,6 @@ namespace DarkLegion.Unit.AttackSystem
 {
     public interface ISkillEffect
     {
-        void Attack(List<ComponentStorage> targets);
+        void Do(ComponentStorage who, List<ComponentStorage> targets);
     }
 }

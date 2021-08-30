@@ -45,11 +45,11 @@ namespace DarkLegion.Unit.AttackSystem
         private List<ISkillEffect> _skillEffects;
 
 
-        public void Do(List<ComponentStorage> targets)
+        public void Do(ComponentStorage who, List<ComponentStorage> targets)
         {
             foreach(var effect in SkillEffects)
             {
-                effect.Attack(targets);
+                effect.Do(who, targets);
             }
         }
 

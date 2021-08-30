@@ -28,9 +28,9 @@ namespace DarkLegion.Field
 
         private void Awake()
         {
-            _unSelectedHandelr += () => { TryMoveUnit(_playerUnitSelecting.LastSelectedOrNull); };
-            _skillButtonClickedHandler += i => { TryAttackUnit(_playerUnitSelecting.LastSelected, i); };
-            _flipButtonClickedHandler += () => { TryFlipUnit(_playerUnitSelecting.LastSelected); };
+            _unSelectedHandelr += () => { TryMove(_playerUnitSelecting.LastSelectedOrNull); };
+            _skillButtonClickedHandler += i => { TryUseSkill(_playerUnitSelecting.LastSelected, i); };
+            _flipButtonClickedHandler += () => { TryFlip(_playerUnitSelecting.LastSelected); };
         }
 
         private void OnEnable()
@@ -57,39 +57,39 @@ namespace DarkLegion.Field
             _flipButton.Clicked -= _flipButtonClickedHandler;
         }
 
-        public void TryMoveUnit(ComponentStorage unit)
+        public void TryMove(ComponentStorage who)
         {
-            if (unit)
+            if (who)
             {
-                var path = _pathfinder.FindPath(unit.transform.position,
+                var path = _pathfinder.FindPath(who.transform.position,
                     InputHandler.Instance.GetMousePosition());
 
-                if (path.Count <= unit.BaseStats.MaxStep && path.Count != 0)
+                if (path.Count <= who.Movement.Value && path.Count != 0)
                 {
                     var commands = new Queue<ICommand>();
-                    var lastPoint = unit.transform.position;
+                    var lastPoint = who.transform.position;
                     
-                    commands.Enqueue(new MovementAnimationPlayCommand(unit.Animator));
+                    commands.Enqueue(new MovementAnimationPlayCommand(who.Animator));
                     
                     for (int i = 1; i < path.Count; i++)
                     {
                         var targetFlipPoint = Mathf.Abs(path[i].x - lastPoint.x) > 0.01f ? path[i] : path[path.Count - 1];
 
-                        commands.Enqueue(new FlipCommand(unit.transform, GetFlip(lastPoint, targetFlipPoint)));
+                        commands.Enqueue(new FlipCommand(who.transform, GetFlip(lastPoint, targetFlipPoint)));
                         
-                        commands.Enqueue(GetMovementCommand(path[i], unit.transform));
+                        commands.Enqueue(new MovementCommand(who.transform, path[i]));
 
                         lastPoint = path[i];
                     }
 
-                    commands.Enqueue(new IdleAnimationPlayCommand(unit.Animator));
+                    commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
 
-                    unit.CommandHandler.Do(commands);
+                    who.CommandHandler.Do(commands);
                 }
             }
         }
 
-        public void TryFlipUnit(ComponentStorage who)
+        public void TryFlip(ComponentStorage who)
         {
             if (who)
             {
@@ -99,7 +99,7 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryAttackUnit(ComponentStorage who, int skillIndex)
+        public void TryUseSkill(ComponentStorage who, int skillIndex)
         {
             if (who)
             {
@@ -116,15 +116,10 @@ namespace DarkLegion.Field
                         targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);
                     } 
                 }
-                commands.Enqueue(new AttackCommand(who.UnitSkillSet.Skills[skillIndex], targets));
+                commands.Enqueue(new AttackCommand(who, skillIndex, targets));
 
                 who.CommandHandler.Do(commands);
             }
-        }
-
-        private MovementCommand GetMovementCommand(Vector3 point, Transform self)
-        {
-            return new MovementCommand(self, point);
         }
 
         private bool GetFlip(Vector3 lastPoint, Vector3 point)
