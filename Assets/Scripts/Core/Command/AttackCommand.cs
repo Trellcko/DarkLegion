@@ -13,18 +13,16 @@ public class AttackCommand : ICommand
 
     private List<ComponentStorage> _targets;
     private Skill _unitsSkill;
-    private ComponentStorage _unit;
 
     public AttackCommand(ComponentStorage unit, int skillIndex,  List<ComponentStorage> targets)
     {
         _unitsSkill = unit.UnitSkillSet.Skills[skillIndex];
         _targets = targets;
-        _unit = unit;
     }
 
     public void Execute()
     {
-        _unitsSkill.Do(_unit, _targets);
+        _unitsSkill.Do(_targets);
         Completed?.Invoke();
     }
 

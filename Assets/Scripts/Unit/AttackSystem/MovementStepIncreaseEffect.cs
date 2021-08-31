@@ -7,9 +7,12 @@ namespace DarkLegion.Unit.AttackSystem
     public class MovementStepIncreaseEffect : MonoBehaviour, ISkillEffect
     {
         [SerializeField] private int _multiply;
-        public void Do(ComponentStorage who, List<ComponentStorage> targets)
+        public void Do(List<ComponentStorage> targets)
         {
-            who.Movement.Set(who.Movement.Value * _multiply);
+            foreach(var target in targets)
+            {
+                target.Movement.Set(target.Movement.Value * _multiply);
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ namespace DarkLegion.Unit
         [field: SerializeField] public AnimatorHandler Animator { get; private set; }
 
         [field: SerializeField] public Movement Movement { get; private set; }
+        
+        [field: SerializeField] public Initiative Initiative { get; private set; }
 
         [field: SerializeField] public PhysicalDamage PhysicalDamage { get; private set; }
         

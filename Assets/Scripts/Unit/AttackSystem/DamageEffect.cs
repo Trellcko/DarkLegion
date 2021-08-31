@@ -6,7 +6,7 @@ namespace DarkLegion.Unit.AttackSystem
     public class DamageEffect : MonoBehaviour, ISkillEffect
     {
         [SerializeField] private ComponentStorage _componentStorage;
-        public void Do(ComponentStorage who, List<ComponentStorage> targets)
+        public void Do(List<ComponentStorage> targets)
         {
             foreach(var target in targets)
             {

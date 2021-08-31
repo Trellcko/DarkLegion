@@ -18,7 +18,7 @@ namespace DarkLegion.Field
         [SerializeField] private FlipButton _flipButton;
 
         [Header("Selecters")]
-        [SerializeField] private UnitSelecting _playerUnitSelecting;
+        [SerializeField] private TurnSystem _turnSystem;
         [SerializeField] private TransformSelecting _everythingSelecting;
         [SerializeField] private UnitSelecting _enemyUnitSelectingForAttack;
 
@@ -26,11 +26,13 @@ namespace DarkLegion.Field
         private Action<int> _skillButtonClickedHandler;
         private Action _flipButtonClickedHandler;
 
+        private ComponentStorage _playerActiveUnit;
+
         private void Awake()
         {
-            _unSelectedHandelr += () => { TryMove(_playerUnitSelecting.LastSelectedOrNull); };
-            _skillButtonClickedHandler += i => { TryUseSkill(_playerUnitSelecting.LastSelected, i); };
-            _flipButtonClickedHandler += () => { TryFlip(_playerUnitSelecting.LastSelected); };
+            _unSelectedHandelr += () => { TryMove(_playerActiveUnit); };
+            _skillButtonClickedHandler += i => { TryUseSkill(_playerActiveUnit, i); };
+            _flipButtonClickedHandler += () => { TryFlip(_playerActiveUnit); };
         }
 
         private void OnEnable()

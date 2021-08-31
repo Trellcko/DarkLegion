@@ -9,5 +9,7 @@ namespace DarkLegion.Unit
         [field: SerializeField, Range(0f, 1000f)] public int Health { get; private set; }
 
         [field: SerializeField, Range(0f, 100f)] public int PhysicalDamage { get; private set; }
+
+        [field: SerializeField, Range(0, 10f)] public int Initiative { get; private set; }
     }
 }
