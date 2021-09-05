@@ -15,7 +15,7 @@ public class AttackCommand : ICommand
 
     public AttackCommand(ComponentStorage unit, int skillIndex,  List<ComponentStorage> targets)
     {
-        _unitsSkill = unit.UnitSkillSet.Skills[skillIndex];
+        _unitsSkill = unit.UnitSkillSet[skillIndex];
         _targets = targets;
     }
 
