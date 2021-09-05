@@ -9,7 +9,6 @@ using UnityEngine;
 public class AttackCommand : ICommand
 {
     public event Action Completed;
-    public event Action Canceled;
 
     private List<ComponentStorage> _targets;
     private Skill _unitsSkill;
@@ -24,13 +23,5 @@ public class AttackCommand : ICommand
     {
         _unitsSkill.Do(_targets);
         Completed?.Invoke();
-    }
-
-    /// <summary>
-    /// Witout Realization((
-    /// </summary>
-    public void Undo()
-    {
-        throw new NotImplementedException();
     }
 }

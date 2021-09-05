@@ -22,7 +22,6 @@ namespace DarkLegion.Core.Command
             var command = _commands.Dequeue();
             command.Completed += DoNext;
             command.Execute();
-            command.Canceled -= DoNext;
         }
     }
 }

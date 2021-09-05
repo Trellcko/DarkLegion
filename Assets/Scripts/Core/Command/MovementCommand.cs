@@ -10,26 +10,22 @@ namespace DarkLegion.Core.Command
     public class MovementCommand : ICommand
     {
         public event Action Completed;
-        public event Action Canceled;
 
         private readonly Transform _transform;
 
         private readonly Vector2 _targetPosition;
-        private readonly Vector2 _initPosition;
 
         private readonly float _duration = 2f;
 
         public MovementCommand(Transform transform, Vector2 targetPosition)
         {
             _transform = transform;
-            _initPosition = transform.position;
             _targetPosition = targetPosition;
         }
 
         public MovementCommand(Transform transform, Vector2 targetPosition, float duration)
         {
             _transform = transform;
-            _initPosition = transform.position;
             _targetPosition = targetPosition;
             _duration = duration;
         }
@@ -41,13 +37,6 @@ namespace DarkLegion.Core.Command
                 Completed?.Invoke();
                 Completed = null;
             });
-        }
-
-        public void Undo()
-        {
-            _transform.position = _initPosition;
-            Canceled?.Invoke();
-            Canceled = null;
         }
     }
 }
