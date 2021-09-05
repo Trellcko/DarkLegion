@@ -17,8 +17,9 @@ namespace DarkLegion.Field
         [SerializeField] private List<SkillButton> _skillButtons;
         [SerializeField] private FlipButton _flipButton;
 
-        [Header("Selecters")]
         [SerializeField] private TurnSystem _turnSystem;
+
+        [Header("Selecters")]
         [SerializeField] private TransformSelecting _everythingSelecting;
         [SerializeField] private UnitSelecting _enemyUnitSelectingForAttack;
 
@@ -26,13 +27,17 @@ namespace DarkLegion.Field
         private Action<int> _skillButtonClickedHandler;
         private Action _flipButtonClickedHandler;
 
-        private ComponentStorage _playerActiveUnit;
-
         private void Awake()
         {
-            _unSelectedHandelr += () => { TryMove(_playerActiveUnit); };
-            _skillButtonClickedHandler += i => { TryUseSkill(_playerActiveUnit, i); };
-            _flipButtonClickedHandler += () => { TryFlip(_playerActiveUnit); };
+            _unSelectedHandelr += () =>
+            {
+                if (_turnSystem.IsPlayerTurn)
+                {
+                    TryMove(_turnSystem.ActiveUnit);
+                }
+            };
+            _skillButtonClickedHandler += i => { TryUseSkill(_turnSystem.ActiveUnit, i); };
+            _flipButtonClickedHandler += () => { TryFlip(_turnSystem.ActiveUnit); };
         }
 
         private void OnEnable()
@@ -50,7 +55,6 @@ namespace DarkLegion.Field
         private void OnDisable()
         {
             _everythingSelecting.UnSelected -= _unSelectedHandelr;
-            
             foreach (var button in _skillButtons)
             {
                 button.SkillButtonClicked += _skillButtonClickedHandler;
@@ -109,7 +113,7 @@ namespace DarkLegion.Field
                 commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
                 commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
                 List<ComponentStorage> targets = new List<ComponentStorage>();
-                foreach (var point in who.UnitSkillSet.Skills[skillIndex].TargetedCells)
+                foreach (var point in who.UnitSkillSet[skillIndex].TargetedCells)
                 {
                     _enemyUnitSelectingForAttack.TrySelect(point.position);
                     Debug.Log(point.position);
