@@ -168,6 +168,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4906049114713861404, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4906049114713861404, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+    - target: {fileID: 4906049114713861404, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: _skills.Array.data[1]._description
       value: Sword strike
       objectReference: {fileID: 0}
