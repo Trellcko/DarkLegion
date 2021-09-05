@@ -12,7 +12,13 @@ namespace DarkLegion.Field
     {
         [SerializeField] private List<ComponentStorage> _units;
 
-        public event Action<ComponentStorage> TurnChanged;
+        [SerializeField] private LayerMask _playerUnitMask;
+        [SerializeField] private LayerMask _enemyUnitMask;
+
+        public bool IsPlayerTurn { get; private set; } = false;
+        public ComponentStorage ActiveUnit { get; private set; } = null;
+
+        public event Action TurnChanged;
 
         private void Awake()
         {
@@ -28,14 +34,16 @@ namespace DarkLegion.Field
         {
             ComponentStorage unitWithMoreInitiative = FindUnitWithHigherInitiative();
             unitWithMoreInitiative.Initiative.Set(unitWithMoreInitiative.Initiative.Value - 5);
-            
+
             foreach (var unit in _units)
             {
                 unit.Initiative.Set(unit.Initiative.Value + 1);
             }
-            TurnChanged?.Invoke(unitWithMoreInitiative);
+            IsPlayerTurn = unitWithMoreInitiative.gameObject.layer == _playerUnitMask;
+            ActiveUnit = unitWithMoreInitiative;
+            TurnChanged?.Invoke();
+          
         }
-
         private ComponentStorage FindUnitWithHigherInitiative()
         {
             if (_units == null)
