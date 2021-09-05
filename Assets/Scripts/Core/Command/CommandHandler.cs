@@ -7,6 +7,7 @@ namespace DarkLegion.Core.Command
     public class CommandHandler : MonoBehaviour
     {
         Queue<ICommand> _commands;
+
         public void Do(Queue<ICommand> commands)
         {
             _commands = commands;
