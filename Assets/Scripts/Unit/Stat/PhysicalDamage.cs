@@ -1,6 +1,6 @@
-namespace DarkLegion.Unit
+namespace DarkLegion.Unit.Stat
 {
-    public class PhysicalDamage : Stat
+    public class PhysicalDamage : BaseStat
     {
 
         protected override void Init()

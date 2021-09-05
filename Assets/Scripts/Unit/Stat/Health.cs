@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace DarkLegion.Unit
+namespace DarkLegion.Unit.Stat
 {
-    public class Health : Stat
+    public class Health : BaseStat
     {
         public override void Set(int value)
         {

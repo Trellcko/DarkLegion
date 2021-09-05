@@ -1,7 +1,7 @@
-namespace DarkLegion.Unit
+namespace DarkLegion.Unit.Stat
 {
-    public class Initiative : Stat
-    {   
+    public class Initiative : BaseStat
+    {
         protected override void Init()
         {
             Value = BaseStats.Initiative;

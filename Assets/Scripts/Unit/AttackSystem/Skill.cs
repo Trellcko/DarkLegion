@@ -10,7 +10,8 @@ namespace DarkLegion.Unit.AttackSystem
     {
         [SerializeField] private Sprite _icon;
 
-        [SerializeField] private List<GameObject> _skillEffectsGO;
+        [SerializeReference] private List<ISkillEffect> _skillEffects;
+
         [SerializeField] private List<Transform> _targetedCells;
 
         [SerializeField] private string _description;
@@ -19,35 +20,11 @@ namespace DarkLegion.Unit.AttackSystem
 
         public List<Transform> TargetedCells => _targetedCells;
 
-        public List<ISkillEffect> SkillEffects
-        {
-            get
-            {
-                if (_skillEffects == null)
-                {
-                    _skillEffects = new List<ISkillEffect>();
-
-                    foreach (var attackEffectsGo in _skillEffectsGO)
-                    {
-                        if (attackEffectsGo.TryGetComponent(out ISkillEffect attackEffect))
-                        {
-                            _skillEffects.Add(attackEffect);
-                        }
-
-                    }
-                }
-                return _skillEffects;
-            }
-        }
-
         public string Description => _description;
-
-        private List<ISkillEffect> _skillEffects;
-
 
         public void Do(List<ComponentStorage> targets)
         {
-            foreach(var effect in SkillEffects)
+            foreach(var effect in _skillEffects)
             {
                 effect.Do(targets);
             }

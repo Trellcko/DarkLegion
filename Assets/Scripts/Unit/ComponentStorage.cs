@@ -1,6 +1,6 @@
 using DarkLegion.Core.Command;
 using DarkLegion.Unit.AttackSystem;
-
+using DarkLegion.Unit.Stat;
 using UnityEngine;
 
 namespace DarkLegion.Unit
@@ -17,6 +17,8 @@ namespace DarkLegion.Unit
         
         [field: SerializeField] public Initiative Initiative { get; private set; }
 
+        [field: SerializeField] public ActionPoints ActionPoints { get; private set; }
+ 
         [field: SerializeField] public PhysicalDamage PhysicalDamage { get; private set; }
         
         [field: SerializeField] public SkillSet UnitSkillSet { get; private set; }

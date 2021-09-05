@@ -1,5 +1,6 @@
-namespace DarkLegion.Unit {
-    public class Movement : Stat
+namespace DarkLegion.Unit.Stat
+{
+    public class Movement : BaseStat
     {
         protected override void Init()
         {
