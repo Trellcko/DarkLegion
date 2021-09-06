@@ -24,6 +24,7 @@ namespace DarkLegion.UI
                 if (_turnSystem.IsPlayerTurn)
                 {
                     Show();
+                    return;
                 }
                 Hide();
             };
@@ -31,7 +32,6 @@ namespace DarkLegion.UI
 
         private void OnEnable()
         {
-            Debug.Log("Lox");
             _turnSystem.TurnChanged += _turnChangedHandler;
         }
 

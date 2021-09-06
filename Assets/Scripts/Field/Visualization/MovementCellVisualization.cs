@@ -36,23 +36,23 @@ namespace DarkLegion.Field.Visuzalization
                 if (_turnSystem.IsPlayerTurn)
                 {
                     Show(_turnSystem.ActiveUnit.transform.position, _turnSystem.ActiveUnit.Movement.Value);
-                };
+                    return;
+                }
+                ClearLastVisualize();
             };
         }
 
         private void OnEnable()
         {
-            _everythingSelecting.UnSelected += ClearLastVisualize;
             _turnSystem.TurnChanged += _turnChangedHandler;
         }
 
         private void OnDisable()
         {
-            _everythingSelecting.UnSelected -= ClearLastVisualize; 
             _turnSystem.TurnChanged -= _turnChangedHandler;
         }
 
-        private void Show(Vector3 startPosition, int depth)
+        public void Show(Vector3 startPosition, int depth)
         {
             ClearLastVisualize();
          
@@ -98,7 +98,7 @@ namespace DarkLegion.Field.Visuzalization
             _cellFiller.SetColors(pathNodes.Select(x => x.Coordinates).ToList(), GameColors.Movement);
         }
 
-        private void ClearLastVisualize()
+        public void ClearLastVisualize()
         {
             _cellFiller.SetColors(_possibleNodes?.Select(x => x.Coordinates).ToList(), GameColors.Clear);
         }

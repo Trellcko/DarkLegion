@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace DarkLegion.Unit.Stat
 {
-    [CreateAssetMenu(fileName = "New UnitBaseStat", menuName = "Units/BaseStats", order = 41)]
-    public class BaseStats : ScriptableObject
+    [CreateAssetMenu(fileName = "New UnitBaseInfo", menuName = "Units/BaseInfo", order = 41)]
+    public class BaseInfo : ScriptableObject
     {
         [field: SerializeField] public int MaxStep { get; private set; }
 
@@ -14,5 +14,7 @@ namespace DarkLegion.Unit.Stat
         [field: SerializeField, Range(0, 10f)] public int Initiative { get; private set; }
 
         [field: SerializeField, Range(0, 5)] public int AttackPointsCount { get; private set; }
+
+        [field: SerializeField] public Sprite TurnIcon { get; private set; }
     }
 }

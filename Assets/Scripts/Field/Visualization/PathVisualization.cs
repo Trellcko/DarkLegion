@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using DarkLegion.Core.Visualization;
+using System;
 
 namespace DarkLegion.Field.Visuzalization
 {
     public class PathVisualization : MonoBehaviour
     {
-        [SerializeField] private UnitSelecting _playerUnitSelecting;
-        [SerializeField] private TransformSelecting _everythingSelecting;
+        [SerializeField] private TurnSystem _turnSystem;
 
         [SerializeField] private PathDrawer _drawer;
 
@@ -25,16 +25,29 @@ namespace DarkLegion.Field.Visuzalization
 
         private bool _isDrawingPath = false;
 
+        private Action _turnChangedHandler;
+
+        private void Awake()
+        {
+            _turnChangedHandler = () =>
+            {
+                if (_turnSystem.IsPlayerTurn)
+                {
+                    StartDraw();
+                    return;
+                }
+                StopDraw();
+            };
+        }
+
         private void OnEnable()
         {
-            _everythingSelecting.UnSelected += StopDraw; ;
-            _playerUnitSelecting.Selected += StartDraw;
+            _turnSystem.TurnChanged += _turnChangedHandler;
         }
 
         private void OnDisable()
         {
-            _everythingSelecting.UnSelected -= StopDraw;
-            _playerUnitSelecting.Selected -= StartDraw;
+            _turnSystem.TurnChanged -= _turnChangedHandler;
         }
 
         private void Update()
@@ -45,14 +58,14 @@ namespace DarkLegion.Field.Visuzalization
                 
                 _lastMouseCellPosition = _gridHandler.GetCell(mousePosition);
                 
-                var path = _pathfinder.FindPath(_playerUnitSelecting.LastSelected.transform.position,
+                var path = _pathfinder.FindPath(_turnSystem.ActiveUnit.transform.position,
                     mousePosition);
 
                 var dotsData = new Dictionary<Vector3, Color>();
 
                 for (int i = 0; i < path.Count; i++)
                 {
-                    var color = _playerUnitSelecting.LastSelected.Movement.Value > i ? GameColors.Movement : GameColors.Attack;
+                    var color = _turnSystem.ActiveUnit.Movement.Value > i ? GameColors.Movement : GameColors.Attack;
                     dotsData.Add(path[i], color);
                 }
 
@@ -60,12 +73,12 @@ namespace DarkLegion.Field.Visuzalization
             }
         }
 
-        private void StartDraw()
+        public void StartDraw()
         {
             _isDrawingPath = true;
         }
 
-        private void StopDraw()
+        public void StopDraw()
         {
             _isDrawingPath = false;
             _drawer.Erase();

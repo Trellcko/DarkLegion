@@ -1,16 +1,19 @@
-using DarkLegion.Unit.Stat;
-using System.Collections;
-using System.Collections.Generic;
+using System;
+
 using UnityEngine;
 
-namespace DarkLegion.Unit
+namespace DarkLegion.Unit.Stat
 {
-    public class ActionPoints : BaseStat
+    public class ActionPoints : BaseStat, IDisposable
     {
-        [SerializeField] private BaseStats _baseStats;
         protected override void Init()
         {
-            Value = _baseStats.AttackPointsCount;
+            Value = BaseStats.AttackPointsCount;
+        }
+
+        public void Dispose()
+        {
+            Init();
         }
 
     }

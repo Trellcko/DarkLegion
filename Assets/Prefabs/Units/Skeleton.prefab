@@ -143,12 +143,20 @@ PrefabInstance:
       propertyPath: _stats
       value: 
       objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
+    - target: {fileID: 1428609237690775777, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
     - target: {fileID: 2565308890465889285, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
     - target: {fileID: 2565308890465889285, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: _baseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
+    - target: {fileID: 2575340226044322249, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
     - target: {fileID: 3551911308746477303, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}

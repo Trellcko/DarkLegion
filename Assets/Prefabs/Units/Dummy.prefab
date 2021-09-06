@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: _stats
       value: 
       objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
+    - target: {fileID: 1428609237690775777, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
     - target: {fileID: 2214752103604737658, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -24,6 +28,10 @@ PrefabInstance:
       value: 1.712
       objectReference: {fileID: 0}
     - target: {fileID: 2565308890465889285, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
+    - target: {fileID: 2575340226044322249, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
@@ -43,6 +51,10 @@ PrefabInstance:
       propertyPath: _skills.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4906049114713861404, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4906049114713861404, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
     - target: {fileID: 4906049114788330225, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_RootOrder
       value: 0
