@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace DarkLegion.Field.Visuzalization
 {
-    public class Visualizer : MonoBehaviour
+    public class FieldVisualization : MonoBehaviour
     {
         [SerializeField] private Tile _baseTile;
         [SerializeField] private Tilemap _tilemap;

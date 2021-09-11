@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
+    - target: {fileID: 1493796389312997380, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
     - target: {fileID: 2214752103604737658, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -111,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Offset.x
       value: 0.013718978
       objectReference: {fileID: 0}
+    - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: <BaseInfo>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
     - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: <BaseStats>k__BackingField
       value: 

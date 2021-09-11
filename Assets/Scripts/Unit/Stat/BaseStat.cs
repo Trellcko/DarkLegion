@@ -8,7 +8,7 @@ namespace DarkLegion.Unit.Stat
 
         public int Value { get; protected set; }
 
-        private void Start()
+        private void Awake()
         {
             Init();
         }

@@ -13,9 +13,11 @@ namespace DarkLegion.Unit
 
         [field: SerializeField] public AnimatorHandler Animator { get; private set; }
 
+        [field: SerializeField] public BaseInfo BaseInfo { get; private set; }
+
         [field: SerializeField] public Movement Movement { get; private set; }
         
-        [field: SerializeField] public Initiative Initiative { get; private set; }
+        [field: SerializeField] public Reaction Reaction { get; private set; }
 
         [field: SerializeField] public ActionPoints ActionPoints { get; private set; }
  

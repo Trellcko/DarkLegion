@@ -1,10 +1,10 @@
 namespace DarkLegion.Unit.Stat
 {
-    public class Initiative : BaseStat
+    public class Reaction : BaseStat
     {
         protected override void Init()
         {
-            Value = BaseStats.Initiative;
+            Value = BaseStats.Reaction;
         }
     }
 }
