@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +8,6 @@ namespace DarkLegion.UI
     {
         [SerializeField] private Image _background;
         [SerializeField] private Image _icon;
-
-        public void Move()
-        {
-
-        }
 
         public void Set(Sprite background, Sprite icon)
         {

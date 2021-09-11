@@ -22,6 +22,9 @@ namespace DarkLegion.Field
         public event Action TurnChanged;
 
         private List<ComponentStorage> _units;
+
+        List<ComponentStorage> _activeUnits;
+
         private Dictionary<ComponentStorage, bool> _unitsActivity = new Dictionary<ComponentStorage, bool>();
 
         private void Awake()
@@ -35,38 +38,50 @@ namespace DarkLegion.Field
 
         private void Start()
         {
-            ChangeTurn();
+            ChangeActiveUnit();
+            TurnChanged?.Invoke();
+            _turnVisualization.Visualize(UnitExtension.SortByInitiative(_units));
         }
 
         public void ChangeTurn()
-        {   
-            if(ActiveUnit)
-            {
-                _unitsActivity[ActiveUnit] = false;
-            }
-            
-            List<ComponentStorage> activeUnits = _unitsActivity.Where(x => x.Value == true).Select(x=>x.Key).ToList();
-            List<ComponentStorage> nonActiveUnits = _unitsActivity.Where(x => x.Value == false).Select(x => x.Key).ToList();
-
-            if (activeUnits.Count == 0)
-            {
-                foreach(var unit in _units)
-                {
-                    _unitsActivity[unit] = true;
-                }
-                activeUnits = _units;
-            }
-            
-            List<ComponentStorage> unitsWithMoreInitiative = UnitExtension.SortByInitiative(activeUnits);
-            List<ComponentStorage> nonActiveUnitsWithMoreInitiative = UnitExtension.SortByInitiative(nonActiveUnits);
-
-            _turnVisualization.Visualize(unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units ));
-
-            IsPlayerTurn = LayerExtension.ContainsIn(_playerUnitMask, unitsWithMoreInitiative[0].gameObject.layer);
-
-            ActiveUnit = unitsWithMoreInitiative[0];
+        {
+            ChangeActiveUnit();
+            VisualizeTurnChange();
 
             TurnChanged?.Invoke();
         }
+
+        private void VisualizeTurnChange()
+        {
+            List<ComponentStorage> unitsWithMoreInitiative = UnitExtension.SortByInitiative(_activeUnits);
+
+            _turnVisualization.MoveToStart(0, unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units));
+        }
+
+        private void ChangeActiveUnit()
+        {
+            if (ActiveUnit)
+            {
+                _unitsActivity[ActiveUnit] = false;
+            }
+
+            _activeUnits = _unitsActivity.Where(x => x.Value == true).Select(x => x.Key).ToList();
+
+            if (_activeUnits.Count == 0)
+            {
+                foreach (var unit in _units)
+                {
+                    _unitsActivity[unit] = true;
+                }
+                _activeUnits = _units;
+            }
+
+            _activeUnits = UnitExtension.SortByInitiative(_activeUnits);
+
+            IsPlayerTurn = LayerExtension.ContainsIn(_playerUnitMask, _activeUnits[0].gameObject.layer);
+
+            ActiveUnit = _activeUnits[0];
+        }
+
     }
 }
