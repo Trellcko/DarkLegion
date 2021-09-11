@@ -147,6 +147,10 @@ PrefabInstance:
       propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
+    - target: {fileID: 1493796389312997380, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
     - target: {fileID: 2565308890465889285, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: BaseStats
       value: 
@@ -277,6 +281,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
+    - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: <BaseInfo>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
     - target: {fileID: 4906049114788330231, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}

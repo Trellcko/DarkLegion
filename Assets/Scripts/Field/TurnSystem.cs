@@ -1,3 +1,4 @@
+using DarkLegion.Field.Visuzalization;
 using DarkLegion.Unit;
 
 using System;
@@ -10,18 +11,26 @@ namespace DarkLegion.Field
 {
     public class TurnSystem : MonoBehaviour
     {
-        [SerializeField] private List<ComponentStorage> _units;
+        [SerializeField] private TurnVisualization _turnVisualization;
 
         [SerializeField] private LayerMask _playerUnitMask;
-
+       
         public bool IsPlayerTurn { get; private set; } = false;
+
         public ComponentStorage ActiveUnit { get; private set; } = null;
 
         public event Action TurnChanged;
 
+        private List<ComponentStorage> _units;
+        private Dictionary<ComponentStorage, bool> _unitsActivity = new Dictionary<ComponentStorage, bool>();
+
         private void Awake()
         {
             _units = FindObjectsOfType<ComponentStorage>().ToList();
+            for(int i = 0; i < _units.Count; i++)
+            {
+                _unitsActivity.Add(_units[i], true);
+            }
         }
 
         private void Start()
@@ -30,37 +39,34 @@ namespace DarkLegion.Field
         }
 
         public void ChangeTurn()
-        {
-            ComponentStorage unitWithMoreInitiative = FindUnitWithHigherInitiative();
-            unitWithMoreInitiative.Initiative.Set(unitWithMoreInitiative.Initiative.Value - 5);
-
-            foreach (var unit in _units)
+        {   
+            if(ActiveUnit)
             {
-                unit.Initiative.Set(unit.Initiative.Value + 1);
+                _unitsActivity[ActiveUnit] = false;
             }
-           
-            IsPlayerTurn = _playerUnitMask == (_playerUnitMask | (1 << unitWithMoreInitiative.gameObject.layer));
-            ActiveUnit = unitWithMoreInitiative;
-            Debug.Log($"ActiveUnitName: {ActiveUnit?.name}");
-            TurnChanged?.Invoke();
-        }
-        private ComponentStorage FindUnitWithHigherInitiative()
-        {
-            if (_units == null)
-            {
-                return null;
-            }
-            ComponentStorage result = _units[0];
+            
+            List<ComponentStorage> activeUnits = _unitsActivity.Where(x => x.Value == true).Select(x=>x.Key).ToList();
+            List<ComponentStorage> nonActiveUnits = _unitsActivity.Where(x => x.Value == false).Select(x => x.Key).ToList();
 
-            foreach(var unit in _units)
+            if (activeUnits.Count == 0)
             {
-                if(unit.Initiative.Value > result.Initiative.Value)
+                foreach(var unit in _units)
                 {
-                    result = unit;
+                    _unitsActivity[unit] = true;
                 }
+                activeUnits = _units;
             }
+            
+            List<ComponentStorage> unitsWithMoreInitiative = UnitExtension.SortByInitiative(activeUnits);
+            List<ComponentStorage> nonActiveUnitsWithMoreInitiative = UnitExtension.SortByInitiative(nonActiveUnits);
 
-            return result;
+            _turnVisualization.Visualize(unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units ));
+
+            IsPlayerTurn = LayerExtension.ContainsIn(_playerUnitMask, unitsWithMoreInitiative[0].gameObject.layer);
+
+            ActiveUnit = unitsWithMoreInitiative[0];
+
+            TurnChanged?.Invoke();
         }
     }
 }

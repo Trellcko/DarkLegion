@@ -11,7 +11,7 @@ namespace DarkLegion.Unit.Stat
 
         [field: SerializeField, Range(0f, 100f)] public int PhysicalDamage { get; private set; }
 
-        [field: SerializeField, Range(0, 10f)] public int Initiative { get; private set; }
+        [field: SerializeField, Range(0, 10f)] public int Reaction { get; private set; }
 
         [field: SerializeField, Range(0, 5)] public int AttackPointsCount { get; private set; }
 

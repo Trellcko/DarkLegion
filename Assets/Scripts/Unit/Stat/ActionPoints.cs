@@ -1,7 +1,5 @@
 using System;
 
-using UnityEngine;
-
 namespace DarkLegion.Unit.Stat
 {
     public class ActionPoints : BaseStat, IDisposable
