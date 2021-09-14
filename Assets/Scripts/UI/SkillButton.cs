@@ -27,12 +27,13 @@ namespace DarkLegion.UI
 
         private Image _image;
 
-        private List<Transform> _lastSkillAttackedCell = new List<Transform>();
+        private Skill _skill;
 
         private string _description = "";
 
         private bool _isMouseOver = false;
         private bool _isOff = true;
+
 
         private void Awake()
         {
@@ -49,7 +50,7 @@ namespace DarkLegion.UI
         {
             _image.sprite = skill.AttackIcon;
             _description = skill.Description;
-            _lastSkillAttackedCell = skill.TargetedCells;
+            _skill = skill;
         }
 
         public void TryHide()
@@ -126,7 +127,7 @@ namespace DarkLegion.UI
 
         private void ShowLastSkillAttackPoint()
         {
-            _attackingCellVisualization.Show(_lastSkillAttackedCell);
+            _attackingCellVisualization.Show(_skill.StartPoint.position, _skill.TargetedCoordiantes);
         }
     }
 }

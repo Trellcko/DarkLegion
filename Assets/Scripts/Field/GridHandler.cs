@@ -6,7 +6,7 @@ namespace DarkLegion.Field
     {
         [SerializeField] private Grid _grid;
 
-        public Vector2 CellSize => _grid.cellSize;
+        public Vector3 CellSize => _grid.cellSize;
 
         public bool CheckForFreeSpace(Vector3Int cell, LayerMask layers)
         {

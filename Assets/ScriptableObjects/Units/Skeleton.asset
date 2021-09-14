@@ -16,5 +16,5 @@ MonoBehaviour:
   <Health>k__BackingField: 150
   <PhysicalDamage>k__BackingField: 50
   <Reaction>k__BackingField: 3
-  <AttackPointsCount>k__BackingField: 2
+  <AttackPointsCount>k__BackingField: 5
   <TurnIcon>k__BackingField: {fileID: 21300000, guid: 53b184edb66b84f47a62f448fbff0bed, type: 3}

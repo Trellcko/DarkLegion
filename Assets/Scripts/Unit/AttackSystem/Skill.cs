@@ -1,26 +1,25 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+
 using System.Collections.Generic;
 
 using UnityEngine;
 
 namespace DarkLegion.Unit.AttackSystem
 {
-    [Serializable]
-    public class Skill
+    public class Skill : SerializedMonoBehaviour
     {
-        [SerializeField] private Sprite _icon;
+        [field: SerializeField] public Transform StartPoint { get; private set; }
 
-        [SerializeReference] private List<ISkillEffect> _skillEffects;
+        [field: SerializeField] public Sprite AttackIcon { get; private set; }
 
-        [SerializeField] private List<Transform> _targetedCells;
+        [field: SerializeField] public List<Vector3> TargetedCoordiantes { get; private set; }
 
-        [SerializeField] private string _description;
+        [field: SerializeField] public string Description { get; private set; }
+        
+        [field: SerializeField] public int Cost { get; private set; }
 
-        public Sprite AttackIcon => _icon;
-
-        public List<Transform> TargetedCells => _targetedCells;
-
-        public string Description => _description;
+        [OdinSerialize] private List<ISkillEffect> _skillEffects;
 
         public void Do(List<ComponentStorage> targets)
         {

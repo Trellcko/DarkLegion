@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Sirenix.OdinInspector;
-
 namespace DarkLegion.Unit.AttackSystem
 {
-    public class SkillSet : SerializedMonoBehaviour
+    public class SkillSet : MonoBehaviour
     {
-        public int Count => _skills.Count;
 
         [SerializeField] private List<Skill> _skills;
+
+        public int Count => _skills.Count;
 
         public Skill this[int index]
         {

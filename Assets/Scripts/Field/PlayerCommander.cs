@@ -14,6 +14,7 @@ namespace DarkLegion.Field
     public class PlayerCommander : MonoBehaviour
     {
         [SerializeField] private Pathfinder _pathfinder;
+        [SerializeField] private GridHandler _gridHandler;
 
         [SerializeField] private List<SkillButton> _skillButtons;
         [SerializeField] private FlipButton _flipButton;
@@ -143,10 +144,11 @@ namespace DarkLegion.Field
                 commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
                 commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
                 List<ComponentStorage> targets = new List<ComponentStorage>();
-                foreach (var point in who.UnitSkillSet[skillIndex].TargetedCells)
+                foreach (var point in who.UnitSkillSet[skillIndex].TargetedCoordiantes)
                 {
-                    _enemyUnitSelectingForAttack.TrySelect(point.position);
-                    Debug.Log(point.position);
+                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position)) 
+                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0));
+
                     if (_enemyUnitSelectingForAttack.LastSelectedOrNull)
                     {
                         targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);
