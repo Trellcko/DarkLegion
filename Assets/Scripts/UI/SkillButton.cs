@@ -17,9 +17,7 @@ namespace DarkLegion.UI
     {
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Image _textPanel;
-
         [SerializeField] private AttackedCellVisualization _attackingCellVisualization;
-
         [SerializeField] private int _attackIndex;
 
 
@@ -33,11 +31,26 @@ namespace DarkLegion.UI
 
         private bool _isMouseOver = false;
         private bool _isOff = true;
+        private bool _isInteractible = true;
 
+        private readonly Color _interactibleColor = Color.white;
+        private readonly Color _nonInteractibleColor = new Color(1, 1, 1, 0.5f);
 
         private void Awake()
         {
             _image = GetComponent<Image>();
+        }
+
+        public void EnableInteractive()
+        {
+            _isInteractible = true;
+            _image.color = _interactibleColor;
+        }    
+
+        public void DisableInteractive()
+        {
+            _isInteractible = false;
+            _image.color = _nonInteractibleColor;
         }
 
         public void Show()
@@ -79,9 +92,12 @@ namespace DarkLegion.UI
 
         private void PointerClick()
         {
-            Hide();
-            SkillButtonClicked?.Invoke(_attackIndex);
+            if (_isInteractible)
+            {
+                SkillButtonClicked?.Invoke(_attackIndex);
+            }
         }
+
         private void PointerEnter()
         {
             EnableText();

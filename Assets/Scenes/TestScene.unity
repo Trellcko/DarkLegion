@@ -338,22 +338,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 529476642638873867, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+      propertyPath: <Cost>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 529476642638873867, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
-    - target: {fileID: 529476642638873867, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
-      propertyPath: _skills.Array.data[0]._skillEffects1.Array.size
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 529476642638873867, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
-      propertyPath: _skills.Array.data[0]._skillEffects1.Array.data[0].data
-      value: 
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[0]
+      value: '"path":"_skillEffects.[0]","value":$eref:0'
       objectReference: {fileID: 0}
-    - target: {fileID: 529476643118060256, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
-      propertyPath: <BaseInfo>k__BackingField
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711861785, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d5a27b8f65c6fc84eaa10ca1260a0e9e, type: 2}
+      objectReference: {fileID: 1243577479}
     - target: {fileID: 529476643118060260, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -835,6 +843,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504718144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2899280955393797841, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
+  m_PrefabInstance: {fileID: 772437359}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b197eb37de82142a862d88c6b21f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &521729150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1049,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 0}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1455,6 +1474,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2899280955069774138, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
+      propertyPath: <SkillSet>k__BackingField
+      value: 
+      objectReference: {fileID: 504718144}
     - target: {fileID: 2899280955069774140, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1506,6 +1529,10 @@ PrefabInstance:
     - target: {fileID: 2899280955069774142, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899280955393797841, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
+      propertyPath: _skills.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2899280955393797841, guid: ec9c84e93fb784545a1c97fba1dee1bf, type: 3}
       propertyPath: serializationData.Prefab
@@ -2160,6 +2187,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1243577479 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3821762885646032809, guid: 1fecddba2fb7c0f4396542448f840514, type: 3}
+  m_PrefabInstance: {fileID: 244941021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b78e13f73606554887a6d8eba0cfcba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1265212641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2647,6 +2685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pathfinder: {fileID: 812235788}
+  _gridHandler: {fileID: 1870295349}
   _skillButtons:
   - {fileID: 1150914567}
   - {fileID: 554695195}

@@ -5,7 +5,6 @@ namespace DarkLegion.Unit.AttackSystem
 {
     public class SkillSet : MonoBehaviour
     {
-
         [SerializeField] private List<Skill> _skills;
 
         public int Count => _skills.Count;
