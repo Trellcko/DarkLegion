@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace DarkLegion.Unit.Stat
 {
     public abstract class BaseStat : MonoBehaviour
     {
+
         [SerializeField] protected BaseInfo BaseStats;
 
         public int Value { get; protected set; }

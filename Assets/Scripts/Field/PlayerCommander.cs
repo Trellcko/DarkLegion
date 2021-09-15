@@ -6,6 +6,7 @@ using DarkLegion.UI;
 using DarkLegion.Unit;
 using DarkLegion.Utils;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace DarkLegion.Field
     public class PlayerCommander : MonoBehaviour
     {
         [SerializeField] private Pathfinder _pathfinder;
+        [SerializeField] private GridHandler _gridHandler;
 
         [SerializeField] private List<SkillButton> _skillButtons;
         [SerializeField] private FlipButton _flipButton;
@@ -27,19 +29,20 @@ namespace DarkLegion.Field
         [SerializeField] private TransformSelecting _everythingSelecting;
         [SerializeField] private UnitSelecting _enemyUnitSelectingForAttack;
 
-        private Action _unSelectedHandelr;
         private Action<int> _skillButtonClickedHandler;
+        private Action _unSelectedHandelr;
         private Action _flipButtonClickedHandler;
         private Action _turnChangedHandler;
 
         private void Awake()
         {
-            _turnChangedHandler = () =>
+            _turnChangedHandler += () =>
             {
-                if (_turnSystem.IsPlayerTurn && _turnSystem.ActiveUnit.ActionPoints.Value == 0)
+                if (_turnSystem.IsPlayerTurn && _turnSystem.ActiveUnit.ActionPoints.Value != 0)
                 {
-                    _turnSystem.ChangeTurn();
+                    TurnOnMovementVisualization();
                 }
+
             };
             _unSelectedHandelr += () =>
             {
@@ -59,7 +62,7 @@ namespace DarkLegion.Field
             
             foreach(var button in _skillButtons)
             {
-                button.SkillButtonClicked += _skillButtonClickedHandler;
+                button.SkillButtonClicked += _skillButtonClickedHandler;   
             }
             
             _flipButton.Clicked += _flipButtonClickedHandler;
@@ -87,8 +90,7 @@ namespace DarkLegion.Field
 
                 if (path.Count <= who.Movement.Value && path.Count != 0)
                 {
-                    _movementCellVisualization.ClearLastVisualize();
-                    _pathVisualization.StopDraw();
+                    TurnOffMovmentVisualization();
                     var commands = new Queue<ICommand>();
                     var lastPoint = who.transform.position;
 
@@ -104,25 +106,26 @@ namespace DarkLegion.Field
 
                         lastPoint = path[i];
                     }
-
-                    var idleAnimationPlayCommand = new IdleAnimationPlayCommand(who.Animator);
-                    idleAnimationPlayCommand.Completed += () =>
+                    commands.Last().Completed += () =>
                     {
-                        if(!TryChangeTurn(who))
+                        if (!TryChangeTurn(who))
                         {
-                            _movementCellVisualization.Show(_turnSystem.ActiveUnit.transform.position, 
-                                _turnSystem.ActiveUnit.Movement.Value);
-
-                            _pathVisualization.StartDraw();
+                            TurnOnMovementVisualization();
+                            CheckButtonInteractive();
                         }
                     };
-                
-                    commands.Enqueue(idleAnimationPlayCommand);
 
+                    commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
                     who.ActionPoints.Set(who.ActionPoints.Value - 1);
                     who.CommandHandler.Do(commands);
                 }
             }
+        }
+
+        private void TurnOffMovmentVisualization()
+        {
+            _movementCellVisualization.ClearLastVisualize();
+            _pathVisualization.StopDraw();
         }
 
         public void TryFlip(ComponentStorage who)
@@ -137,25 +140,42 @@ namespace DarkLegion.Field
 
         public void TryUseSkill(ComponentStorage who, int skillIndex)
         {
-            if (who && !who.CommandHandler.HasCommands)
+            if (who && !who.CommandHandler.HasCommands && 
+                who.ActionPoints.Value >= who.SkillSet[skillIndex].Cost)
             {
                 var commands = new Queue<ICommand>();
                 commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
                 commands.Enqueue(new IdleAnimationPlayCommand(who.Animator));
                 List<ComponentStorage> targets = new List<ComponentStorage>();
-                foreach (var point in who.UnitSkillSet[skillIndex].TargetedCells)
+                foreach (var point in who.SkillSet[skillIndex].TargetedCoordiantes)
                 {
-                    _enemyUnitSelectingForAttack.TrySelect(point.position);
-                    Debug.Log(point.position);
+                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position)) 
+                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0));
+
                     if (_enemyUnitSelectingForAttack.LastSelectedOrNull)
                     {
                         targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);
                     } 
                 }
                 commands.Enqueue(new AttackCommand(who, skillIndex, targets));
-
+                
+                commands.Last().Completed += () => 
+                {
+                    if (!TryChangeTurn(who))
+                    {
+                        CheckButtonInteractive();
+                    }
+                };
+                who.ActionPoints.Set(who.ActionPoints.Value - who.SkillSet[skillIndex].Cost);
                 who.CommandHandler.Do(commands);
             }
+        }
+
+        private void TurnOnMovementVisualization()
+        {
+            _movementCellVisualization.Show(_turnSystem.ActiveUnit.transform.position,
+                                            _turnSystem.ActiveUnit.Movement.Value);
+            _pathVisualization.StartDraw();
         }
 
         private bool TryChangeTurn(ComponentStorage unit)
@@ -168,6 +188,18 @@ namespace DarkLegion.Field
             }
             return false;
         }
+
+        private void CheckButtonInteractive()
+        {
+            for(int i = 0; i < _turnSystem.ActiveUnit.SkillSet.Count; i++)
+            {
+                if(_turnSystem.ActiveUnit.ActionPoints.Value < _turnSystem.ActiveUnit.SkillSet[i].Cost)
+                {
+                    _skillButtons[i].DisableInteractive();
+                }
+            }
+        }
+
         private bool GetFlip(Vector3 lastPoint, Vector3 point)
         {
              return point.x < lastPoint.x;

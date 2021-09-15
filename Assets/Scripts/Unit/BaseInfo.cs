@@ -13,7 +13,7 @@ namespace DarkLegion.Unit.Stat
 
         [field: SerializeField, Range(0, 10f)] public int Reaction { get; private set; }
 
-        [field: SerializeField, Range(0, 5)] public int AttackPointsCount { get; private set; }
+        [field: SerializeField, Range(0, 5)] public int ActivePointsCount { get; private set; }
 
         [field: SerializeField] public Sprite TurnIcon { get; private set; }
     }

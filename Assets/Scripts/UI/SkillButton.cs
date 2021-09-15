@@ -17,9 +17,7 @@ namespace DarkLegion.UI
     {
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Image _textPanel;
-
         [SerializeField] private AttackedCellVisualization _attackingCellVisualization;
-
         [SerializeField] private int _attackIndex;
 
 
@@ -27,16 +25,32 @@ namespace DarkLegion.UI
 
         private Image _image;
 
-        private List<Transform> _lastSkillAttackedCell = new List<Transform>();
+        private Skill _skill;
 
         private string _description = "";
 
         private bool _isMouseOver = false;
         private bool _isOff = true;
+        private bool _isInteractible = true;
+
+        private readonly Color _interactibleColor = Color.white;
+        private readonly Color _nonInteractibleColor = new Color(1, 1, 1, 0.5f);
 
         private void Awake()
         {
             _image = GetComponent<Image>();
+        }
+
+        public void EnableInteractive()
+        {
+            _isInteractible = true;
+            _image.color = _interactibleColor;
+        }    
+
+        public void DisableInteractive()
+        {
+            _isInteractible = false;
+            _image.color = _nonInteractibleColor;
         }
 
         public void Show()
@@ -49,7 +63,7 @@ namespace DarkLegion.UI
         {
             _image.sprite = skill.AttackIcon;
             _description = skill.Description;
-            _lastSkillAttackedCell = skill.TargetedCells;
+            _skill = skill;
         }
 
         public void TryHide()
@@ -78,9 +92,12 @@ namespace DarkLegion.UI
 
         private void PointerClick()
         {
-            Hide();
-            SkillButtonClicked?.Invoke(_attackIndex);
+            if (_isInteractible)
+            {
+                SkillButtonClicked?.Invoke(_attackIndex);
+            }
         }
+
         private void PointerEnter()
         {
             EnableText();
@@ -126,7 +143,7 @@ namespace DarkLegion.UI
 
         private void ShowLastSkillAttackPoint()
         {
-            _attackingCellVisualization.Show(_lastSkillAttackedCell);
+            _attackingCellVisualization.Show(_skill.StartPoint.position, _skill.TargetedCoordiantes);
         }
     }
 }

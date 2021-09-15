@@ -6,7 +6,7 @@ namespace DarkLegion.Unit.Stat
     {
         protected override void Init()
         {
-            Value = BaseStats.AttackPointsCount;
+            Value = BaseStats.ActivePointsCount;
         }
 
         public void Dispose()

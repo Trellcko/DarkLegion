@@ -42,9 +42,10 @@ namespace DarkLegion.UI
 
         private void Show()
         {
-            for (int i = 0; i < _turnSystem.ActiveUnit.UnitSkillSet.Count; i++)
+            for (int i = 0; i < _turnSystem.ActiveUnit.SkillSet.Count; i++)
             {
-                _buttons[i].SetData(_turnSystem.ActiveUnit.UnitSkillSet[i]);
+                _buttons[i].EnableInteractive();
+                _buttons[i].SetData(_turnSystem.ActiveUnit.SkillSet[i]);
                 _buttons[i].Show();
             }
             _flipButton.Show();
