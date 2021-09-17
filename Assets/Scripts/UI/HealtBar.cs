@@ -16,12 +16,12 @@ namespace DarkLegion.UI
 
         public event Action Emptied;
 
-        private int _maxValue = 1;
-        private int _currentValue = 1;
+        private float _maxValue = 1;
+        private float _currentValue = 1;
 
-        private const int MinValue = 0;
+        private const float MinValue = 0;
 
-        public void SetMax(int value)
+        public void SetMax(float value)
         {
             if (value <= 0) return;
 
@@ -30,9 +30,9 @@ namespace DarkLegion.UI
             ChangeText(_currentValue);
         }
 
-        public void SetValue(int value)
+        public void SetValue(float value)
         {
-            int clampedValue = Mathf.Clamp(value, MinValue, _maxValue);
+            float clampedValue = Mathf.Clamp(value, MinValue, _maxValue);
 
             float fillValue = (float)clampedValue / _maxValue;
 
@@ -50,9 +50,9 @@ namespace DarkLegion.UI
 
         }
 
-        private void ChangeText(int value)
+        private void ChangeText(float value)
         {
-            _text.SetText($"{value} / {_maxValue}");
+            _text.SetText($"{string.Format("#.00", value)} / {_maxValue}");
         }
 
     }

@@ -174,7 +174,7 @@ namespace DarkLegion.Field
         private void TurnOnMovementVisualization()
         {
             _movementCellVisualization.Show(_turnSystem.ActiveUnit.transform.position,
-                                            _turnSystem.ActiveUnit.Movement.Value);
+                                            (int)_turnSystem.ActiveUnit.Movement.Value);
             _pathVisualization.StartDraw();
         }
 
