@@ -25,7 +25,7 @@ namespace DarkLegion.Unit
             _healtBar.SetMax(_health.Value);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             _health.Set(_health.Value - damage);
             _healtBar.SetValue(_health.Value);

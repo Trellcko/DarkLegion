@@ -35,7 +35,7 @@ namespace DarkLegion.Field.Visuzalization
             {
                 if (_turnSystem.IsPlayerTurn)
                 {
-                    Show(_turnSystem.ActiveUnit.transform.position, _turnSystem.ActiveUnit.Movement.Value);
+                    Show(_turnSystem.ActiveUnit.transform.position, (int)_turnSystem.ActiveUnit.Movement.Value);
                     return;
                 }
                 ClearLastVisualize();

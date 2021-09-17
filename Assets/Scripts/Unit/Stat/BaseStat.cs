@@ -8,14 +8,14 @@ namespace DarkLegion.Unit.Stat
 
         [SerializeField] protected BaseInfo BaseStats;
 
-        public int Value { get; protected set; }
+        public float Value { get; protected set; }
 
         private void Awake()
         {
             Init();
         }
 
-        public virtual void Set(int value)
+        public virtual void Set(float value)
         {
             if (value < 0)
             {

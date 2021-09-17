@@ -4,7 +4,7 @@ namespace DarkLegion.Unit.Stat
 {
     public class Health : BaseStat
     {
-        public override void Set(int value)
+        public override void Set(float value)
         {
              Value = Mathf.Clamp(value, 0, BaseStats.Health);
         }
