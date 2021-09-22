@@ -1,6 +1,5 @@
 using DarkLegion.Unit.Stat;
 using DarkLegion.Utils;
-
 namespace DarkLegion.Unit.AttackSystem
 {
     public abstract class Buff<T> : IBuff where T : BaseStat
@@ -21,7 +20,7 @@ namespace DarkLegion.Unit.AttackSystem
 
         private readonly int _maxDuration = 0;
         private readonly int _factor = 1;
-
+        
         public Buff(T stat, float value, int duration, bool isPositiveBuff, bool isFixed = true, bool isInfinity = false)
         {
             _targetStat = stat;
@@ -30,14 +29,14 @@ namespace DarkLegion.Unit.AttackSystem
             Value = value;
             _maxDuration = duration;
             _currentDuration = _maxDuration;
-            _factor = isPositiveBuff ? -1 : 1;
+            _factor = isPositiveBuff ? 1 : -1;
             IsInfinity = isInfinity;
         }
 
         public void Do()
         {
-            _increasedStatValue = IsFixed ? MathExtensions.CalculateValueFromPrecent(_targetStat.Value, Value) :
-                _targetStat.Value + Value * _factor;
+            _increasedStatValue = IsFixed == false ? MathExtensions.CalculateValueFromPrecent(_targetStat.Value, Value) :
+                 Value * _factor;
             _targetStat.Set(_targetStat.Value + _increasedStatValue);
         }
 
