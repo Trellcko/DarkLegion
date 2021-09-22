@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 4906049114788330230}
   - component: {fileID: 4906049114788330231}
   - component: {fileID: 4906049114713861404}
+  - component: {fileID: 4379300467838582523}
   m_Layer: 6
   m_Name: BaseUnit
   m_TagString: Untagged
@@ -455,7 +456,8 @@ MonoBehaviour:
   <Reaction>k__BackingField: {fileID: 1493796389312997380}
   <ActionPoints>k__BackingField: {fileID: 2575340226044322249}
   <PhysicalDamage>k__BackingField: {fileID: 6098868731511873814}
-  <UnitSkillSet>k__BackingField: {fileID: 4906049114713861404}
+  <SkillSet>k__BackingField: {fileID: 4906049114713861404}
+  <BuffStorage>k__BackingField: {fileID: 4379300467838582523}
 --- !u!114 &4906049114713861404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +473,18 @@ MonoBehaviour:
   _skills:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &4379300467838582523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906049114788330227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a1fb150f968d947a17ee9d9deffc8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5346977756492098675
 GameObject:
   m_ObjectHideFlags: 0

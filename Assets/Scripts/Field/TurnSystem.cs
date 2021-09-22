@@ -63,6 +63,8 @@ namespace DarkLegion.Field
             if (ActiveUnit)
             {
                 _unitsActivity[ActiveUnit] = false;
+                ActiveUnit.ActionPoints.Emptied -= ChangeTurn;
+                ActiveUnit.ActionPoints.Dispose();
             }
 
             _activeUnits = _unitsActivity.Where(x => x.Value == true).Select(x => x.Key).ToList();
@@ -81,6 +83,7 @@ namespace DarkLegion.Field
             IsPlayerTurn = LayerExtension.ContainsIn(_playerUnitMask, _activeUnits[0].gameObject.layer);
 
             ActiveUnit = _activeUnits[0];
+            ActiveUnit.ActionPoints.Emptied += ChangeTurn;
         }
 
     }
