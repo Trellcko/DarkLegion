@@ -52,6 +52,7 @@ namespace DarkLegion.Unit.AttackSystem
         public void Add(IBuff buff)
         {
             _buffs.Add(buff);
+            buff.Do();
         }
     }
 }
