@@ -52,7 +52,7 @@ namespace DarkLegion.UI
 
         private void ChangeText(float value)
         {
-            _text.SetText($"{string.Format("#.00", value)} / {_maxValue}");
+            _text.SetText($"{string.Format("{0:0.0}", value)} / {_maxValue}");
         }
 
     }
