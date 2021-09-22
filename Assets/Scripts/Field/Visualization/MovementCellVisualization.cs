@@ -16,41 +16,12 @@ namespace DarkLegion.Field.Visuzalization
         [SerializeField] private GridHandler _gridHandler;
         [SerializeField] private CellFiller _cellFiller;
 
-        [SerializeField] private TurnSystem _turnSystem;
-
-        [SerializeField] private TransformSelecting _everythingSelecting;
-
         private List<PathNode> _currentIterationNodes;
         private List<PathNode> _nextIterationNodes;
         private List<PathNode> _possibleNodes;
 
-        private Action _turnChangedHandler;
-
         private int _maxDepth;
         private int _currentDepth = 0;
-
-        private void Awake()
-        {
-            _turnChangedHandler += () =>
-            {
-                if (_turnSystem.IsPlayerTurn)
-                {
-                    Show(_turnSystem.ActiveUnit.transform.position, (int)_turnSystem.ActiveUnit.Movement.Value);
-                    return;
-                }
-                ClearLastVisualize();
-            };
-        }
-
-        private void OnEnable()
-        {
-            _turnSystem.TurnChanged += _turnChangedHandler;
-        }
-
-        private void OnDisable()
-        {
-            _turnSystem.TurnChanged -= _turnChangedHandler;
-        }
 
         public void Show(Vector3 startPosition, int depth)
         {

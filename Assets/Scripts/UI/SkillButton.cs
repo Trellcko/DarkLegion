@@ -58,6 +58,12 @@ namespace DarkLegion.UI
             _image.enabled = true;
             _isOff = false;
         }
+        public void Hide()
+        {
+            _image.enabled = false;
+            _isOff = true;
+            PointerExit();
+        }
 
         public void SetData(Skill skill)
         {
@@ -101,8 +107,6 @@ namespace DarkLegion.UI
         private void PointerEnter()
         {
             EnableText();
-
-            _descriptionText.SetText(_description);
             ShowLastSkillAttackPoint();
             _isMouseOver = true;
         }
@@ -124,21 +128,16 @@ namespace DarkLegion.UI
             _isMouseOver = false;
         }
 
-        private void Hide()
-        {
-            _image.enabled = false;
-            _isOff = true;
-            PointerExit();
-        }
-
         private void EnableText()
         {
             _textPanel.enabled = true;
+            _descriptionText.SetText(_description);
         }
 
         private void DisableText()
         {
             _textPanel.enabled = false;
+            _descriptionText.SetText("");
         }
 
         private void ShowLastSkillAttackPoint()

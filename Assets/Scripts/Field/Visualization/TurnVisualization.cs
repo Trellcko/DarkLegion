@@ -113,7 +113,7 @@ namespace DarkLegion.Field.Visuzalization
             }
             sequence.OnComplete(() =>
             {
-
+                ChangeOrderIcons(offsetIcons, _turnIcons);
                 for(int  i = 0; i < _turnIcons.Count; i++)
                 {
                     _unitIconPairs[_turnIcons[i]] = sortedUnits[i];
@@ -122,6 +122,16 @@ namespace DarkLegion.Field.Visuzalization
 
             sequence.Play();
         }
+
+        private void ChangeOrderIcons(List<TurnIcon> offsetIcons, List<TurnIcon> turnIcons)
+        {
+            for(int i = 0; i < offsetIcons.Count; i++)
+            {
+                turnIcons.Remove(offsetIcons[i]);
+                turnIcons.Add(offsetIcons[i]);
+            }
+        }
+
         private void SetIcon(ComponentStorage unit, TurnIcon turnIcon)
         {
             Sprite backgroung = LayerExtension.ContainsIn(_playerMask, unit.gameObject.layer) ?
