@@ -1,3 +1,4 @@
+using DarkLegion.Core;
 using DarkLegion.Core.Spawning;
 using DarkLegion.UI;
 using DarkLegion.Unit.Stat;
@@ -21,30 +22,20 @@ namespace DarkLegion.Unit
             _healtBar.GetComponent<AttachingUI>().SetTarget(_healthBarPoint);
         }
 
+        public IValueChanged GetValueChanged()
+        {
+            return _health;
+        }
+
         private void Start()
         {
             _healtBar.SetMax(_health.Value);
-        }
-
-        public float GetValue()
-        {
-            return _health.Value;
-        }
-
-        public void SubscribeToChangeValue(Action action)
-        {
-            _health.Changed -= action;
-            _health.Changed += action;
-        }
-        public void UnSubscribeToChangeValue(Action action)
-        {
-            _health.Changed -= action;
+            _healtBar.SetTarget(_health);
         }
 
         public void TakeDamage(float damage)
         {
             _health.Set(_health.Value - damage);
-            _healtBar.SetValue(_health.Value);
         }    
     }
 }

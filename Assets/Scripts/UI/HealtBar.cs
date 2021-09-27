@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DarkLegion.Core;
 
 namespace DarkLegion.UI
 {
@@ -14,12 +15,35 @@ namespace DarkLegion.UI
 
         [SerializeField] private float _changeSpeed;
 
-        public event Action Emptied;
+        private IValueChanged _target;
+        private Action _valueChangedHandelr;
 
         private float _maxValue = 1;
         private float _currentValue = 1;
 
         private const float MinValue = 0;
+
+        private void Awake()
+        {
+            _valueChangedHandelr += () => { SetValue(_target.GetValue()); };
+        }
+
+        private void OnEnable()
+        {
+            if (_target != null)
+            {
+                _target.Changed += _valueChangedHandelr;
+            }
+        }
+
+        private void OnDisable()
+        {
+
+            if (_target != null)
+            {
+                _target.Changed -= _valueChangedHandelr;
+            }
+        }
 
         public void SetMax(float value)
         {
@@ -28,6 +52,16 @@ namespace DarkLegion.UI
             _currentValue *= value / _maxValue;
             _maxValue = value;
             ChangeText(_currentValue);
+        }
+
+        public void SetTarget(IValueChanged target)
+        {
+           if(_target != null)
+            {
+                _target.Changed -= _valueChangedHandelr;
+            }
+            _target = target;
+            _target.Changed += _valueChangedHandelr;
         }
 
         public void SetValue(float value)
@@ -42,10 +76,6 @@ namespace DarkLegion.UI
                 .OnComplete(() =>
                 {
                     _currentValue = clampedValue;
-                    if (_currentValue == MinValue)
-                    {
-                        Emptied?.Invoke();
-                    }
                 });
 
         }
