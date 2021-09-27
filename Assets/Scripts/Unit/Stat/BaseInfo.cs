@@ -22,5 +22,7 @@ namespace DarkLegion.Unit.Stat
         [field: SerializeField, Range(0, 5)] public int ActivePointsCount { get; private set; }
 
         [field: SerializeField] public Sprite TurnIcon { get; private set; }
+
+        [field: SerializeField] public string Name { get; private set; }
     }
 }
