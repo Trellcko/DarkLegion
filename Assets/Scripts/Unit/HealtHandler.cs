@@ -2,6 +2,7 @@ using DarkLegion.Core.Spawning;
 using DarkLegion.UI;
 using DarkLegion.Unit.Stat;
 using DarkLegion.Utils;
+using System;
 using UnityEngine;
 
 namespace DarkLegion.Unit
@@ -23,6 +24,21 @@ namespace DarkLegion.Unit
         private void Start()
         {
             _healtBar.SetMax(_health.Value);
+        }
+
+        public float GetValue()
+        {
+            return _health.Value;
+        }
+
+        public void SubscribeToChangeValue(Action action)
+        {
+            _health.Changed -= action;
+            _health.Changed += action;
+        }
+        public void UnSubscribeToChangeValue(Action action)
+        {
+            _health.Changed -= action;
         }
 
         public void TakeDamage(float damage)

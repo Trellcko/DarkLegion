@@ -168,6 +168,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
+--- !u!1 &2603221502623359453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5505133559834700881}
+  - component: {fileID: 218030730032765119}
+  m_Layer: 6
+  m_Name: PhysicalDefense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5505133559834700881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603221502623359453}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1955929468783068979}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218030730032765119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603221502623359453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b547c27d2d23a9d469647c2bbbfc8b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
 --- !u!1 &3338692678544288162
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
 --- !u!1 &4906049114110007254
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +503,9 @@ MonoBehaviour:
   <Reaction>k__BackingField: {fileID: 1493796389312997380}
   <ActionPoints>k__BackingField: {fileID: 2575340226044322249}
   <PhysicalDamage>k__BackingField: {fileID: 6098868731511873814}
+  <PhysicalDefense>k__BackingField: {fileID: 218030730032765119}
+  <MagicAttack>k__BackingField: {fileID: 3590812604197343515}
+  <MagicDefense>k__BackingField: {fileID: 7193904925902911156}
   <SkillSet>k__BackingField: {fileID: 4906049114713861404}
   <BuffStorage>k__BackingField: {fileID: 4379300467838582523}
 --- !u!114 &4906049114713861404
@@ -485,6 +535,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a1fb150f968d947a17ee9d9deffc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5219020644117657383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7489244489964414285}
+  - component: {fileID: 3590812604197343515}
+  m_Layer: 6
+  m_Name: MagicAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7489244489964414285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219020644117657383}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1955929468783068979}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3590812604197343515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219020644117657383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99283c1f6606294680919347d8a7d1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseStats: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
+  <Value>k__BackingField: 0
 --- !u!1 &5346977756492098675
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
 --- !u!114 &59669602205928548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,6 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
 --- !u!1 &6631950427812361430
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +789,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
+--- !u!1 &9114475775509747426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8785659378243276232}
+  - component: {fileID: 7193904925902911156}
+  m_Layer: 6
+  m_Name: MagicDefense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8785659378243276232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114475775509747426}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1955929468783068979}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7193904925902911156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9114475775509747426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03484030721e70438926a75b7cc45d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseStats: {fileID: 0}
+  <Value>k__BackingField: 0
 --- !u!1 &9165087812201055571
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +867,9 @@ Transform:
   - {fileID: 6372006918831894861}
   - {fileID: 8823560594380429556}
   - {fileID: 4263118294516593676}
+  - {fileID: 5505133559834700881}
+  - {fileID: 7489244489964414285}
+  - {fileID: 8785659378243276232}
   m_Father: {fileID: 4906049114788330225}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

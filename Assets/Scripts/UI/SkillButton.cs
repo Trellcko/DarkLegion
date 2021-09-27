@@ -107,7 +107,7 @@ namespace DarkLegion.UI
         private void PointerEnter()
         {
             EnableText();
-            ShowLastSkillAttackPoint();
+            ShowSkillAttackPoint();
             _isMouseOver = true;
         }
  
@@ -140,7 +140,7 @@ namespace DarkLegion.UI
             _descriptionText.SetText("");
         }
 
-        private void ShowLastSkillAttackPoint()
+        private void ShowSkillAttackPoint()
         {
             _attackingCellVisualization.Show(_skill.StartPoint.position, _skill.TargetedCoordiantes);
         }

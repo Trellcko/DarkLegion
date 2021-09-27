@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 3ed2f16f1658eb941aead79c0e8c4de3, type: 2}
+    - target: {fileID: 218030730032765119, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
     - target: {fileID: 763709247462725229, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: _stats
       value: 
@@ -132,6 +136,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
     - target: {fileID: 6098868731511873814, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
+      propertyPath: BaseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}
+    - target: {fileID: 7193904925902911156, guid: 9372bc1b366df8b4ea3ab57293f707e5, type: 3}
       propertyPath: BaseStats
       value: 
       objectReference: {fileID: 11400000, guid: b3e9ba19dc9e6bb428ede1e19ba07ceb, type: 2}

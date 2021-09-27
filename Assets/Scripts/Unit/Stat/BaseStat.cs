@@ -5,10 +5,11 @@ namespace DarkLegion.Unit.Stat
 {
     public abstract class BaseStat : MonoBehaviour
     {
-
         [SerializeField] protected BaseInfo BaseStats;
 
-        public float Value { get; protected set; }
+        public event Action Changed;
+
+        [field: SerializeField] public float Value { get; protected set; }
 
         private void Awake()
         {
@@ -22,6 +23,7 @@ namespace DarkLegion.Unit.Stat
                 value = 0;
             }
             Value = value;
+            Changed?.Invoke();
         }
 
         protected abstract void Init();

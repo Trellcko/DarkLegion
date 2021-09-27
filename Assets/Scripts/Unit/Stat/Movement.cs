@@ -6,7 +6,7 @@ namespace DarkLegion.Unit.Stat
 
         protected override void Init()
         {
-            Value = BaseStats.MaxStep;
+            Value = BaseStats.Movement;
         }
     }
 }

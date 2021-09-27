@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9449cb9cfa9aa49a9c841a9f900e20, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  <MaxStep>k__BackingField: 5
+  <Movement>k__BackingField: 3
   <Health>k__BackingField: 150
   <PhysicalDamage>k__BackingField: 50
+  <PhysicalDefense>k__BackingField: 23.5
+  <MagicAttack>k__BackingField: 0
+  <MagicDefense>k__BackingField: 5
   <Reaction>k__BackingField: 3
-  <ActivePointsCount>k__BackingField: 1
+  <ActivePointsCount>k__BackingField: 3
   <TurnIcon>k__BackingField: {fileID: 21300000, guid: 53b184edb66b84f47a62f448fbff0bed, type: 3}
