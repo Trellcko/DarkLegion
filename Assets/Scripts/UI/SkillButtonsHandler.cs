@@ -1,5 +1,4 @@
 using DarkLegion.Field;
-using DarkLegion.Unit;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace DarkLegion.UI
 {
-    public class UnitButtonsHandler : MonoBehaviour
+    public class SkillButtonsHandler : MonoBehaviour
     {
         [SerializeField] private List<SkillButton> _skillButtons;
 

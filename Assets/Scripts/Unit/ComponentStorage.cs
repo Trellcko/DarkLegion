@@ -23,6 +23,12 @@ namespace DarkLegion.Unit
 
         [field: SerializeField] public PhysicalDamage PhysicalDamage { get; private set; }
 
+        [field: SerializeField] public PhysicalDefense PhysicalDefense { get; private set; }
+
+        [field: SerializeField] public MagicAttack MagicAttack { get; private set; }
+
+        [field: SerializeField] public MagicDefense MagicDefense { get; private set; }
+
         [field: SerializeField] public SkillSet SkillSet { get; private set; }
 
         [field: SerializeField] public BuffStorage BuffStorage { get; private set; }
