@@ -23,17 +23,11 @@ namespace DarkLegion.Field
 
         private List<ComponentStorage> _units;
 
-        List<ComponentStorage> _activeUnits;
-
-        private Dictionary<ComponentStorage, bool> _unitsActivity = new Dictionary<ComponentStorage, bool>();
+        List<ComponentStorage> _activeUnits = new List<ComponentStorage>();
 
         private void Awake()
         {
             _units = FindObjectsOfType<ComponentStorage>().ToList();
-            for(int i = 0; i < _units.Count; i++)
-            {
-                _unitsActivity.Add(_units[i], true);
-            }
         }
 
         private void Start()
@@ -45,37 +39,32 @@ namespace DarkLegion.Field
 
         public void ChangeTurn()
         {
-            ChangeActiveUnit();
             VisualizeTurnChange();
-
-            TurnChanged?.Invoke();
         }
 
         private void VisualizeTurnChange()
         {
             List<ComponentStorage> unitsWithMoreInitiative = UnitExtension.SortByInitiative(_activeUnits);
 
-            _turnVisualization.MoveToStart(0, unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units));
+            _turnVisualization.MoveToStart(0, unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units), () => 
+            {
+                ChangeActiveUnit();
+                TurnChanged?.Invoke(); 
+            });
         }
 
         private void ChangeActiveUnit()
         {
             if (ActiveUnit)
             {
-                _unitsActivity[ActiveUnit] = false;
+                _activeUnits.Remove(ActiveUnit);
                 ActiveUnit.ActionPoints.Emptied -= ChangeTurn;
                 ActiveUnit.ActionPoints.Dispose();
             }
 
-            _activeUnits = _unitsActivity.Where(x => x.Value == true).Select(x => x.Key).ToList();
-
             if (_activeUnits.Count == 0)
             {
-                foreach (var unit in _units)
-                {
-                    _unitsActivity[unit] = true;
-                }
-                _activeUnits = _units;
+                _activeUnits = new List<ComponentStorage>(_units);
             }
 
             _activeUnits = UnitExtension.SortByInitiative(_activeUnits);
