@@ -63,7 +63,7 @@ namespace DarkLegion.UI
 
         public abstract T GetNeedStat(ComponentStorage unit);
 
-        public abstract float GetBaseStatValue(BaseInfo baseInfo);
+        public abstract float GetBaseStatValue(BaseData baseInfo);
 
         public void SetValue(string text)
         {

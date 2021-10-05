@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace DarkLegion.Unit.Stat
+namespace DarkLegion.Unit
 {
-    [CreateAssetMenu(fileName = "New UnitBaseInfo", menuName = "Units/BaseInfo", order = 41)]
-    public class BaseInfo : ScriptableObject
+    [CreateAssetMenu(fileName = "New UnitBaseData", menuName = "Unit/BaseData", order = 41)]
+    public class BaseData : ScriptableObject
     {
         [field: SerializeField] public int Movement { get; private set; }
 

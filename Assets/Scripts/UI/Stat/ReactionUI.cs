@@ -5,7 +5,7 @@ namespace DarkLegion.UI
 {
     public class ReactionUI : StatUI<Reaction>
     {
-        public override float GetBaseStatValue(BaseInfo baseInfo)
+        public override float GetBaseStatValue(BaseData baseInfo)
         {
             return baseInfo.Reaction;
         }

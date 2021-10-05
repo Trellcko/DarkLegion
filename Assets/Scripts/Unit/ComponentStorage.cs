@@ -13,7 +13,7 @@ namespace DarkLegion.Unit
 
         [field: SerializeField] public AnimatorHandler Animator { get; private set; }
 
-        [field: SerializeField] public BaseInfo BaseInfo { get; private set; }
+        [field: SerializeField] public BaseData BaseInfo { get; private set; }
 
         [field: SerializeField] public Movement Movement { get; private set; }
 

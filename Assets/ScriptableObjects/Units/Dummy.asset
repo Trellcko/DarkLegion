@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a9449cb9cfa9aa49a9c841a9f900e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 514fd5c4c657bd849844a7793dfa7541, type: 3}
   m_Name: Dummy
   m_EditorClassIdentifier: 
   <Movement>k__BackingField: 0
   <Health>k__BackingField: 1000
-  <PhysicalDamage>k__BackingField: 0
+  <PhysicalDamage>k__BackingField: 33
   <PhysicalDefense>k__BackingField: 0
   <MagicAttack>k__BackingField: 0
   <MagicDefense>k__BackingField: 0

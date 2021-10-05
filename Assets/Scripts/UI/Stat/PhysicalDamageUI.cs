@@ -6,7 +6,7 @@ namespace DarkLegion.UI
 {
     public class PhysicalDamageUI : StatUI<PhysicalDamage>
     {
-        public override float GetBaseStatValue(BaseInfo baseInfo)
+        public override float GetBaseStatValue(BaseData baseInfo)
         {
             return baseInfo.PhysicalDamage;
         }
