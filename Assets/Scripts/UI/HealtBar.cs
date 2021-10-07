@@ -64,13 +64,25 @@ namespace DarkLegion.UI
             _target.Changed += _valueChangedHandelr;
         }
 
+        public void SetValueWithoutAnimation(float value)
+        {
+            _currentValue = Mathf.Clamp(value, MinValue, _maxValue);
+
+            _fill.fillAmount = CalculateFillValue(_currentValue); ;
+
+            ChangeText(_currentValue);
+        }
+
+        private float CalculateFillValue(float clampedValue)
+        {
+            return clampedValue / _maxValue;
+        }
+
         public void SetValue(float value)
         {
             float clampedValue = Mathf.Clamp(value, MinValue, _maxValue);
 
-            float fillValue = (float)clampedValue / _maxValue;
-
-            _fill.DOFillAmount(fillValue, _changeSpeed);
+            _fill.DOFillAmount(CalculateFillValue(clampedValue), _changeSpeed);
 
             DOTween.To(() => _currentValue, ChangeText, clampedValue, _changeSpeed)
                 .OnComplete(() =>

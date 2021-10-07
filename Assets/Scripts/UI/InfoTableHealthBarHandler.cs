@@ -14,7 +14,7 @@ namespace DarkLegion.UI
         {
             _healtBar.SetMax(_turnSystem.ActiveUnit.BaseInfo.Health);
             _healtBar.SetTarget(_turnSystem.ActiveUnit.Health.GetValueChanged());
-            _healtBar.SetValue(_turnSystem.ActiveUnit.Health.GetValueChanged().GetValue());
+            _healtBar.SetValueWithoutAnimation(_turnSystem.ActiveUnit.Health.GetValueChanged().GetValue());
         }
 
         private void OnEnable()
