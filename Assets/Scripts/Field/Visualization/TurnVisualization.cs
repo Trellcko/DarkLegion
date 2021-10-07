@@ -78,7 +78,7 @@ namespace DarkLegion.Field.Visuzalization
                 sequence.Insert(0, offsetIcons[i].transform.DOMoveX(offsetIcons[i].transform.position.x - 5f, 1f)
                     .OnComplete(()=> 
                     {
-                        SetIconData(sortedUnits[sortedUnits.Count - temp - 1], offsetIcons[temp]);
+                        SetIconData(sortedUnits[sortedUnits.Count + temp - _turnIcons.Count], offsetIcons[temp]);
                         offsetIcons[temp].transform.position = new Vector3(offsetIcons[temp].transform.position.x,
                             _startPoint.position.y + _step.y * temp, offsetIcons[temp].transform.position.z);
                     }));   
@@ -119,8 +119,8 @@ namespace DarkLegion.Field.Visuzalization
                 {
                     _unitIconPairs[_turnIcons[i]] = sortedUnits[i];
                 }
+                completed?.Invoke();
             });
-            sequence.OnComplete(()=> { completed?.Invoke(); });
             sequence.Play();
         }
 
@@ -142,8 +142,8 @@ namespace DarkLegion.Field.Visuzalization
         }
         private List<ComponentStorage> GetSorterUnits(List<ComponentStorage> activeUnits, List<ComponentStorage> units)
         {
-            var result = new List<ComponentStorage>();
-            for (int i = 0; i < _turnIcons.Count; i++)
+            var result = new List<ComponentStorage>(8);
+            for (int i = 0; i < _turnIcons.Count * 2; i++)
             {
                 ComponentStorage unit;
 
