@@ -1,12 +1,17 @@
 using DarkLegion.Field;
+using DarkLegion.Unit.AttackSystem.Visualization;
+
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DarkLegion.Unit.AttackSystem
 {
     public class BuffStorage : MonoBehaviour
     {
+        [SerializeField] private BuffAttachVisualization _buffAttachVisualization;
+
         private TurnSystem _turnSystem;
 
         private Action _turnChangedHandler;
@@ -53,6 +58,13 @@ namespace DarkLegion.Unit.AttackSystem
         {
             _buffs.Add(buff);
             buff.Do();
+
+            if (buff.IsPositiveBuff)
+            {
+                _buffAttachVisualization.ShowPositiveEffect();
+                return;
+            }
+            _buffAttachVisualization.ShowNegativeEffect();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 
 using UnityEngine;
+using System;
 
 namespace DarkLegion.Field.Visuzalization
 {
@@ -40,17 +41,17 @@ namespace DarkLegion.Field.Visuzalization
                 ComponentStorage unit = units[i % units.Count];
 
                 _unitIconPairs.Add(_turnIcons[i], unit);
-                SetIcon(unit, _turnIcons[i]);
+                SetIconData(unit, _turnIcons[i]);
             }
         }
 
-        public void MoveToStart(int iconIndex, List<ComponentStorage> activeUnits, List<ComponentStorage> units)
+        public void MoveToStart(int iconIndex, List<ComponentStorage> activeUnits, List<ComponentStorage> units, Action completed)
         {
             TurnIcon icon = _turnIcons[iconIndex];
-            ChangeOrder(new List<TurnIcon>() { icon }, GetSorterUnits(activeUnits, units));
+            ChangeOrder(new List<TurnIcon>() { icon }, GetSorterUnits(activeUnits, units), completed);
 
         }
-        public void MoveToStart(ComponentStorage iconUnit, List<ComponentStorage> activeUnits, List<ComponentStorage> units)
+        public void MoveToStart(ComponentStorage iconUnit, List<ComponentStorage> activeUnits, List<ComponentStorage> units, Action completed)
         {
             List<TurnIcon> turnIcons = new List<TurnIcon>();
             foreach(var unitIconPair in _unitIconPairs)
@@ -60,10 +61,10 @@ namespace DarkLegion.Field.Visuzalization
                     turnIcons.Add(unitIconPair.Key);
                 }
             }
-            ChangeOrder(turnIcons, GetSorterUnits(activeUnits, units));
+            ChangeOrder(turnIcons, GetSorterUnits(activeUnits, units), completed);
         }
 
-        private void ChangeOrder(List<TurnIcon> offsetIcons, List<ComponentStorage> sortedUnits)
+        private void ChangeOrder(List<TurnIcon> offsetIcons, List<ComponentStorage> sortedUnits, Action completed)
         {
             Sequence sequence = DOTween.Sequence();
             
@@ -77,7 +78,7 @@ namespace DarkLegion.Field.Visuzalization
                 sequence.Insert(0, offsetIcons[i].transform.DOMoveX(offsetIcons[i].transform.position.x - 5f, 1f)
                     .OnComplete(()=> 
                     {
-                        SetIcon(sortedUnits[sortedUnits.Count - temp - 1], offsetIcons[temp]);
+                        SetIconData(sortedUnits[sortedUnits.Count - temp - 1], offsetIcons[temp]);
                         offsetIcons[temp].transform.position = new Vector3(offsetIcons[temp].transform.position.x,
                             _startPoint.position.y + _step.y * temp, offsetIcons[temp].transform.position.z);
                     }));   
@@ -119,7 +120,7 @@ namespace DarkLegion.Field.Visuzalization
                     _unitIconPairs[_turnIcons[i]] = sortedUnits[i];
                 }
             });
-
+            sequence.OnComplete(()=> { completed?.Invoke(); });
             sequence.Play();
         }
 
@@ -132,7 +133,7 @@ namespace DarkLegion.Field.Visuzalization
             }
         }
 
-        private void SetIcon(ComponentStorage unit, TurnIcon turnIcon)
+        private void SetIconData(ComponentStorage unit, TurnIcon turnIcon)
         {
             Sprite backgroung = LayerExtension.ContainsIn(_playerMask, unit.gameObject.layer) ?
             _playerIcon : _enemyIcon;

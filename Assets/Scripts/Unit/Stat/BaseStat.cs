@@ -5,7 +5,7 @@ namespace DarkLegion.Unit.Stat
 {
     public abstract class BaseStat : MonoBehaviour
     {
-        [SerializeField] protected BaseInfo BaseStats;
+        [SerializeField] protected BaseData BaseStats;
 
         public event Action Changed;
 

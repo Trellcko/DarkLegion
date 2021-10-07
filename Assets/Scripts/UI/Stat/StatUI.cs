@@ -49,32 +49,34 @@ namespace DarkLegion.UI
 
 
             _text.SetText(string.Format("{0:0}", currentStatValue));
+            
             if(!Mathf.Approximately(currentStatValue, baseStatValue))
             {
                 if(currentStatValue > baseStatValue)
                 {
-                    ShowBuffVisualization();
+                    ShowPositiveBuffVisualization();
                     return;
                 }
-                ShowDeBuffVisualization();
+                ShowNegativeBuffVisualization();
+                return;
             }
-
+            ShowBaseVisualization();
         }
 
         public abstract T GetNeedStat(ComponentStorage unit);
 
-        public abstract float GetBaseStatValue(BaseInfo baseInfo);
+        public abstract float GetBaseStatValue(BaseData baseInfo);
 
-        public void SetValue(string text)
+        public void ShowBaseVisualization()
         {
-            _text.SetText(text);
+            _text.color = Color.white;
         }
 
-        public void ShowBuffVisualization()
+        public void ShowPositiveBuffVisualization()
         {
             _text.color = GameColors.Buff;
         }
-        public void ShowDeBuffVisualization()
+        public void ShowNegativeBuffVisualization()
         {
             _text.color = GameColors.DeBuff;
         }

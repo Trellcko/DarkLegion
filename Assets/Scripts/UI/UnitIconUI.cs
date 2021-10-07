@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace DarkLegion.UI
 {
     [RequireComponent(typeof(Image))]
-    public class InfoTableIcon : MonoBehaviour
+    public class UnitIconUI : MonoBehaviour
     {
         [SerializeField] private TurnSystem _turnSystem;
 

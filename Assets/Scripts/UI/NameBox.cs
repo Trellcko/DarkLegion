@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DarkLegion.UI
 {
-    public class InfoTableNameBox : MonoBehaviour
+    public class NameBox : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
 

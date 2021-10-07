@@ -9,11 +9,11 @@ namespace DarkLegion.Unit
     {
         [field: SerializeField] public CommandHandler CommandHandler { get; private set; }
 
-        [field: SerializeField] public HealtHandler Health { get; private set; }
+        [field: SerializeField] public HealthHandler Health { get; private set; }
 
         [field: SerializeField] public AnimatorHandler Animator { get; private set; }
 
-        [field: SerializeField] public BaseInfo BaseInfo { get; private set; }
+        [field: SerializeField] public BaseData BaseInfo { get; private set; }
 
         [field: SerializeField] public Movement Movement { get; private set; }
 

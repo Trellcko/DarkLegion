@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DarkLegion.Unit
 {
-    public class HealtHandler : MonoBehaviour
+    public class HealthHandler : MonoBehaviour
     {
         [SerializeField] private Health _health;
 
