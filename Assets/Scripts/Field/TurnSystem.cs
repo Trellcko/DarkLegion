@@ -9,13 +9,16 @@ using UnityEngine;
 
 namespace DarkLegion.Field
 {
+    public enum Turn { Player, Enemy, None}
+
     public class TurnSystem : MonoBehaviour
     {
         [SerializeField] private TurnVisualization _turnVisualization;
 
         [SerializeField] private LayerMask _playerUnitMask;
-       
-        public bool IsPlayerTurn { get; private set; } = false;
+
+        public bool IsPlayerTurn => _currentTurnBelongTo == Turn.Player;
+        public bool IsEnemyTurn => _currentTurnBelongTo == Turn.Enemy;
 
         public ComponentStorage ActiveUnit { get; private set; } = null;
 
@@ -24,6 +27,8 @@ namespace DarkLegion.Field
         private List<ComponentStorage> _units;
 
         List<ComponentStorage> _activeUnits = new List<ComponentStorage>();
+
+        private Turn _currentTurnBelongTo = Turn.None;
 
         private void Awake()
         {
@@ -39,13 +44,13 @@ namespace DarkLegion.Field
 
         public void ChangeTurn()
         {
+            _currentTurnBelongTo = Turn.None;
             VisualizeTurnChange();
         }
 
         private void VisualizeTurnChange()
         {
             List<ComponentStorage> activeUnitsWithMoreInitiative = UnitExtension.SortByInitiative(_activeUnits);
-
             _turnVisualization.MoveToStart(0, activeUnitsWithMoreInitiative, UnitExtension.SortByInitiative(_units), () => 
             {
                 ChangeActiveUnit();
@@ -69,7 +74,7 @@ namespace DarkLegion.Field
 
             _activeUnits = UnitExtension.SortByInitiative(_activeUnits);
 
-            IsPlayerTurn = LayerExtension.ContainsIn(_playerUnitMask, _activeUnits[0].gameObject.layer);
+            _currentTurnBelongTo = LayerExtension.ContainsIn(_playerUnitMask, _activeUnits[0].gameObject.layer)? Turn.Player : Turn.Enemy;
 
             ActiveUnit = _activeUnits[0];
             ActiveUnit.ActionPoints.Emptied += ChangeTurn;
