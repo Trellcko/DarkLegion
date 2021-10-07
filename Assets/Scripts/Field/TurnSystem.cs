@@ -44,9 +44,9 @@ namespace DarkLegion.Field
 
         private void VisualizeTurnChange()
         {
-            List<ComponentStorage> unitsWithMoreInitiative = UnitExtension.SortByInitiative(_activeUnits);
+            List<ComponentStorage> activeUnitsWithMoreInitiative = UnitExtension.SortByInitiative(_activeUnits);
 
-            _turnVisualization.MoveToStart(0, unitsWithMoreInitiative, UnitExtension.SortByInitiative(_units), () => 
+            _turnVisualization.MoveToStart(0, activeUnitsWithMoreInitiative, UnitExtension.SortByInitiative(_units), () => 
             {
                 ChangeActiveUnit();
                 TurnChanged?.Invoke(); 
