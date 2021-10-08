@@ -1,4 +1,6 @@
 using DarkLegion.Field;
+using DarkLegion.Field.Visuzalization;
+using DarkLegion.Unit.AttackSystem;
 using System;
 using System.Collections.Generic;
 
@@ -12,12 +14,19 @@ namespace DarkLegion.UI
 
         [SerializeField] private FlipButton _flipButton;
         [SerializeField] private TurnSystem _turnSystem;
+
+        [SerializeField] private AttackVizualizationHandler _attackVizualizationHandler;
         [SerializeField] private PlayerCommander _playerCommander;
 
         private Action _turnChangedHandler;
+
+
         private Action<bool> _unitCompletedCommandsHandler;
 
-        private Action<int> _skillButtonClickedHandler;
+        private Action<Skill> _skillButtonClickedHandler;
+        private Action<Skill> _skillButtonEnteredHandler;
+        private Action<Skill> _skillButtonExitedHandler;
+
         private Action _flipButtonClickedHandler;
 
         private void Awake()
@@ -34,9 +43,14 @@ namespace DarkLegion.UI
                     return;
                 }
             };
+
             _unitCompletedCommandsHandler += (hasPoints) => { if (hasPoints) TryChangeButtonInteractive(); };
-            _skillButtonClickedHandler += i => { _playerCommander.TryUseSkill(_turnSystem.ActiveUnit, i); };
+            
             _flipButtonClickedHandler += () => { _playerCommander.TryFlip(_turnSystem.ActiveUnit); };
+
+            _skillButtonClickedHandler += (skill) => { _playerCommander.TryUseSkill(_turnSystem.ActiveUnit, skill); };
+            _skillButtonEnteredHandler += _attackVizualizationHandler.Show;
+            _skillButtonExitedHandler += _attackVizualizationHandler.Hide;
         }
 
         private void OnEnable()
@@ -48,7 +62,9 @@ namespace DarkLegion.UI
 
             foreach (var button in _skillButtons)
             {
-                button.SkillButtonClicked += _skillButtonClickedHandler;
+                button.Clicked += _skillButtonClickedHandler;
+                button.PointerEntered += _skillButtonEnteredHandler;
+                button.PointerExited += _skillButtonExitedHandler;
             }
 
             _flipButton.Clicked += _flipButtonClickedHandler;
@@ -64,7 +80,9 @@ namespace DarkLegion.UI
 
             foreach (var button in _skillButtons)
             {
-                button.SkillButtonClicked -= _skillButtonClickedHandler;
+                button.Clicked -= _skillButtonClickedHandler;
+                button.PointerEntered -= _skillButtonEnteredHandler;
+                button.PointerExited -= _skillButtonExitedHandler;
             }
 
             _flipButton.Clicked -= _flipButtonClickedHandler;

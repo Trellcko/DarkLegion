@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using DarkLegion.Unit.AttackSystem;
 
 namespace DarkLegion.Field
 {
@@ -96,11 +97,12 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryUseSkill(ComponentStorage who, int skillIndex)
+        public void TryUseSkill(ComponentStorage who, Skill skill)
         {
-            if (who && !who.CommandHandler.HasCommands && 
-                who.ActionPoints.Value >= who.SkillSet[skillIndex].Cost)
+            if (who && !who.CommandHandler.HasCommands && who.SkillSet.Has(skill) && 
+                who.ActionPoints.Value >= skill.Cost)
             {
+                int skillIndex = who.SkillSet.IndexOf(skill);
                 UnitAttacking?.Invoke();
                 var commands = new Queue<ICommand>();
                 commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
