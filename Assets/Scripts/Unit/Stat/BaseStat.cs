@@ -25,7 +25,10 @@ namespace DarkLegion.Unit.Stat
             Value = value;
             Changed?.Invoke();
         }
-
+        protected void ChangedInvoke()
+        {
+            Changed?.Invoke();
+        }
         protected abstract void Init();
     }
 }

@@ -13,6 +13,11 @@ namespace DarkLegion.Field
             return Physics2D.OverlapCircleNonAlloc(GetWorldCenterPosition(cell), (CellSize.x / 2) - 0.05f, new Collider2D[1], layers) == 0;
         }
 
+        public Vector3 Centralize(Vector3 pos)
+        {
+            return GetWorldCenterPosition(GetCell(pos));
+        }
+
         public Vector3 GetWorldCenterPosition(Vector3Int cell)
         {
             return _grid.GetCellCenterWorld(cell);

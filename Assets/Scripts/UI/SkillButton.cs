@@ -17,20 +17,17 @@ namespace DarkLegion.UI
     {
         [SerializeField] private TextMeshProUGUI _descriptionText;
         [SerializeField] private Image _textPanel;
-        [SerializeField] private AttackedCellVisualization _attackingCellVisualization;
-        [SerializeField] private int _attackIndex;
 
-
-        public event Action<int> SkillButtonClicked;
+        public event Action<Skill> Clicked;
+        public event Action<Skill> PointerEntered;
+        public event Action<Skill> PointerExited;
 
         private Image _image;
+        
+        private string _description = "";
 
         private Skill _skill;
 
-        private string _description = "";
-
-        private bool _isMouseOver = false;
-        private bool _isOff = true;
         private bool _isInteractible = true;
 
         private readonly Color _interactibleColor = Color.white;
@@ -56,12 +53,10 @@ namespace DarkLegion.UI
         public void Show()
         {
             _image.enabled = true;
-            _isOff = false;
         }
         public void Hide()
         {
             _image.enabled = false;
-            _isOff = true;
             PointerExit();
         }
 
@@ -70,14 +65,6 @@ namespace DarkLegion.UI
             _image.sprite = skill.AttackIcon;
             _description = skill.Description;
             _skill = skill;
-        }
-
-        public void TryHide()
-        {
-            if(_isMouseOver == false)
-            {
-                Hide();
-            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -100,32 +87,20 @@ namespace DarkLegion.UI
         {
             if (_isInteractible)
             {
-                SkillButtonClicked?.Invoke(_attackIndex);
+                Clicked?.Invoke(_skill);
             }
         }
 
         private void PointerEnter()
         {
             EnableText();
-            ShowSkillAttackPoint();
-            _isMouseOver = true;
+            PointerEntered?.Invoke(_skill);
         }
  
         private void PointerExit()
         {
-            if (_isMouseOver == true)
-            {
-                DisableText();
-                if (_isOff == true)
-                {
-                    _attackingCellVisualization.Clear();
-                }
-                else
-                {
-                    _attackingCellVisualization.ReturnPreviousColors();
-                }
-            }
-            _isMouseOver = false;
+            DisableText();
+            PointerExited?.Invoke(_skill);
         }
 
         private void EnableText()
@@ -138,11 +113,6 @@ namespace DarkLegion.UI
         {
             _textPanel.enabled = false;
             _descriptionText.SetText("");
-        }
-
-        private void ShowSkillAttackPoint()
-        {
-            _attackingCellVisualization.Show(_skill.StartPoint.position, _skill.TargetedCoordiantes);
         }
     }
 }

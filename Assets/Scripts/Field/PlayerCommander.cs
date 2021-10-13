@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using DarkLegion.Unit.AttackSystem;
 
 namespace DarkLegion.Field
 {
@@ -96,20 +97,21 @@ namespace DarkLegion.Field
             }
         }
 
-        public void TryUseSkill(ComponentStorage who, int skillIndex)
+        public void TryUseSkill(ComponentStorage who, Skill skill)
         {
-            if (who && !who.CommandHandler.HasCommands && 
-                who.ActionPoints.Value >= who.SkillSet[skillIndex].Cost)
+            if (who && !who.CommandHandler.HasCommands && who.SkillSet.Has(skill) && 
+                who.ActionPoints.Value >= skill.Cost)
             {
+                int skillIndex = who.SkillSet.IndexOf(skill);
                 UnitAttacking?.Invoke();
                 var commands = new Queue<ICommand>();
                 commands.Enqueue(new AttackAnimationPlayCommand(who.Animator, skillIndex));
                 List<ComponentStorage> targets = new List<ComponentStorage>();
                 foreach (var point in who.SkillSet[skillIndex].TargetedCoordiantes)
                 {
-                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position)) 
-                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0));
-
+                    Vector3 enemyCellWorldCoordiantes = _gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position))
+                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0);
+                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.Centralize(enemyCellWorldCoordiantes));
                     if (_enemyUnitSelectingForAttack.LastSelectedOrNull)
                     {
                         targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);

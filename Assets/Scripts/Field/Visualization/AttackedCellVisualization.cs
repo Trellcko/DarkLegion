@@ -20,7 +20,7 @@ namespace DarkLegion.Field.Visuzalization
             
             foreach(var coordinate in coordinates)
             {
-                points.Add(_gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(from)) + new Vector3(coordinate.x * _gridHandler.CellSize.x, coordinate.y * _gridHandler.CellSize.y, 0));
+                points.Add(_gridHandler.Centralize(from) + new Vector3(coordinate.x * _gridHandler.CellSize.x, coordinate.y * _gridHandler.CellSize.y, 0));
             }
             Show(points);
         }
