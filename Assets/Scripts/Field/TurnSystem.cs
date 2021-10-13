@@ -20,7 +20,7 @@ namespace DarkLegion.Field
         public bool IsPlayerTurn => _currentTurnBelongTo == Turn.Player;
         public bool IsEnemyTurn => _currentTurnBelongTo == Turn.Enemy;
 
-        public ComponentStorage ActiveUnit { get; private set; } = null;
+        public ComponentStorage ActiveUnit => _currentTurnBelongTo == Turn.None ? null : _activeUnit;
 
         public event Action TurnChanged;
 
@@ -29,6 +29,8 @@ namespace DarkLegion.Field
         List<ComponentStorage> _activeUnits = new List<ComponentStorage>();
 
         private Turn _currentTurnBelongTo = Turn.None;
+
+        private ComponentStorage _activeUnit;
 
         private void Awake()
         {
@@ -60,11 +62,11 @@ namespace DarkLegion.Field
 
         private void ChangeActiveUnit()
         {
-            if (ActiveUnit)
+            if (_activeUnit)
             {
-                _activeUnits.Remove(ActiveUnit);
-                ActiveUnit.ActionPoints.Emptied -= ChangeTurn;
-                ActiveUnit.ActionPoints.Dispose();
+                _activeUnits.Remove(_activeUnit);
+                _activeUnit.ActionPoints.Emptied -= ChangeTurn;
+                _activeUnit.ActionPoints.Dispose();
             }
 
             if (_activeUnits.Count == 0)
@@ -76,8 +78,8 @@ namespace DarkLegion.Field
 
             _currentTurnBelongTo = LayerExtension.ContainsIn(_playerUnitMask, _activeUnits[0].gameObject.layer)? Turn.Player : Turn.Enemy;
 
-            ActiveUnit = _activeUnits[0];
-            ActiveUnit.ActionPoints.Emptied += ChangeTurn;
+            _activeUnit = _activeUnits[0];
+            _activeUnit.ActionPoints.Emptied += ChangeTurn;
         }
 
     }

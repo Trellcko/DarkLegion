@@ -109,9 +109,9 @@ namespace DarkLegion.Field
                 List<ComponentStorage> targets = new List<ComponentStorage>();
                 foreach (var point in who.SkillSet[skillIndex].TargetedCoordiantes)
                 {
-                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position)) 
-                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0));
-
+                    Vector3 enemyCellWorldCoordiantes = _gridHandler.GetWorldCenterPosition(_gridHandler.GetCell(who.transform.position))
+                        + new Vector3(point.x * _gridHandler.CellSize.x, point.y * _gridHandler.CellSize.y, 0);
+                    _enemyUnitSelectingForAttack.TrySelect(_gridHandler.Centralize(enemyCellWorldCoordiantes));
                     if (_enemyUnitSelectingForAttack.LastSelectedOrNull)
                     {
                         targets.Add(_enemyUnitSelectingForAttack.LastSelectedOrNull);

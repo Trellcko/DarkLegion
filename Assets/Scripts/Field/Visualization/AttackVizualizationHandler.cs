@@ -1,4 +1,5 @@
 using DarkLegion.Unit.AttackSystem;
+using System.Collections;
 using UnityEngine;
 
 namespace DarkLegion.Field.Visuzalization
@@ -11,19 +12,25 @@ namespace DarkLegion.Field.Visuzalization
 
         private bool _isVizualizing = false;
 
+        private bool CanVisualize => _turnSystem.ActiveUnit && _turnSystem.ActiveUnit.CommandHandler.HasCommands == false;
+
+        private Coroutine _delayShowCorun;
+
         public void Show(Skill skill)
         {
-            if (_turnSystem.ActiveUnit.CommandHandler.HasCommands == false)
+            if (CanVisualize)
             {
-                _isVizualizing = true;
-                _attackedCellVisualization.Show(skill.StartPoint.position, skill.TargetedCoordiantes);
+                Visualize(skill);
+                return;
             }
+            DelayShow(skill);
         }
+
         public void Hide(Skill skill)
         {
             if (_isVizualizing == true)
             {
-                if (_turnSystem.ActiveUnit.CommandHandler.HasCommands)
+                if (_turnSystem.ActiveUnit == null)
                 {
                     _attackedCellVisualization.Clear();
                 }
@@ -33,6 +40,31 @@ namespace DarkLegion.Field.Visuzalization
                 }
                 _isVizualizing = false;
             }
+            StopDelayShow();
+        }
+        
+        private void StopDelayShow()
+        {
+            if (_delayShowCorun != null)
+            {
+                StopCoroutine(_delayShowCorun);
+            }
+        }
+
+        private void DelayShow(Skill skill)
+        {
+           _delayShowCorun = StartCoroutine(DelayShowCorun(skill));
+        }
+        private IEnumerator DelayShowCorun(Skill skill)
+        {
+            yield return new WaitUntil(() => CanVisualize);
+            Visualize(skill);
+        }
+
+        private void Visualize(Skill skill)
+        {
+            _isVizualizing = true;
+            _attackedCellVisualization.Show(skill.StartPoint.position, skill.TargetedCoordiantes);
         }
     }
 }

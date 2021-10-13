@@ -14,6 +14,7 @@ namespace DarkLegion.Unit.Stat
         public override void Set(float value)
         {
              Value = Mathf.Clamp(value, 0, BaseStats.Health);
+            ChangedInvoke();
         }
 
         protected override void Init()
