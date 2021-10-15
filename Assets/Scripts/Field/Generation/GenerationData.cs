@@ -10,6 +10,6 @@ namespace DarkLegion.Field.Generation
     [CreateAssetMenu(fileName = "New GenerationData", menuName = "Field/Generation/GenerationData", order = 41)]
     public class GenerationData : SerializedScriptableObject
     {
-        [field: SerializeField] public Dictionary<float, Tile> TilesValue { get; private set; }
+        [field: SerializeField] public Dictionary<float, TileData> TilesValue { get; private set; }
     }
 }

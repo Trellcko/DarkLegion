@@ -3,20 +3,20 @@ using System.Linq;
 using UnityEngine;
 using DarkLegion.Field.Visuzalization;
 using UnityEngine.Tilemaps;
-
-
+using DarkLegion.Field.Pathfinding;
 
 namespace DarkLegion.Field.Generation
 {
-    public class Generator : MonoBehaviour
+    public class PerlinNoiseFieldGenerator : MonoBehaviour
     {
         [SerializeField] private FieldVisualization _fieldVisualization;
+        [SerializeField] private GraphGenerator _graphGenerator; 
         [SerializeField] private FieldInfo _fieldInfo;
         [SerializeField] private GenerationData _generationData;
 
         [SerializeField] private float _perlinNoiseScale = 20f;
 
-        private Dictionary<float, Tile> _tilesValues;
+        private Dictionary<float, TileData> _tilesValues;
 
         private int _randomOffsetX;
         private int _randomOffsetY;
@@ -32,15 +32,18 @@ namespace DarkLegion.Field.Generation
         public void Generate()
         {
             List<Tile> tiles = new List<Tile>();
+            Dictionary<Vector2Int, PathNodeMovementCost> pathNodeMovementCosts = new Dictionary<Vector2Int, PathNodeMovementCost>();
 
             for(int  i = 0; i < _fieldInfo.Size.x; i++)
             {
                 for (int j = 0; j < _fieldInfo.Size.y; j++)
                 {
-                    tiles.Add(GetTileByPerlinNoiseValue(CalculatePerlinNoiseValue(i, j)));
+                    TileData tileData = GetTileDataByPerlinNoiseValue(CalculatePerlinNoiseValue(i, j));
+                    tiles.Add(tileData.Tile);
+                    pathNodeMovementCosts.Add(new Vector2Int(i,j), tileData.PathNodeMovementCost);
                 }
             }
-
+            _graphGenerator.Generate(_fieldInfo.InitCell, pathNodeMovementCosts);
             _fieldVisualization.Visualize(tiles);
         }
 
@@ -51,7 +54,7 @@ namespace DarkLegion.Field.Generation
             return Mathf.PerlinNoise(perlinX, perlinY);
         }
 
-        private Tile GetTileByPerlinNoiseValue(float value)
+        private TileData GetTileDataByPerlinNoiseValue(float value)
         {
             foreach (var tileValuePair in _tilesValues)
             {

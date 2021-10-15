@@ -13,12 +13,7 @@ namespace DarkLegion.Field
 
         public Graph Graph { get; private set; }
 
-        private void Start()
-        {
-            Generate(_fieldInfo.InitCell);
-        }
-
-        private void Generate(Vector3Int from)
+        public void Generate(Vector3Int from, Dictionary<Vector2Int, PathNodeMovementCost> movementCosts)
         {
             var field = new Dictionary<Vector3Int, PathNode>();
             
@@ -26,16 +21,17 @@ namespace DarkLegion.Field
             {
                 for(int  y = 0; y < _fieldInfo.Size.y; y++)
                 {
-                    Vector3Int cell = from + new Vector3Int(x, y, 0);;
-                    field.Add(cell, CreateNode(cell));
+                    Vector3Int tempCoordinates = new Vector3Int(x, y, 0);
+                    Vector3Int cell = from + tempCoordinates;
+                    field.Add(cell, CreateNode(cell, movementCosts[(Vector2Int)tempCoordinates]));
                 }
             }
             Graph = new Graph(field);
         }
 
-        private PathNode CreateNode(Vector3Int cell)
+        private PathNode CreateNode(Vector3Int cell, PathNodeMovementCost movementCost)
         {
-            var pathNode = new PathNode(cell)
+            var pathNode = new PathNode(cell, movementCost)
             {
                 IsFree = _gridHandler.CheckForFreeSpace(cell, _fieldInfo.FieldsLayers)
             };
