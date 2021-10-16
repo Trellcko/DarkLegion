@@ -12,66 +12,32 @@ namespace DarkLegion.Field.Visuzalization
 
     public class MovementCellVisualization : MonoBehaviour
     {
-        [SerializeField] private GraphGenerator _graphGenerator;
         [SerializeField] private GridHandler _gridHandler;
         [SerializeField] private CellFiller _cellFiller;
 
-        private List<PathNode> _currentIterationNodes;
-        private List<PathNode> _nextIterationNodes;
-        private List<PathNode> _possibleNodes;
+        [SerializeField] private Pathfinder _pathfinder;
 
-        private int _maxDepth;
-        private int _currentDepth = 0;
+        [SerializeField] private GameColors _gameColors;
 
+        private List<Vector3Int> _lastVisualizeNodes;
         public void Show(Vector3 startPosition, int depth)
         {
             ClearLastVisualize();
-         
-            _maxDepth = depth;
-            _currentDepth = 0;
-            _nextIterationNodes = new List<PathNode>();
-            _possibleNodes = new List<PathNode>();
-
-            _currentIterationNodes = new List<PathNode>() {
-                _graphGenerator.Graph.GetPathNode(_gridHandler.GetCell(startPosition))
-            };
-            DoNextIteration();
+            _pathfinder.GetAllPosiblePosition(startPosition, depth);
+            _lastVisualizeNodes = _pathfinder.GetAllPosiblePosition(startPosition, depth).Select(x => _gridHandler.GetCell(x)).ToList();
+            Visualize(_lastVisualizeNodes);
         }
 
-        private void DoNextIteration()
-        {
-            _currentDepth++;
-            if(_currentDepth > _maxDepth)
-            {
-                Visualize(_possibleNodes);
-                return;
-            }
+   
 
-            for(int i = 0; i < _currentIterationNodes.Count; i++)
-            {
-                if(_possibleNodes.Contains(_currentIterationNodes[i]) == false)
-                {
-                    _possibleNodes.Add(_currentIterationNodes[i]);
-                    
-                    for(int  j = 0; j < _currentIterationNodes[i].Neighbors.Count; j++)
-                    {
-                        _nextIterationNodes.Add(_currentIterationNodes[i].Neighbors[j]);
-                    }
-                }
-            }
-            _currentIterationNodes = _nextIterationNodes;
-            _nextIterationNodes = new List<PathNode>();
-            DoNextIteration();
-        }
-
-        private void Visualize(List<PathNode> pathNodes)
+        private void Visualize(List<Vector3Int> pathNodes)
         {
-            _cellFiller.SetColors(pathNodes.Select(x => x.Coordinates).ToList(), GameColors.Movement);
+            _cellFiller.SetColors(pathNodes, _gameColors.Movement);
         }
 
         public void ClearLastVisualize()
         {
-            _cellFiller.SetColors(_possibleNodes?.Select(x => x.Coordinates).ToList(), GameColors.Clear);
+            _cellFiller.SetColors(_lastVisualizeNodes, _gameColors.Clear);
         }
 
     }

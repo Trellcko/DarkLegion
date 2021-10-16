@@ -14,6 +14,7 @@ namespace DarkLegion.UI
     {
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private TurnSystem _turnSystem;
+        [SerializeField] private GameColors _gameColors;
 
         private Action _turnChangedHandler;
         private T _stat;
@@ -74,11 +75,11 @@ namespace DarkLegion.UI
 
         public void ShowPositiveBuffVisualization()
         {
-            _text.color = GameColors.Buff;
+            _text.color = _gameColors.Buff;
         }
         public void ShowNegativeBuffVisualization()
         {
-            _text.color = GameColors.DeBuff;
+            _text.color = _gameColors.DeBuff;
         }
     }
 }

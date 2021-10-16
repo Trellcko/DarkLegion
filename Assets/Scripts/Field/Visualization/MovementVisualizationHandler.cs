@@ -8,7 +8,6 @@ namespace DarkLegion.Field.Visuzalization
         [SerializeField] private PlayerCommander _playerCommander;
         [SerializeField] private TurnSystem _turnSystem;
 
-        [SerializeField] private PathVisualization _pathVisualization;
         [SerializeField] private MovementCellVisualization _movementCellVisualization;
 
         private Action _turnChangedHandler;
@@ -36,7 +35,6 @@ namespace DarkLegion.Field.Visuzalization
 
         private void TurnOff()
         {
-            _pathVisualization.StopDraw();
             _movementCellVisualization.ClearLastVisualize();
         }
 
@@ -44,7 +42,6 @@ namespace DarkLegion.Field.Visuzalization
         {
             _movementCellVisualization.Show(_turnSystem.ActiveUnit.transform.position,
                                            (int)_turnSystem.ActiveUnit.Movement.Value);
-            _pathVisualization.StartDraw();
         }
     }
 }

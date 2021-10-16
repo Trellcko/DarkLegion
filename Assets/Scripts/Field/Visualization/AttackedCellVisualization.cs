@@ -12,6 +12,8 @@ namespace DarkLegion.Field.Visuzalization
 
         [SerializeField] private CellFiller _cellFiller;
 
+        [SerializeField] private GameColors _gameColors;
+
         private List<Vector3Int> _previousAttackedCell = new List<Vector3Int>();
 
         public void Show(Vector3 from, List<Vector3> coordinates)
@@ -33,7 +35,7 @@ namespace DarkLegion.Field.Visuzalization
             {
                 _previousAttackedCell.Add(_gridHandler.GetCell(point));
             }
-            _cellFiller.SetColors(_previousAttackedCell, GameColors.Attack);
+            _cellFiller.SetColors(_previousAttackedCell, _gameColors.Attack);
         }
 
         public void ReturnPreviousColors()
@@ -43,7 +45,7 @@ namespace DarkLegion.Field.Visuzalization
 
         public void Clear()
         {
-            _cellFiller.SetColors(_previousAttackedCell, GameColors.Clear);
+            _cellFiller.SetColors(_previousAttackedCell, _gameColors.Clear);
         }
     }
 }

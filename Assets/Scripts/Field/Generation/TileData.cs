@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 namespace DarkLegion.Field.Generation
 {
-    [CreateAssetMenu(fileName = "new TileData", menuName = "Field/Generation", order = 41)]
+    [CreateAssetMenu(fileName = "new TileData", menuName = "Field/Generation/TileData", order = 41)]
     public class TileData : ScriptableObject
     {
         [field: SerializeField] public Tile Tile { get; private set; }

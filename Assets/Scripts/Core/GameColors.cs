@@ -2,14 +2,13 @@ using UnityEngine;
 
 namespace DarkLegion.Core.Visualization
 {
-    public class GameColors
+    [CreateAssetMenu(fileName = "new GameColors", menuName = "Core/Visualization/GameColors", order = 41)]
+    public class GameColors : ScriptableObject
     {
-        public static Color Movement => Color.green;
-        public static Color Attack => Color.red;
-        public static Color Clear => Color.white;
-
-        public static Color Buff => Color.green;
-
-        public static Color DeBuff => Color.red;
+        [field: SerializeField] public Color Movement { get; private set; }
+        [field: SerializeField] public Color Attack { get; private set; }
+        [field: SerializeField] public Color Clear { get; private set; }
+        [field: SerializeField] public Color Buff { get; private set; }
+        [field: SerializeField] public Color DeBuff { get; private set; }
     }
 }

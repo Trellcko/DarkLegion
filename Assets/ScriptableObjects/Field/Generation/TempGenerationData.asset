@@ -16,10 +16,10 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: f2e2f3986042289478eef924e05b722f, type: 2}
-    - {fileID: 11400000, guid: 03691ec4f23516145a15e62382022c46, type: 2}
-    - {fileID: 11400000, guid: 0b25169b3b002ce4396b1dc0ec66e424, type: 2}
-    - {fileID: 11400000, guid: 9df4df8a25094cb499c38eb64358331e, type: 2}
+    - {fileID: 11400000, guid: 822c69c824f3809439ecb217e0e5b44c, type: 2}
+    - {fileID: 11400000, guid: ff4189f0c13e9084399d5135d433f0b8, type: 2}
+    - {fileID: 11400000, guid: eae8ed23143460544a2b4c78e73461ae, type: 2}
+    - {fileID: 11400000, guid: 2aef8db73a5d6044a8fdc32c9adb65cf, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,8 +27,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <TilesValue>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Single, mscorlib],[UnityEngine.Tilemaps.Tile,
-        UnityEngine.TilemapModule]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Single, mscorlib],[DarkLegion.Field.Generation.TileData,
+        Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Single,
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 4
-      Data: 1
+      Data: 0.25
     - Name: $v
       Entry: 10
       Data: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 4
-      Data: 0.7
+      Data: 0.5
     - Name: $v
       Entry: 10
       Data: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 4
-      Data: 0.4
+      Data: 0.8
     - Name: $v
       Entry: 10
       Data: 2
@@ -80,7 +80,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 4
-      Data: 0.2
+      Data: 1
     - Name: $v
       Entry: 10
       Data: 3

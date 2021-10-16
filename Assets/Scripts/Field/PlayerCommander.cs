@@ -55,7 +55,7 @@ namespace DarkLegion.Field
             if (who && !who.CommandHandler.HasCommands)
             {
                 var path = _pathfinder.FindPath(who.transform.position,
-                    InputHandler.Instance.GetMousePosition());
+                    InputHandler.Instance.GetMousePosition(), (int)who.Movement.Value);
 
                 if (path.Count <= who.Movement.Value && path.Count != 0)
                 {

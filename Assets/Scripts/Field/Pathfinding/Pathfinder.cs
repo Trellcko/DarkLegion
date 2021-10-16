@@ -9,14 +9,14 @@ namespace DarkLegion.Field.Pathfinding
 
         [SerializeField] private GraphGenerator _graphGenerator;
 
-        private AStar _aStar;
+        private BreadthFirstSearch _breadthFirstSearch;
 
         private void Awake()
         {
-            _aStar = new AStar();
+            _breadthFirstSearch = new BreadthFirstSearch();
         }
 
-        public List<Vector3> FindPath(Vector2 startPosition, Vector2 targetPosition)
+        public List<Vector3> FindPath(Vector2 startPosition, Vector2 targetPosition, int movementPoints)
         {
             PathNode startNode = GetNode(startPosition);
             PathNode targetNode = GetNode(targetPosition);
@@ -24,8 +24,18 @@ namespace DarkLegion.Field.Pathfinding
             {
                 return new List<Vector3>();
             }
-            return ConvertPathNodeToVector3(_aStar.FindPath(startNode, targetNode));
+            return ConvertPathNodeToVector3(_breadthFirstSearch.FindPath(startNode, targetNode, movementPoints));
 
+        }
+
+        public List<Vector3> GetAllPosiblePosition(Vector2 startPosition, int movementPoints)
+        {
+            PathNode startNode = GetNode(startPosition);
+            if (startNode == null)
+            {
+                return new List<Vector3>();
+            }
+            return ConvertPathNodeToVector3(_breadthFirstSearch.GetAllPossibleNodes(startNode, movementPoints));
         }
 
         public List<Vector3> ConvertPathNodeToVector3(List<PathNode> pathNodes)

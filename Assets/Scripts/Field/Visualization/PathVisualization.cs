@@ -21,11 +21,15 @@ namespace DarkLegion.Field.Visuzalization
 
         [SerializeField] private GridHandler _gridHandler;
 
+        [SerializeField] private GameColors _gameColors;
+
         private Vector3Int _lastMouseCellPosition = Vector3Int.zero;
 
         private bool _isDrawingPath = false;
 
         private Action _turnChangedHandler;
+
+        private const int MovementPoints = 10000;
 
         private void Awake()
         {
@@ -58,15 +62,14 @@ namespace DarkLegion.Field.Visuzalization
                 
                 _lastMouseCellPosition = _gridHandler.GetCell(mousePosition);
                 
-                var path = _pathfinder.FindPath(_turnSystem.ActiveUnit.transform.position,
-                    mousePosition);
+                List<Vector3> path = _pathfinder.FindPath(_turnSystem.ActiveUnit.transform.position,
+                    mousePosition, MovementPoints);
 
-                var dotsData = new Dictionary<Vector3, Color>();
+                Dictionary<Vector3, Color> dotsData = new Dictionary<Vector3, Color>();
 
                 for (int i = 0; i < path.Count; i++)
                 {
-                    var color = _turnSystem.ActiveUnit.Movement.Value > i ? GameColors.Movement : GameColors.Attack;
-                    dotsData.Add(path[i], color);
+                    dotsData.Add(path[i], _gameColors.Movement);
                 }
 
                 _drawer.Draw(dotsData);
